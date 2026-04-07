@@ -27,7 +27,14 @@
       "Bash(curl -s http://localhost:5173/src/main.tsx)",
       "Bash(curl -s http://localhost:5173/api/v1/health)",
       "Bash(curl -s http://localhost:8001/api/v1/auth/me -H \"Authorization: Bearer invalid\")",
-      "Bash(ssh -o ConnectTimeout=10 -o StrictHostKeyChecking=no root@159.69.154.122 \"uname -a && docker --version && docker compose version\")"
+      "Bash(ssh -o ConnectTimeout=10 -o StrictHostKeyChecking=no root@159.69.154.122 \"uname -a && docker --version && docker compose version\")",
+      "Bash(ssh -o StrictHostKeyChecking=no root@159.69.154.122 \"cd /opt/lt-budget/infrastructure && docker compose -f docker-compose.prod.yml --env-file .env ps 2>&1\")",
+      "Bash(dig lt-budget.errevitalize.com.br A +short)",
+      "Bash(nslookup lt-budget.errevitalize.com.br 8.8.8.8)",
+      "Bash(ssh -o StrictHostKeyChecking=no root@159.69.154.122 \"curl -sf http://localhost/ && echo 'nginx local OK'\")",
+      "Bash(curl -sf --connect-timeout 5 http://159.69.154.122/)",
+      "Bash(dig +short lt-budget.errevitalize.com.br @8.8.8.8)",
+      "Bash(dig +short lt-budget.errevitalize.com.br @1.1.1.1)"
     ]
   }
 }
