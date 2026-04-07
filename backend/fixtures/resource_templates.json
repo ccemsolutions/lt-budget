@@ -1,0 +1,5241 @@
+{
+  "P1": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 2.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D35",
+        "description": "Oper de Motoserra Jr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D46",
+        "description": "Topografo Sr",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V29",
+        "description": "Estação total",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V36",
+        "description": "Jeepão",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V41",
+        "description": "Motoserra Still",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V47",
+        "description": "Radio 6 km",
+        "qty_per_team": 3.0
+      },
+      {
+        "equipment_code": "V53",
+        "description": "Toldo + tenda higiênica",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.02,
+    "MD_pct": 0.01
+  },
+  "P2": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 2.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D46",
+        "description": "Topografo Sr",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V29",
+        "description": "Estação total",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V36",
+        "description": "Jeepão",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V47",
+        "description": "Radio 6 km",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [
+      {
+        "material_code": "M42",
+        "description": "Materiais para Locação de Torres",
+        "qty_per_unit": 1.0
+      }
+    ],
+    "SUB": [],
+    "FD_pct": 0.01,
+    "MD_pct": 0.01
+  },
+  "P3": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 12.0
+      },
+      {
+        "role_code": "D7",
+        "description": "Enc de Turma Pl",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 2.0
+      },
+      {
+        "role_code": "D35",
+        "description": "Oper de Motoserra Jr",
+        "qty_per_team": 4.0
+      },
+      {
+        "role_code": "D40",
+        "description": "Oper Pa Carregadeira",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V6",
+        "description": "Caminhão 3/4 Cabinado",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V36",
+        "description": "Jeepão",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V41",
+        "description": "Motoserra Still",
+        "qty_per_team": 6.0
+      },
+      {
+        "equipment_code": "V43",
+        "description": "Pá carregadeira",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V53",
+        "description": "Toldo + tenda higiênica",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.005,
+    "MD_pct": 0.005
+  },
+  "P4": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 6.0
+      },
+      {
+        "role_code": "D7",
+        "description": "Enc de Turma Pl",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D36",
+        "description": "Oper de Motoserra Sr",
+        "qty_per_team": 3.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V6",
+        "description": "Caminhão 3/4 Cabinado",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V41",
+        "description": "Motoserra Still",
+        "qty_per_team": 4.0
+      },
+      {
+        "equipment_code": "V53",
+        "description": "Toldo + tenda higiênica",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.02,
+    "MD_pct": 0.005
+  },
+  "P5": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 4.0
+      },
+      {
+        "role_code": "D7",
+        "description": "Enc de Turma Pl",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D35",
+        "description": "Oper de Motoserra Jr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D41",
+        "description": "Oper Retro Escav Pl",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D43",
+        "description": "Pedreiro",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V6",
+        "description": "Caminhão 3/4 Cabinado",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V41",
+        "description": "Motoserra Still",
+        "qty_per_team": 2.0
+      },
+      {
+        "equipment_code": "V48",
+        "description": "Retroescavadeira",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V53",
+        "description": "Toldo + tenda higiênica",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.02,
+    "MD_pct": 0.2
+  },
+  "P6": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 3.0
+      },
+      {
+        "role_code": "D8",
+        "description": "Enc de Turma Sr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D23",
+        "description": "Motorista Caminhao",
+        "qty_per_team": 2.0
+      },
+      {
+        "role_code": "D33",
+        "description": "Op de Máquinas",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D35",
+        "description": "Oper de Motoserra Jr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D42",
+        "description": "Oper Retro Escav Sr",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V7",
+        "description": "Caminhão basculante 6x4",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V36",
+        "description": "Jeepão",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V41",
+        "description": "Motoserra Still",
+        "qty_per_team": 2.0
+      },
+      {
+        "equipment_code": "V48",
+        "description": "Retroescavadeira",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V53",
+        "description": "Toldo + tenda higiênica",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V57",
+        "description": "Trator D-6",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.02,
+    "MD_pct": 0.2
+  },
+  "P7": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 3.0
+      },
+      {
+        "role_code": "D8",
+        "description": "Enc de Turma Sr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D40",
+        "description": "Oper Pa Carregadeira",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D41",
+        "description": "Oper Retro Escav Pl",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V6",
+        "description": "Caminhão 3/4 Cabinado",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V44",
+        "description": "Patrol (motoniveladora)",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V48",
+        "description": "Retroescavadeira",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V53",
+        "description": "Toldo + tenda higiênica",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.02,
+    "MD_pct": 0.03
+  },
+  "P8": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 2.0
+      },
+      {
+        "role_code": "D6",
+        "description": "Enc de Turma Jr",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V36",
+        "description": "Jeepão",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [
+      {
+        "material_code": "M48",
+        "description": "Sinalização de Acessos",
+        "qty_per_unit": 2.0
+      }
+    ],
+    "SUB": [],
+    "FD_pct": 0.01,
+    "MD_pct": 0.01
+  },
+  "P9": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 8.0
+      },
+      {
+        "role_code": "D4",
+        "description": "Carpinteiro",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D7",
+        "description": "Enc de Turma Pl",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D20",
+        "description": "Mot Oper Munck Jr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 2.0
+      },
+      {
+        "role_code": "D33",
+        "description": "Op de Máquinas",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D35",
+        "description": "Oper de Motoserra Jr",
+        "qty_per_team": 2.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V6",
+        "description": "Caminhão 3/4 Cabinado",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V10",
+        "description": "Caminhão munck de 12 tn.",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V36",
+        "description": "Jeepão",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V41",
+        "description": "Motoserra Still",
+        "qty_per_team": 3.0
+      },
+      {
+        "equipment_code": "V69",
+        "description": "Escavadeira Hidráulica",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [
+      {
+        "material_code": "M1",
+        "description": "Aço",
+        "qty_per_unit": 2.8
+      },
+      {
+        "material_code": "M46",
+        "description": "Postes de Eucalipto (10m)",
+        "qty_per_unit": 2.5
+      },
+      {
+        "material_code": "M59",
+        "description": "Pranchão para Estiva",
+        "qty_per_unit": 2.0
+      }
+    ],
+    "SUB": [],
+    "FD_pct": 0.03,
+    "MD_pct": 0.02
+  },
+  "P10": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 10.0
+      }
+    ],
+    "VEM": [],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.0,
+    "MD_pct": 0.0
+  },
+  "P11": {
+    "MO": [],
+    "VEM": [],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.0,
+    "MD_pct": 0.0
+  },
+  "C1": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 4.0
+      },
+      {
+        "role_code": "D7",
+        "description": "Enc de Turma Pl",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D23",
+        "description": "Motorista Caminhao",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V6",
+        "description": "Caminhão 3/4 Cabinado",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V45",
+        "description": "Perfuratriz",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.02,
+    "MD_pct": 0.02
+  },
+  "C2": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 4.0
+      },
+      {
+        "role_code": "D7",
+        "description": "Enc de Turma Pl",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D33",
+        "description": "Op de Máquinas",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V6",
+        "description": "Caminhão 3/4 Cabinado",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V38",
+        "description": "Kit de obra civil",
+        "qty_per_team": 0.1
+      },
+      {
+        "equipment_code": "V69",
+        "description": "Escavadeira Hidráulica",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.01,
+    "MD_pct": 0.01
+  },
+  "C3": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 8.0
+      },
+      {
+        "role_code": "D4",
+        "description": "Carpinteiro",
+        "qty_per_team": 2.0
+      },
+      {
+        "role_code": "D7",
+        "description": "Enc de Turma Pl",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D20",
+        "description": "Mot Oper Munck Jr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D33",
+        "description": "Op de Máquinas",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D35",
+        "description": "Oper de Motoserra Jr",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V10",
+        "description": "Caminhão munck de 12 tn.",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V36",
+        "description": "Jeepão",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V38",
+        "description": "Kit de obra civil",
+        "qty_per_team": 0.5
+      },
+      {
+        "equipment_code": "V53",
+        "description": "Toldo + tenda higiênica",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V69",
+        "description": "Escavadeira Hidráulica",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [
+      {
+        "material_code": "M60",
+        "description": "Madeira para Escoramento (Poste e Prancha)",
+        "qty_per_unit": 2.4
+      }
+    ],
+    "SUB": [],
+    "FD_pct": 0.02,
+    "MD_pct": 0.02
+  },
+  "C4": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 4.0
+      },
+      {
+        "role_code": "D7",
+        "description": "Enc de Turma Pl",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 2.0
+      },
+      {
+        "role_code": "D34",
+        "description": "Oper de Martelete",
+        "qty_per_team": 4.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V15",
+        "description": "Caminhão toco (10 tn)",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V20",
+        "description": "Compressor 275 pcm.+MARTELO",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V36",
+        "description": "Jeepão",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V53",
+        "description": "Toldo + tenda higiênica",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.03,
+    "MD_pct": 0.01
+  },
+  "C5": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 12.0
+      },
+      {
+        "role_code": "D4",
+        "description": "Carpinteiro",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D7",
+        "description": "Enc de Turma Pl",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D8",
+        "description": "Enc de Turma Sr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D10",
+        "description": "Laboratorista",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D19",
+        "description": "Mot Oper Betoneira",
+        "qty_per_team": 4.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 2.0
+      },
+      {
+        "role_code": "D40",
+        "description": "Oper Pa Carregadeira",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D41",
+        "description": "Oper Retro Escav Pl",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V4",
+        "description": "Bomba de agua",
+        "qty_per_team": 4.0
+      },
+      {
+        "equipment_code": "V6",
+        "description": "Caminhão 3/4 Cabinado",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V8",
+        "description": "Caminhão betoneira",
+        "qty_per_team": 4.0
+      },
+      {
+        "equipment_code": "V13",
+        "description": "Caminhão pipa",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V18",
+        "description": "Central Dosadora Concreto",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V28",
+        "description": "Kit Controle Tec. Concreto",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V36",
+        "description": "Jeepão",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V43",
+        "description": "Pá carregadeira",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V48",
+        "description": "Retroescavadeira",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V53",
+        "description": "Toldo + tenda higiênica",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V62",
+        "description": "Vibrador",
+        "qty_per_team": 5.0
+      }
+    ],
+    "MAT": [
+      {
+        "material_code": "M5",
+        "description": "Aditivo SIKA  FRIOPLAST 200 KG.",
+        "qty_per_unit": 2.5
+      },
+      {
+        "material_code": "M8",
+        "description": "Areia Lavada",
+        "qty_per_unit": 0.8
+      },
+      {
+        "material_code": "M14",
+        "description": "Brita",
+        "qty_per_unit": 0.9
+      },
+      {
+        "material_code": "M17",
+        "description": "Cimento Portland",
+        "qty_per_unit": 7.5
+      },
+      {
+        "material_code": "M25",
+        "description": "Desmoldante para Forma",
+        "qty_per_unit": 1.0
+      }
+    ],
+    "SUB": [],
+    "FD_pct": 0.02,
+    "MD_pct": 0.03
+  },
+  "C6": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 6.0
+      },
+      {
+        "role_code": "D7",
+        "description": "Enc de Turma Pl",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D9",
+        "description": "Blaster",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 3.0
+      },
+      {
+        "role_code": "D39",
+        "description": "Oper Munck Especiali",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D41",
+        "description": "Oper Retro Escav Pl",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V6",
+        "description": "Caminhão 3/4 Cabinado",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V10",
+        "description": "Caminhão munck de 12 tn.",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V15",
+        "description": "Caminhão toco (10 tn)",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V31",
+        "description": "Gerador de 20 kVA",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V36",
+        "description": "Jeepão",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V49",
+        "description": "Rockdrill",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V53",
+        "description": "Toldo + tenda higiênica",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V63",
+        "description": "Compressor Ar 750 pcm",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [
+      {
+        "material_code": "M17",
+        "description": "Cimento Portland",
+        "qty_per_unit": 0.5
+      },
+      {
+        "material_code": "M52",
+        "description": "Tuvo PVC  diametro 100 m reforçado",
+        "qty_per_unit": 1.1
+      }
+    ],
+    "SUB": [],
+    "FD_pct": 0.03,
+    "MD_pct": 0.06
+  },
+  "C7": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 4.0
+      },
+      {
+        "role_code": "D7",
+        "description": "Enc de Turma Pl",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D43",
+        "description": "Pedreiro",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [],
+    "MAT": [
+      {
+        "material_code": "M8",
+        "description": "Areia Lavada",
+        "qty_per_unit": 0.5
+      },
+      {
+        "material_code": "M17",
+        "description": "Cimento Portland",
+        "qty_per_unit": 0.3
+      },
+      {
+        "material_code": "M52",
+        "description": "Tuvo PVC  diametro 100 m reforçado",
+        "qty_per_unit": 1.1
+      }
+    ],
+    "SUB": [],
+    "FD_pct": 0.03,
+    "MD_pct": 0.05
+  },
+  "C8": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 5.0
+      },
+      {
+        "role_code": "D7",
+        "description": "Enc de Turma Pl",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D20",
+        "description": "Mot Oper Munck Jr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 2.0
+      },
+      {
+        "role_code": "D41",
+        "description": "Oper Retro Escav Pl",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V11",
+        "description": "Caminhão munck de 18 tn.",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V15",
+        "description": "Caminhão toco (10 tn)",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V36",
+        "description": "Jeepão",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V49",
+        "description": "Rockdrill",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V53",
+        "description": "Toldo + tenda higiênica",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V63",
+        "description": "Compressor Ar 750 pcm",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [
+      {
+        "material_code": "M3",
+        "description": "Aço por metro tirante de 1\"",
+        "qty_per_unit": 1.5
+      },
+      {
+        "material_code": "M17",
+        "description": "Cimento Portland",
+        "qty_per_unit": 0.5
+      },
+      {
+        "material_code": "M56",
+        "description": "Kit Perfuração - RockDrill",
+        "qty_per_unit": 1.2
+      }
+    ],
+    "SUB": [
+      {
+        "sub_code": "S13",
+        "description": "Ensaio Chumbadores e Barras INCOTEP",
+        "cost_per_unit": 1.0
+      }
+    ],
+    "FD_pct": 0.02,
+    "MD_pct": 0.1
+  },
+  "C9": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D7",
+        "description": "Enc de Turma Pl",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D20",
+        "description": "Mot Oper Munck Jr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 2.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V17",
+        "description": "Carreta de 25 tn.",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V31",
+        "description": "Gerador de 20 kVA",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V36",
+        "description": "Jeepão",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V40",
+        "description": "Caminhão Munk Truck 6x4",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [
+      {
+        "material_code": "M31",
+        "description": "Estacas W 250x73",
+        "qty_per_unit": 1.2
+      }
+    ],
+    "SUB": [
+      {
+        "sub_code": "S3",
+        "description": "Cravação de Estacas Metálicas",
+        "cost_per_unit": 1.0
+      }
+    ],
+    "FD_pct": 0.02,
+    "MD_pct": 0.02
+  },
+  "C10": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 5.0
+      },
+      {
+        "role_code": "D7",
+        "description": "Enc de Turma Pl",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D23",
+        "description": "Motorista Caminhao",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V36",
+        "description": "Jeepão",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V45",
+        "description": "Perfuratriz",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V53",
+        "description": "Toldo + tenda higiênica",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [
+      {
+        "material_code": "M1",
+        "description": "Aço",
+        "qty_per_unit": 14.04
+      },
+      {
+        "material_code": "M19",
+        "description": "Concreto usinado",
+        "qty_per_unit": 0.156
+      }
+    ],
+    "SUB": [
+      {
+        "sub_code": "S1",
+        "description": "Armação - Corte, Dobra e Transporte",
+        "cost_per_unit": 6.3
+      },
+      {
+        "sub_code": "S16",
+        "description": "Ensaio PDA - Estacas Escavadas / Concreto",
+        "cost_per_unit": 0.002857142857142857
+      }
+    ],
+    "FD_pct": 0.02,
+    "MD_pct": 0.02
+  },
+  "C11": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 6.0
+      },
+      {
+        "role_code": "D8",
+        "description": "Enc de Turma Sr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D20",
+        "description": "Mot Oper Munck Jr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D23",
+        "description": "Motorista Caminhao",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V11",
+        "description": "Caminhão munck de 18 tn.",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V13",
+        "description": "Caminhão pipa",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V31",
+        "description": "Gerador de 20 kVA",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V36",
+        "description": "Jeepão",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V72",
+        "description": "Compressor 250 PCM",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [
+      {
+        "material_code": "M1",
+        "description": "Aço",
+        "qty_per_unit": 10.047999999999998
+      },
+      {
+        "material_code": "M6",
+        "description": "Agua",
+        "qty_per_unit": 0.5
+      },
+      {
+        "material_code": "M8",
+        "description": "Areia Lavada",
+        "qty_per_unit": 0.15
+      },
+      {
+        "material_code": "M17",
+        "description": "Cimento Portland",
+        "qty_per_unit": 1.5
+      }
+    ],
+    "SUB": [
+      {
+        "sub_code": "S4",
+        "description": "Execução de Estacas Raíz - Solo",
+        "cost_per_unit": 1.0
+      }
+    ],
+    "FD_pct": 0.02,
+    "MD_pct": 0.1
+  },
+  "C12": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 4.0
+      },
+      {
+        "role_code": "D21",
+        "description": "Mot Oper Munck Sr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D24",
+        "description": "Vigia",
+        "qty_per_team": 3.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V11",
+        "description": "Caminhão munck de 18 tn.",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [
+      {
+        "sub_code": "S16",
+        "description": "Ensaio PDA - Estacas Escavadas / Concreto",
+        "cost_per_unit": 1.0
+      }
+    ],
+    "FD_pct": 0.05,
+    "MD_pct": 0.05
+  },
+  "C13": {
+    "MO": [],
+    "VEM": [],
+    "MAT": [
+      {
+        "material_code": "M50",
+        "description": "Tirantes Helicoidais Hubbell",
+        "qty_per_unit": 1.0
+      }
+    ],
+    "SUB": [],
+    "FD_pct": 0.0,
+    "MD_pct": 0.0
+  },
+  "C14": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 5.0
+      },
+      {
+        "role_code": "D8",
+        "description": "Enc de Turma Sr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D39",
+        "description": "Oper Munck Especiali",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D41",
+        "description": "Oper Retro Escav Pl",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V6",
+        "description": "Caminhão 3/4 Cabinado",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V10",
+        "description": "Caminhão munck de 12 tn.",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V26",
+        "description": "Conjunto Rotor + Torquímetro Helicoidal",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V48",
+        "description": "Retroescavadeira",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V53",
+        "description": "Toldo + tenda higiênica",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.1,
+    "MD_pct": 0.05
+  },
+  "C15": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 5.0
+      },
+      {
+        "role_code": "D7",
+        "description": "Enc de Turma Pl",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D24",
+        "description": "Vigia",
+        "qty_per_team": 3.0
+      },
+      {
+        "role_code": "D38",
+        "description": "Oper de Trator Pneu",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D39",
+        "description": "Oper Munck Especiali",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V10",
+        "description": "Caminhão munck de 12 tn.",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V25",
+        "description": "Conjunto Ensaio Helicoidal",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V36",
+        "description": "Jeepão",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V53",
+        "description": "Toldo + tenda higiênica",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V59",
+        "description": "Trator traçado (4x4) c guincho",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.05,
+    "MD_pct": 0.05
+  },
+  "C16": {
+    "MO": [],
+    "VEM": [],
+    "MAT": [
+      {
+        "material_code": "M1",
+        "description": "Aço",
+        "qty_per_unit": 1.0
+      },
+      {
+        "material_code": "M7",
+        "description": "Arame",
+        "qty_per_unit": 0.015
+      }
+    ],
+    "SUB": [],
+    "FD_pct": 0.0,
+    "MD_pct": 0.0
+  },
+  "C17": {
+    "MO": [
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V36",
+        "description": "Jeepão",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [
+      {
+        "sub_code": "S1",
+        "description": "Armação - Corte, Dobra e Transporte",
+        "cost_per_unit": 1.05
+      }
+    ],
+    "FD_pct": 0.0,
+    "MD_pct": 0.0
+  },
+  "C18": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 2.0
+      },
+      {
+        "role_code": "D7",
+        "description": "Enc de Turma Pl",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D33",
+        "description": "Op de Máquinas",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D41",
+        "description": "Oper Retro Escav Pl",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V6",
+        "description": "Caminhão 3/4 Cabinado",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V48",
+        "description": "Retroescavadeira",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V71",
+        "description": "Escavadeira + rompedor hid.",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.01,
+    "MD_pct": 0.005
+  },
+  "C19": {
+    "MO": [],
+    "VEM": [],
+    "MAT": [
+      {
+        "material_code": "M33",
+        "description": "Fomas metalicas",
+        "qty_per_unit": 1.0
+      }
+    ],
+    "SUB": [],
+    "FD_pct": 0.02,
+    "MD_pct": 0.06
+  },
+  "C20": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 3.0
+      },
+      {
+        "role_code": "D7",
+        "description": "Enc de Turma Pl",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D20",
+        "description": "Mot Oper Munck Jr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 2.0
+      },
+      {
+        "role_code": "D34",
+        "description": "Oper de Martelete",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V9",
+        "description": "Caminhão carroceria truck",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V12",
+        "description": "Caminhão munck de 26 tn.",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V20",
+        "description": "Compressor 275 pcm.+MARTELO",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V31",
+        "description": "Gerador de 20 kVA",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V36",
+        "description": "Jeepão",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [
+      {
+        "material_code": "M30",
+        "description": "Estacas Premoldadas Protendit 29x29",
+        "qty_per_unit": 1.0
+      }
+    ],
+    "SUB": [
+      {
+        "sub_code": "S2",
+        "description": "Cravação de Estacas de Concreto",
+        "cost_per_unit": 1.0
+      },
+      {
+        "sub_code": "S14",
+        "description": "Solda / Corte de Estacas Metálicas / Concreto",
+        "cost_per_unit": 1.0
+      }
+    ],
+    "FD_pct": 0.01,
+    "MD_pct": 0.01
+  },
+  "C21": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 5.0
+      },
+      {
+        "role_code": "D4",
+        "description": "Carpinteiro",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D7",
+        "description": "Enc de Turma Pl",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V15",
+        "description": "Caminhão toco (10 tn)",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V36",
+        "description": "Jeepão",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V38",
+        "description": "Kit de obra civil",
+        "qty_per_team": 0.1
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.01,
+    "MD_pct": 0.01
+  },
+  "C22": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 8.0
+      },
+      {
+        "role_code": "D4",
+        "description": "Carpinteiro",
+        "qty_per_team": 2.0
+      },
+      {
+        "role_code": "D7",
+        "description": "Enc de Turma Pl",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D19",
+        "description": "Mot Oper Betoneira",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D43",
+        "description": "Pedreiro",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V8",
+        "description": "Caminhão betoneira",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V62",
+        "description": "Vibrador",
+        "qty_per_team": 4.0
+      }
+    ],
+    "MAT": [
+      {
+        "material_code": "M19",
+        "description": "Concreto usinado",
+        "qty_per_unit": 1.0
+      }
+    ],
+    "SUB": [],
+    "FD_pct": 0.02,
+    "MD_pct": 0.05
+  },
+  "C23": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 2.0
+      },
+      {
+        "role_code": "D20",
+        "description": "Mot Oper Munck Jr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V9",
+        "description": "Caminhão carroceria truck",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V10",
+        "description": "Caminhão munck de 12 tn.",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.01,
+    "MD_pct": 0.01
+  },
+  "C24": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 6.0
+      },
+      {
+        "role_code": "D20",
+        "description": "Mot Oper Munck Jr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D37",
+        "description": "Oper de Trator",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D45",
+        "description": "Topografo Pl",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V11",
+        "description": "Caminhão munck de 18 tn.",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V36",
+        "description": "Jeepão",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V38",
+        "description": "Kit de obra civil",
+        "qty_per_team": 0.1
+      },
+      {
+        "equipment_code": "V52",
+        "description": "Teodolito Wild",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V53",
+        "description": "Toldo + tenda higiênica",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V59",
+        "description": "Trator traçado (4x4) c guincho",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.01,
+    "MD_pct": 0.01
+  },
+  "C25": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 5.0
+      },
+      {
+        "role_code": "D3",
+        "description": "Aux. Topografia",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D20",
+        "description": "Mot Oper Munck Jr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D45",
+        "description": "Topografo Pl",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V10",
+        "description": "Caminhão munck de 12 tn.",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V29",
+        "description": "Estação total",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V36",
+        "description": "Jeepão",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.01,
+    "MD_pct": 0.01
+  },
+  "C26": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 5.0
+      },
+      {
+        "role_code": "D3",
+        "description": "Aux. Topografia",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D4",
+        "description": "Carpinteiro",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D20",
+        "description": "Mot Oper Munck Jr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D35",
+        "description": "Oper de Motoserra Jr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D45",
+        "description": "Topografo Pl",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V10",
+        "description": "Caminhão munck de 12 tn.",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V36",
+        "description": "Jeepão",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V38",
+        "description": "Kit de obra civil",
+        "qty_per_team": 0.1
+      },
+      {
+        "equipment_code": "V41",
+        "description": "Motoserra Still",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V52",
+        "description": "Teodolito Wild",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V53",
+        "description": "Toldo + tenda higiênica",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.005,
+    "MD_pct": 0.005
+  },
+  "C27": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V7",
+        "description": "Caminhão basculante 6x4",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.005,
+    "MD_pct": 0.02
+  },
+  "C28": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 14.0
+      },
+      {
+        "role_code": "D4",
+        "description": "Carpinteiro",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D8",
+        "description": "Enc de Turma Sr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D10",
+        "description": "Laboratorista",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D20",
+        "description": "Mot Oper Munck Jr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 2.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V3",
+        "description": "Bentoneira de 500/600 l",
+        "qty_per_team": 2.0
+      },
+      {
+        "equipment_code": "V4",
+        "description": "Bomba de agua",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V6",
+        "description": "Caminhão 3/4 Cabinado",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V28",
+        "description": "Kit Controle Tec. Concreto",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V36",
+        "description": "Jeepão",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V40",
+        "description": "Caminhão Munk Truck 6x4",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V53",
+        "description": "Toldo + tenda higiênica",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V62",
+        "description": "Vibrador",
+        "qty_per_team": 4.0
+      }
+    ],
+    "MAT": [
+      {
+        "material_code": "M6",
+        "description": "Agua",
+        "qty_per_unit": 0.2
+      },
+      {
+        "material_code": "M8",
+        "description": "Areia Lavada",
+        "qty_per_unit": 0.7
+      },
+      {
+        "material_code": "M14",
+        "description": "Brita",
+        "qty_per_unit": 0.7
+      },
+      {
+        "material_code": "M17",
+        "description": "Cimento Portland",
+        "qty_per_unit": 8.0
+      },
+      {
+        "material_code": "M33",
+        "description": "Fomas metalicas",
+        "qty_per_unit": 0.1
+      }
+    ],
+    "SUB": [],
+    "FD_pct": 0.005,
+    "MD_pct": 0.005
+  },
+  "C29": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 8.0
+      },
+      {
+        "role_code": "D4",
+        "description": "Carpinteiro",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D8",
+        "description": "Enc de Turma Sr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D10",
+        "description": "Laboratorista",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D19",
+        "description": "Mot Oper Betoneira",
+        "qty_per_team": 4.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 2.0
+      },
+      {
+        "role_code": "D41",
+        "description": "Oper Retro Escav Pl",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V4",
+        "description": "Bomba de agua",
+        "qty_per_team": 4.0
+      },
+      {
+        "equipment_code": "V6",
+        "description": "Caminhão 3/4 Cabinado",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V8",
+        "description": "Caminhão betoneira",
+        "qty_per_team": 4.0
+      },
+      {
+        "equipment_code": "V28",
+        "description": "Kit Controle Tec. Concreto",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V36",
+        "description": "Jeepão",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V48",
+        "description": "Retroescavadeira",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V53",
+        "description": "Toldo + tenda higiênica",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V62",
+        "description": "Vibrador",
+        "qty_per_team": 5.0
+      }
+    ],
+    "MAT": [
+      {
+        "material_code": "M19",
+        "description": "Concreto usinado",
+        "qty_per_unit": 1.1
+      }
+    ],
+    "SUB": [],
+    "FD_pct": 0.01,
+    "MD_pct": 0.03
+  },
+  "C30": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 8.0
+      },
+      {
+        "role_code": "D7",
+        "description": "Enc de Turma Pl",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 2.0
+      },
+      {
+        "role_code": "D41",
+        "description": "Oper Retro Escav Pl",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V6",
+        "description": "Caminhão 3/4 Cabinado",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V13",
+        "description": "Caminhão pipa",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V19",
+        "description": "Compactador tipo sapo",
+        "qty_per_team": 4.0
+      },
+      {
+        "equipment_code": "V48",
+        "description": "Retroescavadeira",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V53",
+        "description": "Toldo + tenda higiênica",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.005,
+    "MD_pct": 0.005
+  },
+  "C31": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 8.0
+      },
+      {
+        "role_code": "D7",
+        "description": "Enc de Turma Pl",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 2.0
+      },
+      {
+        "role_code": "D23",
+        "description": "Motorista Caminhao",
+        "qty_per_team": 2.0
+      },
+      {
+        "role_code": "D41",
+        "description": "Oper Retro Escav Pl",
+        "qty_per_team": 2.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V7",
+        "description": "Caminhão basculante 6x4",
+        "qty_per_team": 2.0
+      },
+      {
+        "equipment_code": "V13",
+        "description": "Caminhão pipa",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V19",
+        "description": "Compactador tipo sapo",
+        "qty_per_team": 4.0
+      },
+      {
+        "equipment_code": "V36",
+        "description": "Jeepão",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V48",
+        "description": "Retroescavadeira",
+        "qty_per_team": 2.0
+      },
+      {
+        "equipment_code": "V53",
+        "description": "Toldo + tenda higiênica",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.01,
+    "MD_pct": 0.01
+  },
+  "C32": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 8.0
+      },
+      {
+        "role_code": "D7",
+        "description": "Enc de Turma Pl",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 2.0
+      },
+      {
+        "role_code": "D41",
+        "description": "Oper Retro Escav Pl",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V6",
+        "description": "Caminhão 3/4 Cabinado",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V13",
+        "description": "Caminhão pipa",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V19",
+        "description": "Compactador tipo sapo",
+        "qty_per_team": 4.0
+      },
+      {
+        "equipment_code": "V48",
+        "description": "Retroescavadeira",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [
+      {
+        "material_code": "M17",
+        "description": "Cimento Portland",
+        "qty_per_unit": 2.777777777777778
+      }
+    ],
+    "SUB": [],
+    "FD_pct": 0.02,
+    "MD_pct": 0.02
+  },
+  "C33": {
+    "MO": [],
+    "VEM": [],
+    "MAT": [
+      {
+        "material_code": "M37",
+        "description": "Madeira para formas",
+        "qty_per_unit": 1.0
+      }
+    ],
+    "SUB": [],
+    "FD_pct": 0.0,
+    "MD_pct": 0.0
+  },
+  "C34": {
+    "MO": [],
+    "VEM": [],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.0,
+    "MD_pct": 0.0
+  },
+  "A1": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 3.0
+      },
+      {
+        "role_code": "D8",
+        "description": "Enc de Turma Sr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D21",
+        "description": "Mot Oper Munck Sr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D33",
+        "description": "Op de Máquinas",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V6",
+        "description": "Caminhão 3/4 Cabinado",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V11",
+        "description": "Caminhão munck de 18 tn.",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V38",
+        "description": "Kit de obra civil",
+        "qty_per_team": 0.2
+      },
+      {
+        "equipment_code": "V49",
+        "description": "Rockdrill",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V53",
+        "description": "Toldo + tenda higiênica",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.02,
+    "MD_pct": 0.03
+  },
+  "A2": {
+    "MO": [
+      {
+        "role_code": "D6",
+        "description": "Enc de Turma Jr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V55",
+        "description": "Toyota Cabine Dupla",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [
+      {
+        "sub_code": "S6",
+        "description": "Instalação de Cabo Contrapeso",
+        "cost_per_unit": 1.1
+      }
+    ],
+    "FD_pct": 0.0,
+    "MD_pct": 0.0
+  },
+  "A3": {
+    "MO": [],
+    "VEM": [],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.0,
+    "MD_pct": 0.0
+  },
+  "E1": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 8.0
+      },
+      {
+        "role_code": "D7",
+        "description": "Enc de Turma Pl",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D14",
+        "description": "Mont Estruturas Pl",
+        "qty_per_team": 6.0
+      },
+      {
+        "role_code": "D21",
+        "description": "Mot Oper Munck Sr",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V2",
+        "description": "Banheiro quimico",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V11",
+        "description": "Caminhão munck de 18 tn.",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.01,
+    "MD_pct": 0.02
+  },
+  "E2": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 2.0
+      },
+      {
+        "role_code": "D14",
+        "description": "Mont Estruturas Pl",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D21",
+        "description": "Mot Oper Munck Sr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V9",
+        "description": "Caminhão carroceria truck",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V11",
+        "description": "Caminhão munck de 18 tn.",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.01,
+    "MD_pct": 0.01
+  },
+  "E3": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 5.0
+      },
+      {
+        "role_code": "D6",
+        "description": "Enc de Turma Jr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D14",
+        "description": "Mont Estruturas Pl",
+        "qty_per_team": 2.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V32",
+        "description": "Guincho para montagem",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.05,
+    "MD_pct": 0.01
+  },
+  "E4": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 8.0
+      },
+      {
+        "role_code": "D7",
+        "description": "Enc de Turma Pl",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D13",
+        "description": "Mont Estruturas Jr",
+        "qty_per_team": 2.0
+      },
+      {
+        "role_code": "D15",
+        "description": "Mont Estruturas Sr",
+        "qty_per_team": 8.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V6",
+        "description": "Caminhão 3/4 Cabinado",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V37",
+        "description": "Kit de montagem",
+        "qty_per_team": 0.1
+      },
+      {
+        "equipment_code": "V53",
+        "description": "Toldo + tenda higiênica",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.02,
+    "MD_pct": 0.01
+  },
+  "E5": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 8.0
+      },
+      {
+        "role_code": "D8",
+        "description": "Enc de Turma Sr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D15",
+        "description": "Mont Estruturas Sr",
+        "qty_per_team": 8.0
+      },
+      {
+        "role_code": "D21",
+        "description": "Mot Oper Munck Sr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D38",
+        "description": "Oper de Trator Pneu",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V6",
+        "description": "Caminhão 3/4 Cabinado",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V10",
+        "description": "Caminhão munck de 12 tn.",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V27",
+        "description": "Dinamometro de 5 tn.",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V35",
+        "description": "Guindaste 75 ton",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V37",
+        "description": "Kit de montagem",
+        "qty_per_team": 0.2
+      },
+      {
+        "equipment_code": "V47",
+        "description": "Radio 6 km",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V53",
+        "description": "Toldo + tenda higiênica",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V59",
+        "description": "Trator traçado (4x4) c guincho",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.01,
+    "MD_pct": 0.01
+  },
+  "E6": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 8.0
+      },
+      {
+        "role_code": "D8",
+        "description": "Enc de Turma Sr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D15",
+        "description": "Mont Estruturas Sr",
+        "qty_per_team": 8.0
+      },
+      {
+        "role_code": "D21",
+        "description": "Mot Oper Munck Sr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D24",
+        "description": "Vigia",
+        "qty_per_team": 3.0
+      },
+      {
+        "role_code": "D33",
+        "description": "Op de Máquinas",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V6",
+        "description": "Caminhão 3/4 Cabinado",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V12",
+        "description": "Caminhão munck de 26 tn.",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V27",
+        "description": "Dinamometro de 5 tn.",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V34",
+        "description": "Guindaste 30 ton",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V37",
+        "description": "Kit de montagem",
+        "qty_per_team": 0.2
+      },
+      {
+        "equipment_code": "V43",
+        "description": "Pá carregadeira",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V47",
+        "description": "Radio 6 km",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V53",
+        "description": "Toldo + tenda higiênica",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V59",
+        "description": "Trator traçado (4x4) c guincho",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.01,
+    "MD_pct": 0.01
+  },
+  "E7": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 10.0
+      },
+      {
+        "role_code": "D8",
+        "description": "Enc de Turma Sr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D15",
+        "description": "Mont Estruturas Sr",
+        "qty_per_team": 10.0
+      },
+      {
+        "role_code": "D20",
+        "description": "Mot Oper Munck Jr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 2.0
+      },
+      {
+        "role_code": "D37",
+        "description": "Oper de Trator",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V12",
+        "description": "Caminhão munck de 26 tn.",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V36",
+        "description": "Jeepão",
+        "qty_per_team": 2.0
+      },
+      {
+        "equipment_code": "V53",
+        "description": "Toldo + tenda higiênica",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V59",
+        "description": "Trator traçado (4x4) c guincho",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V66",
+        "description": "Mastro de Montagem Al - 20m",
+        "qty_per_team": 2.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.01,
+    "MD_pct": 0.01
+  },
+  "E8": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 6.0
+      },
+      {
+        "role_code": "D7",
+        "description": "Enc de Turma Pl",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D14",
+        "description": "Mont Estruturas Pl",
+        "qty_per_team": 6.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D27",
+        "description": "Nivelador Pl",
+        "qty_per_team": 2.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V6",
+        "description": "Caminhão 3/4 Cabinado",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V27",
+        "description": "Dinamometro de 5 tn.",
+        "qty_per_team": 2.0
+      },
+      {
+        "equipment_code": "V37",
+        "description": "Kit de montagem",
+        "qty_per_team": 0.1
+      },
+      {
+        "equipment_code": "V47",
+        "description": "Radio 6 km",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V52",
+        "description": "Teodolito Wild",
+        "qty_per_team": 2.0
+      },
+      {
+        "equipment_code": "V53",
+        "description": "Toldo + tenda higiênica",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.01,
+    "MD_pct": 0.005
+  },
+  "E9": {
+    "MO": [
+      {
+        "role_code": "D7",
+        "description": "Enc de Turma Pl",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D14",
+        "description": "Mont Estruturas Pl",
+        "qty_per_team": 8.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V36",
+        "description": "Jeepão",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V37",
+        "description": "Kit de montagem",
+        "qty_per_team": 0.1
+      },
+      {
+        "equipment_code": "V53",
+        "description": "Toldo + tenda higiênica",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.01,
+    "MD_pct": 0.01
+  },
+  "E10": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 10.0
+      },
+      {
+        "role_code": "D8",
+        "description": "Enc de Turma Sr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D14",
+        "description": "Mont Estruturas Pl",
+        "qty_per_team": 10.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V6",
+        "description": "Caminhão 3/4 Cabinado",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V37",
+        "description": "Kit de montagem",
+        "qty_per_team": 0.2
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.01,
+    "MD_pct": 0.01
+  },
+  "E11": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 12.0
+      },
+      {
+        "role_code": "D8",
+        "description": "Enc de Turma Sr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D15",
+        "description": "Mont Estruturas Sr",
+        "qty_per_team": 16.0
+      },
+      {
+        "role_code": "D21",
+        "description": "Mot Oper Munck Sr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 2.0
+      },
+      {
+        "role_code": "D38",
+        "description": "Oper de Trator Pneu",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V6",
+        "description": "Caminhão 3/4 Cabinado",
+        "qty_per_team": 2.0
+      },
+      {
+        "equipment_code": "V12",
+        "description": "Caminhão munck de 26 tn.",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V32",
+        "description": "Guincho para montagem",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V37",
+        "description": "Kit de montagem",
+        "qty_per_team": 0.5
+      },
+      {
+        "equipment_code": "V53",
+        "description": "Toldo + tenda higiênica",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V59",
+        "description": "Trator traçado (4x4) c guincho",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V65",
+        "description": "Mastro de Montagem - 12m",
+        "qty_per_team": 6.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.02,
+    "MD_pct": 0.05
+  },
+  "E12": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 8.0
+      },
+      {
+        "role_code": "D8",
+        "description": "Enc de Turma Sr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D15",
+        "description": "Mont Estruturas Sr",
+        "qty_per_team": 14.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 2.0
+      },
+      {
+        "role_code": "D24",
+        "description": "Vigia",
+        "qty_per_team": 3.0
+      },
+      {
+        "role_code": "D40",
+        "description": "Oper Pa Carregadeira",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V6",
+        "description": "Caminhão 3/4 Cabinado",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V35",
+        "description": "Guindaste 75 ton",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V36",
+        "description": "Jeepão",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V37",
+        "description": "Kit de montagem",
+        "qty_per_team": 0.5
+      },
+      {
+        "equipment_code": "V43",
+        "description": "Pá carregadeira",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.01,
+    "MD_pct": 0.03
+  },
+  "E13": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 2.0
+      },
+      {
+        "role_code": "D7",
+        "description": "Enc de Turma Pl",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D14",
+        "description": "Mont Estruturas Pl",
+        "qty_per_team": 12.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 2.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V36",
+        "description": "Jeepão",
+        "qty_per_team": 2.0
+      },
+      {
+        "equipment_code": "V37",
+        "description": "Kit de montagem",
+        "qty_per_team": 0.1
+      },
+      {
+        "equipment_code": "V53",
+        "description": "Toldo + tenda higiênica",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.0,
+    "MD_pct": 0.0
+  },
+  "L1": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 4.0
+      },
+      {
+        "role_code": "D7",
+        "description": "Enc de Turma Pl",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V6",
+        "description": "Caminhão 3/4 Cabinado",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [
+      {
+        "material_code": "M21",
+        "description": "Conector Split Bolt para fio nº6 AWG",
+        "qty_per_unit": 10.0
+      },
+      {
+        "material_code": "M32",
+        "description": "Fio Aço Galvanizado nº6 AWG",
+        "qty_per_unit": 10.0
+      },
+      {
+        "material_code": "M36",
+        "description": "Haste Cantoneira Aço Galvanizado - 1\" x 3/16\" x 10m com presilha",
+        "qty_per_unit": 2.0
+      },
+      {
+        "material_code": "M47",
+        "description": "Seccionador Pré Formado Arame Farpado - SCM 0400",
+        "qty_per_unit": 10.0
+      }
+    ],
+    "SUB": [],
+    "FD_pct": 0.02,
+    "MD_pct": 0.01
+  },
+  "L2": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 3.0
+      },
+      {
+        "role_code": "D8",
+        "description": "Enc de Turma Sr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D14",
+        "description": "Mont Estruturas Pl",
+        "qty_per_team": 2.0
+      },
+      {
+        "role_code": "D21",
+        "description": "Mot Oper Munck Sr",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V2",
+        "description": "Banheiro quimico",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V11",
+        "description": "Caminhão munck de 18 tn.",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.02,
+    "MD_pct": 0.01
+  },
+  "L3": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 4.0
+      },
+      {
+        "role_code": "D21",
+        "description": "Mot Oper Munck Sr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 2.0
+      },
+      {
+        "role_code": "D38",
+        "description": "Oper de Trator Pneu",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V9",
+        "description": "Caminhão carroceria truck",
+        "qty_per_team": 2.0
+      },
+      {
+        "equipment_code": "V11",
+        "description": "Caminhão munck de 18 tn.",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V58",
+        "description": "Trator de pnews com carreta",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.02,
+    "MD_pct": 0.01
+  },
+  "L4": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D21",
+        "description": "Mot Oper Munck Sr",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V40",
+        "description": "Caminhão Munk Truck 6x4",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.0,
+    "MD_pct": 0.0
+  },
+  "L5": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 8.0
+      },
+      {
+        "role_code": "D8",
+        "description": "Enc de Turma Sr",
+        "qty_per_team": 2.0
+      },
+      {
+        "role_code": "D14",
+        "description": "Mont Estruturas Pl",
+        "qty_per_team": 6.0
+      },
+      {
+        "role_code": "D21",
+        "description": "Mot Oper Munck Sr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 2.0
+      },
+      {
+        "role_code": "D36",
+        "description": "Oper de Motoserra Sr",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V6",
+        "description": "Caminhão 3/4 Cabinado",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V36",
+        "description": "Jeepão",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V40",
+        "description": "Caminhão Munk Truck 6x4",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V41",
+        "description": "Motoserra Still",
+        "qty_per_team": 2.0
+      },
+      {
+        "equipment_code": "V53",
+        "description": "Toldo + tenda higiênica",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [
+      {
+        "material_code": "M46",
+        "description": "Postes de Eucalipto (10m)",
+        "qty_per_unit": 2.0
+      }
+    ],
+    "SUB": [],
+    "FD_pct": 0.03,
+    "MD_pct": 0.02
+  },
+  "L6": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 3.0
+      },
+      {
+        "role_code": "D15",
+        "description": "Mont Estruturas Sr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D40",
+        "description": "Oper Pa Carregadeira",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V36",
+        "description": "Jeepão",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V43",
+        "description": "Pá carregadeira",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V53",
+        "description": "Toldo + tenda higiênica",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.01,
+    "MD_pct": 0.01
+  },
+  "L7": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 10.0
+      },
+      {
+        "role_code": "D8",
+        "description": "Enc de Turma Sr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D15",
+        "description": "Mont Estruturas Sr",
+        "qty_per_team": 7.0
+      },
+      {
+        "role_code": "D20",
+        "description": "Mot Oper Munck Jr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 2.0
+      },
+      {
+        "role_code": "D38",
+        "description": "Oper de Trator Pneu",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V6",
+        "description": "Caminhão 3/4 Cabinado",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V10",
+        "description": "Caminhão munck de 12 tn.",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V36",
+        "description": "Jeepão",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V53",
+        "description": "Toldo + tenda higiênica",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V59",
+        "description": "Trator traçado (4x4) c guincho",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.01,
+    "MD_pct": 0.01
+  },
+  "L8": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 6.0
+      },
+      {
+        "role_code": "D15",
+        "description": "Mont Estruturas Sr",
+        "qty_per_team": 6.0
+      },
+      {
+        "role_code": "D20",
+        "description": "Mot Oper Munck Jr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D30",
+        "description": "Op Puller e Freio Sr",
+        "qty_per_team": 2.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V6",
+        "description": "Caminhão 3/4 Cabinado",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V11",
+        "description": "Caminhão munck de 18 tn.",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V24",
+        "description": "Conj. Lanç. OPGW",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V47",
+        "description": "Radio 6 km",
+        "qty_per_team": 3.0
+      },
+      {
+        "equipment_code": "V53",
+        "description": "Toldo + tenda higiênica",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.02,
+    "MD_pct": 0.01
+  },
+  "L9": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 5.0
+      },
+      {
+        "role_code": "D8",
+        "description": "Enc de Turma Sr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D15",
+        "description": "Mont Estruturas Sr",
+        "qty_per_team": 5.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D27",
+        "description": "Nivelador Pl",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V6",
+        "description": "Caminhão 3/4 Cabinado",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V47",
+        "description": "Radio 6 km",
+        "qty_per_team": 4.0
+      },
+      {
+        "equipment_code": "V52",
+        "description": "Teodolito Wild",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V53",
+        "description": "Toldo + tenda higiênica",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.02,
+    "MD_pct": 0.01
+  },
+  "L10": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 8.0
+      },
+      {
+        "role_code": "D8",
+        "description": "Enc de Turma Sr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D13",
+        "description": "Mont Estruturas Jr",
+        "qty_per_team": 4.0
+      },
+      {
+        "role_code": "D15",
+        "description": "Mont Estruturas Sr",
+        "qty_per_team": 6.0
+      },
+      {
+        "role_code": "D21",
+        "description": "Mot Oper Munck Sr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 2.0
+      },
+      {
+        "role_code": "D38",
+        "description": "Oper de Trator Pneu",
+        "qty_per_team": 2.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V6",
+        "description": "Caminhão 3/4 Cabinado",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V36",
+        "description": "Jeepão",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V40",
+        "description": "Caminhão Munk Truck 6x4",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V53",
+        "description": "Toldo + tenda higiênica",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V59",
+        "description": "Trator traçado (4x4) c guincho",
+        "qty_per_team": 2.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.01,
+    "MD_pct": 0.005
+  },
+  "L11": {
+    "MO": [
+      {
+        "role_code": "D8",
+        "description": "Enc de Turma Sr",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V16",
+        "description": "Caminhonete 4x4",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [
+      {
+        "sub_code": "S10",
+        "description": "Travessia em Linha Viva - \"Carrer\"",
+        "cost_per_unit": 1.0
+      }
+    ],
+    "FD_pct": 0.02,
+    "MD_pct": 0.02
+  },
+  "L12": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 8.0
+      },
+      {
+        "role_code": "D8",
+        "description": "Enc de Turma Sr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D13",
+        "description": "Mont Estruturas Jr",
+        "qty_per_team": 2.0
+      },
+      {
+        "role_code": "D15",
+        "description": "Mont Estruturas Sr",
+        "qty_per_team": 9.0
+      },
+      {
+        "role_code": "D21",
+        "description": "Mot Oper Munck Sr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 2.0
+      },
+      {
+        "role_code": "D24",
+        "description": "Vigia",
+        "qty_per_team": 5.0
+      },
+      {
+        "role_code": "D30",
+        "description": "Op Puller e Freio Sr",
+        "qty_per_team": 2.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V6",
+        "description": "Caminhão 3/4 Cabinado",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V11",
+        "description": "Caminhão munck de 18 tn.",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V21",
+        "description": "Conj. Lanç. 230 kV",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V36",
+        "description": "Jeepão",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V39",
+        "description": "Kit lançamento - tirfors talhas",
+        "qty_per_team": 0.3
+      },
+      {
+        "equipment_code": "V47",
+        "description": "Radio 6 km",
+        "qty_per_team": 6.0
+      },
+      {
+        "equipment_code": "V53",
+        "description": "Toldo + tenda higiênica",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [
+      {
+        "material_code": "M22",
+        "description": "Cordas",
+        "qty_per_unit": 1.0
+      }
+    ],
+    "SUB": [],
+    "FD_pct": 0.02,
+    "MD_pct": 0.02
+  },
+  "L13": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 10.0
+      },
+      {
+        "role_code": "D8",
+        "description": "Enc de Turma Sr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D15",
+        "description": "Mont Estruturas Sr",
+        "qty_per_team": 16.0
+      },
+      {
+        "role_code": "D21",
+        "description": "Mot Oper Munck Sr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 3.0
+      },
+      {
+        "role_code": "D24",
+        "description": "Vigia",
+        "qty_per_team": 5.0
+      },
+      {
+        "role_code": "D30",
+        "description": "Op Puller e Freio Sr",
+        "qty_per_team": 2.0
+      },
+      {
+        "role_code": "D33",
+        "description": "Op de Máquinas",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V6",
+        "description": "Caminhão 3/4 Cabinado",
+        "qty_per_team": 2.0
+      },
+      {
+        "equipment_code": "V22",
+        "description": "Conj. Lanç. 500 kV",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V39",
+        "description": "Kit lançamento - tirfors talhas",
+        "qty_per_team": 0.5
+      },
+      {
+        "equipment_code": "V40",
+        "description": "Caminhão Munk Truck 6x4",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V42",
+        "description": "Ônibus 40 - 45 Passag.",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V43",
+        "description": "Pá carregadeira",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V47",
+        "description": "Radio 6 km",
+        "qty_per_team": 6.0
+      },
+      {
+        "equipment_code": "V53",
+        "description": "Toldo + tenda higiênica",
+        "qty_per_team": 2.0
+      }
+    ],
+    "MAT": [
+      {
+        "material_code": "M22",
+        "description": "Cordas",
+        "qty_per_unit": 1.0
+      }
+    ],
+    "SUB": [],
+    "FD_pct": 0.02,
+    "MD_pct": 0.02
+  },
+  "L14": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 10.0
+      },
+      {
+        "role_code": "D8",
+        "description": "Enc de Turma Sr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D15",
+        "description": "Mont Estruturas Sr",
+        "qty_per_team": 16.0
+      },
+      {
+        "role_code": "D21",
+        "description": "Mot Oper Munck Sr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 3.0
+      },
+      {
+        "role_code": "D24",
+        "description": "Vigia",
+        "qty_per_team": 5.0
+      },
+      {
+        "role_code": "D30",
+        "description": "Op Puller e Freio Sr",
+        "qty_per_team": 2.0
+      },
+      {
+        "role_code": "D33",
+        "description": "Op de Máquinas",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V6",
+        "description": "Caminhão 3/4 Cabinado",
+        "qty_per_team": 2.0
+      },
+      {
+        "equipment_code": "V22",
+        "description": "Conj. Lanç. 500 kV",
+        "qty_per_team": 1.5
+      },
+      {
+        "equipment_code": "V39",
+        "description": "Kit lançamento - tirfors talhas",
+        "qty_per_team": 0.5
+      },
+      {
+        "equipment_code": "V40",
+        "description": "Caminhão Munk Truck 6x4",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V42",
+        "description": "Ônibus 40 - 45 Passag.",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V43",
+        "description": "Pá carregadeira",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V47",
+        "description": "Radio 6 km",
+        "qty_per_team": 6.0
+      },
+      {
+        "equipment_code": "V53",
+        "description": "Toldo + tenda higiênica",
+        "qty_per_team": 2.0
+      }
+    ],
+    "MAT": [
+      {
+        "material_code": "M22",
+        "description": "Cordas",
+        "qty_per_unit": 1.0
+      }
+    ],
+    "SUB": [],
+    "FD_pct": 0.03,
+    "MD_pct": 0.05
+  },
+  "L15": {
+    "MO": [
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D28",
+        "description": "Nivelador Sr",
+        "qty_per_team": 2.0
+      },
+      {
+        "role_code": "D46",
+        "description": "Topografo Sr",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V29",
+        "description": "Estação total",
+        "qty_per_team": 2.0
+      },
+      {
+        "equipment_code": "V36",
+        "description": "Jeepão",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V53",
+        "description": "Toldo + tenda higiênica",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.01,
+    "MD_pct": 0.01
+  },
+  "L16": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 6.0
+      },
+      {
+        "role_code": "D8",
+        "description": "Enc de Turma Sr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D13",
+        "description": "Mont Estruturas Jr",
+        "qty_per_team": 4.0
+      },
+      {
+        "role_code": "D15",
+        "description": "Mont Estruturas Sr",
+        "qty_per_team": 8.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D38",
+        "description": "Oper de Trator Pneu",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V6",
+        "description": "Caminhão 3/4 Cabinado",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V36",
+        "description": "Jeepão",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V39",
+        "description": "Kit lançamento - tirfors talhas",
+        "qty_per_team": 0.5
+      },
+      {
+        "equipment_code": "V53",
+        "description": "Toldo + tenda higiênica",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V59",
+        "description": "Trator traçado (4x4) c guincho",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.01,
+    "MD_pct": 0.01
+  },
+  "L17": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 8.0
+      },
+      {
+        "role_code": "D8",
+        "description": "Enc de Turma Sr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D13",
+        "description": "Mont Estruturas Jr",
+        "qty_per_team": 6.0
+      },
+      {
+        "role_code": "D15",
+        "description": "Mont Estruturas Sr",
+        "qty_per_team": 12.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 3.0
+      },
+      {
+        "role_code": "D38",
+        "description": "Oper de Trator Pneu",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V6",
+        "description": "Caminhão 3/4 Cabinado",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V15",
+        "description": "Caminhão toco (10 tn)",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V36",
+        "description": "Jeepão",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V39",
+        "description": "Kit lançamento - tirfors talhas",
+        "qty_per_team": 0.8
+      },
+      {
+        "equipment_code": "V53",
+        "description": "Toldo + tenda higiênica",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V59",
+        "description": "Trator traçado (4x4) c guincho",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.02,
+    "MD_pct": 0.01
+  },
+  "L18": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 6.0
+      },
+      {
+        "role_code": "D8",
+        "description": "Enc de Turma Sr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D15",
+        "description": "Mont Estruturas Sr",
+        "qty_per_team": 12.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 3.0
+      },
+      {
+        "role_code": "D38",
+        "description": "Oper de Trator Pneu",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V6",
+        "description": "Caminhão 3/4 Cabinado",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V15",
+        "description": "Caminhão toco (10 tn)",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V36",
+        "description": "Jeepão",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V39",
+        "description": "Kit lançamento - tirfors talhas",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V47",
+        "description": "Radio 6 km",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V53",
+        "description": "Toldo + tenda higiênica",
+        "qty_per_team": 2.0
+      },
+      {
+        "equipment_code": "V59",
+        "description": "Trator traçado (4x4) c guincho",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.02,
+    "MD_pct": 0.05
+  },
+  "L19": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 8.0
+      },
+      {
+        "role_code": "D7",
+        "description": "Enc de Turma Pl",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D15",
+        "description": "Mont Estruturas Sr",
+        "qty_per_team": 10.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 3.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V9",
+        "description": "Caminhão carroceria truck",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V36",
+        "description": "Jeepão",
+        "qty_per_team": 2.0
+      },
+      {
+        "equipment_code": "V53",
+        "description": "Toldo + tenda higiênica",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.02,
+    "MD_pct": 0.02
+  },
+  "L20": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 4.0
+      },
+      {
+        "role_code": "D8",
+        "description": "Enc de Turma Sr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D15",
+        "description": "Mont Estruturas Sr",
+        "qty_per_team": 6.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 2.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V6",
+        "description": "Caminhão 3/4 Cabinado",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V15",
+        "description": "Caminhão toco (10 tn)",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V46",
+        "description": "Prensas matrices de 120 tn.",
+        "qty_per_team": 3.0
+      },
+      {
+        "equipment_code": "V53",
+        "description": "Toldo + tenda higiênica",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.02,
+    "MD_pct": 0.03
+  },
+  "L21": {
+    "MO": [
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D24",
+        "description": "Vigia",
+        "qty_per_team": 4.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V33",
+        "description": "Guindaste 100 ton",
+        "qty_per_team": 4.0
+      },
+      {
+        "equipment_code": "V36",
+        "description": "Jeepão",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.0,
+    "MD_pct": 0.0
+  },
+  "L22": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 12.0
+      },
+      {
+        "role_code": "D8",
+        "description": "Enc de Turma Sr",
+        "qty_per_team": 2.0
+      },
+      {
+        "role_code": "D15",
+        "description": "Mont Estruturas Sr",
+        "qty_per_team": 8.0
+      },
+      {
+        "role_code": "D21",
+        "description": "Mot Oper Munck Sr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 3.0
+      },
+      {
+        "role_code": "D30",
+        "description": "Op Puller e Freio Sr",
+        "qty_per_team": 2.0
+      },
+      {
+        "role_code": "D42",
+        "description": "Oper Retro Escav Sr",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V5",
+        "description": "Drone DJI MATRICE 600 PRO",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V6",
+        "description": "Caminhão 3/4 Cabinado",
+        "qty_per_team": 2.0
+      },
+      {
+        "equipment_code": "V22",
+        "description": "Conj. Lanç. 500 kV",
+        "qty_per_team": 0.5
+      },
+      {
+        "equipment_code": "V36",
+        "description": "Jeepão",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V39",
+        "description": "Kit lançamento - tirfors talhas",
+        "qty_per_team": 0.5
+      },
+      {
+        "equipment_code": "V40",
+        "description": "Caminhão Munk Truck 6x4",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V48",
+        "description": "Retroescavadeira",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V50",
+        "description": "Aramida + acessórios - 1.200 m",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V53",
+        "description": "Toldo + tenda higiênica",
+        "qty_per_team": 2.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.02,
+    "MD_pct": 0.03
+  },
+  "L23": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 15.0
+      },
+      {
+        "role_code": "D8",
+        "description": "Enc de Turma Sr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D15",
+        "description": "Mont Estruturas Sr",
+        "qty_per_team": 15.0
+      },
+      {
+        "role_code": "D21",
+        "description": "Mot Oper Munck Sr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 4.0
+      },
+      {
+        "role_code": "D30",
+        "description": "Op Puller e Freio Sr",
+        "qty_per_team": 2.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V12",
+        "description": "Caminhão munck de 26 tn.",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V15",
+        "description": "Caminhão toco (10 tn)",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V22",
+        "description": "Conj. Lanç. 500 kV",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V36",
+        "description": "Jeepão",
+        "qty_per_team": 3.0
+      },
+      {
+        "equipment_code": "V39",
+        "description": "Kit lançamento - tirfors talhas",
+        "qty_per_team": 0.5
+      },
+      {
+        "equipment_code": "V53",
+        "description": "Toldo + tenda higiênica",
+        "qty_per_team": 2.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.01,
+    "MD_pct": 0.01
+  },
+  "L24": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 4.0
+      },
+      {
+        "role_code": "D8",
+        "description": "Enc de Turma Sr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D14",
+        "description": "Mont Estruturas Pl",
+        "qty_per_team": 4.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D28",
+        "description": "Nivelador Sr",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V6",
+        "description": "Caminhão 3/4 Cabinado",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V29",
+        "description": "Estação total",
+        "qty_per_team": 2.0
+      },
+      {
+        "equipment_code": "V53",
+        "description": "Toldo + tenda higiênica",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.005,
+    "MD_pct": 0.005
+  },
+  "L25": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 2.0
+      },
+      {
+        "role_code": "D8",
+        "description": "Enc de Turma Sr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D15",
+        "description": "Mont Estruturas Sr",
+        "qty_per_team": 7.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V6",
+        "description": "Caminhão 3/4 Cabinado",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V53",
+        "description": "Toldo + tenda higiênica",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.02,
+    "MD_pct": 0.02
+  },
+  "L26": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 4.0
+      },
+      {
+        "role_code": "D6",
+        "description": "Enc de Turma Jr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D36",
+        "description": "Oper de Motoserra Sr",
+        "qty_per_team": 3.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V6",
+        "description": "Caminhão 3/4 Cabinado",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V41",
+        "description": "Motoserra Still",
+        "qty_per_team": 4.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.03,
+    "MD_pct": 0.01
+  },
+  "F1": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 6.0
+      },
+      {
+        "role_code": "D7",
+        "description": "Enc de Turma Pl",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 2.0
+      },
+      {
+        "role_code": "D35",
+        "description": "Oper de Motoserra Jr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D42",
+        "description": "Oper Retro Escav Sr",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V6",
+        "description": "Caminhão 3/4 Cabinado",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V7",
+        "description": "Caminhão basculante 6x4",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V41",
+        "description": "Motoserra Still",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V48",
+        "description": "Retroescavadeira",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V53",
+        "description": "Toldo + tenda higiênica",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.01,
+    "MD_pct": 0.03
+  },
+  "F2": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 3.0
+      },
+      {
+        "role_code": "D8",
+        "description": "Enc de Turma Sr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D15",
+        "description": "Mont Estruturas Sr",
+        "qty_per_team": 6.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V36",
+        "description": "Jeepão",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V53",
+        "description": "Toldo + tenda higiênica",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.03,
+    "MD_pct": 0.01
+  },
+  "F3": {
+    "MO": [
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 2.0
+      },
+      {
+        "role_code": "D38",
+        "description": "Oper de Trator Pneu",
+        "qty_per_team": 3.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V14",
+        "description": "Caminhão Prancha",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V36",
+        "description": "Jeepão",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V58",
+        "description": "Trator de pnews com carreta",
+        "qty_per_team": 3.0
+      },
+      {
+        "equipment_code": "V64",
+        "description": "Grade Aradora de 18 discos",
+        "qty_per_team": 3.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.01,
+    "MD_pct": 0.01
+  },
+  "F4": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 2.0
+      },
+      {
+        "role_code": "D7",
+        "description": "Enc de Turma Pl",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 2.0
+      },
+      {
+        "role_code": "D33",
+        "description": "Op de Máquinas",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V17",
+        "description": "Carreta de 25 tn.",
+        "qty_per_team": 0.5
+      },
+      {
+        "equipment_code": "V55",
+        "description": "Toyota Cabine Dupla",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V69",
+        "description": "Escavadeira Hidráulica",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.01,
+    "MD_pct": 0.01
+  },
+  "F5": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 5.0
+      },
+      {
+        "role_code": "D7",
+        "description": "Enc de Turma Pl",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D20",
+        "description": "Mot Oper Munck Jr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V6",
+        "description": "Caminhão 3/4 Cabinado",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V10",
+        "description": "Caminhão munck de 12 tn.",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V68",
+        "description": "Perfuratriz Manual Gasolina",
+        "qty_per_team": 4.0
+      }
+    ],
+    "MAT": [
+      {
+        "material_code": "M57",
+        "description": "Desfensas de Concreto 0,25x0,25x3,5",
+        "qty_per_unit": 12.0
+      }
+    ],
+    "SUB": [],
+    "FD_pct": 0.02,
+    "MD_pct": 0.02
+  },
+  "O1": {
+    "MO": [
+      {
+        "role_code": "D2",
+        "description": "Ajudante Geral",
+        "qty_per_team": 12.0
+      },
+      {
+        "role_code": "D8",
+        "description": "Enc de Turma Sr",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D13",
+        "description": "Mont Estruturas Jr",
+        "qty_per_team": 2.0
+      },
+      {
+        "role_code": "D14",
+        "description": "Mont Estruturas Pl",
+        "qty_per_team": 10.0
+      },
+      {
+        "role_code": "D20",
+        "description": "Mot Oper Munck Jr",
+        "qty_per_team": 2.0
+      },
+      {
+        "role_code": "D22",
+        "description": "Motorista",
+        "qty_per_team": 2.0
+      },
+      {
+        "role_code": "D29",
+        "description": "Op Puller e Freio Jr",
+        "qty_per_team": 2.0
+      },
+      {
+        "role_code": "D33",
+        "description": "Op de Máquinas",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V5",
+        "description": "Drone DJI MATRICE 600 PRO",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V10",
+        "description": "Caminhão munck de 12 tn.",
+        "qty_per_team": 2.0
+      },
+      {
+        "equipment_code": "V16",
+        "description": "Caminhonete 4x4",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V30",
+        "description": "Puller OPGW",
+        "qty_per_team": 2.0
+      },
+      {
+        "equipment_code": "V42",
+        "description": "Ônibus 40 - 45 Passag.",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V53",
+        "description": "Toldo + tenda higiênica",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V59",
+        "description": "Trator traçado (4x4) c guincho",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.01,
+    "MD_pct": 0.03
+  },
+  "O2": {
+    "MO": [],
+    "VEM": [],
+    "MAT": [
+      {
+        "material_code": "M58",
+        "description": "Grampo U - Fundação Estais",
+        "qty_per_unit": 1.0
+      }
+    ],
+    "SUB": [],
+    "FD_pct": 0.0,
+    "MD_pct": 0.0
+  },
+  "O3": {
+    "MO": [
+      {
+        "role_code": "D23",
+        "description": "Motorista Caminhao",
+        "qty_per_team": 4.0
+      },
+      {
+        "role_code": "D38",
+        "description": "Oper de Trator Pneu",
+        "qty_per_team": 2.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V7",
+        "description": "Caminhão basculante 6x4",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V13",
+        "description": "Caminhão pipa",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V17",
+        "description": "Carreta de 25 tn.",
+        "qty_per_team": 2.0
+      },
+      {
+        "equipment_code": "V58",
+        "description": "Trator de pnews com carreta",
+        "qty_per_team": 2.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.0,
+    "MD_pct": 0.0
+  },
+  "O4": {
+    "MO": [
+      {
+        "role_code": "D33",
+        "description": "Op de Máquinas",
+        "qty_per_team": 1.0
+      },
+      {
+        "role_code": "D37",
+        "description": "Oper de Trator",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V57",
+        "description": "Trator D-6",
+        "qty_per_team": 1.0
+      },
+      {
+        "equipment_code": "V69",
+        "description": "Escavadeira Hidráulica",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.0,
+    "MD_pct": 0.0
+  },
+  "O5": {
+    "MO": [
+      {
+        "role_code": "D8",
+        "description": "Enc de Turma Sr",
+        "qty_per_team": 1.0
+      }
+    ],
+    "VEM": [
+      {
+        "equipment_code": "V16",
+        "description": "Caminhonete 4x4",
+        "qty_per_team": 1.0
+      }
+    ],
+    "MAT": [],
+    "SUB": [
+      {
+        "sub_code": "S18",
+        "description": "Corte e Erradicação",
+        "cost_per_unit": 1.0
+      }
+    ],
+    "FD_pct": 0.0,
+    "MD_pct": 0.0
+  },
+  "O6": {
+    "MO": [],
+    "VEM": [],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.0,
+    "MD_pct": 0.0
+  },
+  "O7": {
+    "MO": [],
+    "VEM": [],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.0,
+    "MD_pct": 0.0
+  },
+  "O8": {
+    "MO": [],
+    "VEM": [],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.0,
+    "MD_pct": 0.0
+  },
+  "O9": {
+    "MO": [],
+    "VEM": [],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.0,
+    "MD_pct": 0.0
+  },
+  "O10": {
+    "MO": [],
+    "VEM": [],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.0,
+    "MD_pct": 0.0
+  },
+  "O11": {
+    "MO": [],
+    "VEM": [],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.0,
+    "MD_pct": 0.0
+  },
+  "O12": {
+    "MO": [],
+    "VEM": [],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.0,
+    "MD_pct": 0.0
+  },
+  "O13": {
+    "MO": [],
+    "VEM": [],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.0,
+    "MD_pct": 0.0
+  },
+  "O14": {
+    "MO": [],
+    "VEM": [],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.0,
+    "MD_pct": 0.0
+  },
+  "O15": {
+    "MO": [],
+    "VEM": [],
+    "MAT": [],
+    "SUB": [],
+    "FD_pct": 0.0,
+    "MD_pct": 0.0
+  }
+}

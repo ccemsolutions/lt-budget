@@ -1,0 +1,942 @@
+[
+  {
+    "seq": 1,
+    "code": "P1",
+    "description": "CONFERÊNCIA DE PERFIL",
+    "unit": "km",
+    "category": "Serviços Preliminares",
+    "productivity_per_day": 2.0,
+    "default_quantity": 284.0,
+    "quantity_formula": "P1"
+  },
+  {
+    "seq": 2,
+    "code": "P2",
+    "description": "LOCAÇÃO DE TORRES",
+    "unit": "torre",
+    "category": "Serviços Preliminares",
+    "productivity_per_day": 2.0,
+    "default_quantity": 627.0,
+    "quantity_formula": "P2"
+  },
+  {
+    "seq": 3,
+    "code": "P3",
+    "description": "LIMPEZA DE FAIXA EM MATA",
+    "unit": "ha",
+    "category": "Serviços Preliminares",
+    "productivity_per_day": 0.18,
+    "default_quantity": 3.24986743414005,
+    "quantity_formula": "P3"
+  },
+  {
+    "seq": 4,
+    "code": "P4",
+    "description": "LIMPEZA DE FAIXA EM CAPOEIRA / AGRICULTURA",
+    "unit": "ha",
+    "category": "Serviços Preliminares",
+    "productivity_per_day": 0.4,
+    "default_quantity": 70.48533510017853,
+    "quantity_formula": "P4"
+  },
+  {
+    "seq": 5,
+    "code": "P5",
+    "description": "CONSTRUÇÃO DE ACESSOS EM TERRENO PLANO",
+    "unit": "km",
+    "category": "Serviços Preliminares",
+    "productivity_per_day": 2.0,
+    "default_quantity": 284.0,
+    "quantity_formula": "P5"
+  },
+  {
+    "seq": 6,
+    "code": "P6",
+    "description": "CONSTRUÇÃO DE ACESSOS EM TERRENO ACIDENTADO",
+    "unit": "km",
+    "category": "Serviços Preliminares",
+    "productivity_per_day": 0.5,
+    "default_quantity": 0.0,
+    "quantity_formula": "P6"
+  },
+  {
+    "seq": 7,
+    "code": "P7",
+    "description": "MANUTENÇÃO DE ACESSOS",
+    "unit": "mês",
+    "category": "Serviços Preliminares",
+    "productivity_per_day": 0.045454545454545456,
+    "default_quantity": 10.765894797026869,
+    "quantity_formula": "P7"
+  },
+  {
+    "seq": 8,
+    "code": "P8",
+    "description": "INSTALAÇÃO DE PLACAS DE SINALIZAÇÃO",
+    "unit": "torre",
+    "category": "Serviços Preliminares",
+    "productivity_per_day": 5.0,
+    "default_quantity": 627.0,
+    "quantity_formula": "P8"
+  },
+  {
+    "seq": 9,
+    "code": "P9",
+    "description": "CONSTRUÇÃO DE ESTIVAS",
+    "unit": "m",
+    "category": "Serviços Preliminares",
+    "productivity_per_day": 20.0,
+    "default_quantity": 0.0,
+    "quantity_formula": "P9"
+  },
+  {
+    "seq": 12,
+    "code": "C1",
+    "description": "ESCAVAÇÃO COM PERFURATRIZ TERRENO NORMAL - TUBULÃO",
+    "unit": "m3",
+    "category": "Obras Civis",
+    "productivity_per_day": 25.0,
+    "default_quantity": 4307.80422569637,
+    "quantity_formula": "C1"
+  },
+  {
+    "seq": 13,
+    "code": "C2",
+    "description": "ESCAVAÇÃO MECANIZADA - SAPATA (AP e Estaiada) + MC - RETRO",
+    "unit": "m3",
+    "category": "Obras Civis",
+    "productivity_per_day": 30.0,
+    "default_quantity": 4059.4628999999995,
+    "quantity_formula": "C2"
+  },
+  {
+    "seq": 14,
+    "code": "C3",
+    "description": "ESCAVAÇÃO EM SOLO FRACO (AREIA/BREJO)",
+    "unit": "m3",
+    "category": "Obras Civis",
+    "productivity_per_day": 6.0,
+    "default_quantity": 445.9181,
+    "quantity_formula": "C3"
+  },
+  {
+    "seq": 15,
+    "code": "C4",
+    "description": "ESCAVAÇÃO MANUAL EM MOLEDO - MARTELO COMPRESSOR",
+    "unit": "m3",
+    "category": "Obras Civis",
+    "productivity_per_day": 6.0,
+    "default_quantity": 62.295,
+    "quantity_formula": "C4"
+  },
+  {
+    "seq": 16,
+    "code": "C5",
+    "description": "CONCRETO USINADO NO CANTEIRO",
+    "unit": "m3",
+    "category": "Obras Civis",
+    "productivity_per_day": 32.0,
+    "default_quantity": 0.0,
+    "quantity_formula": "C5"
+  },
+  {
+    "seq": 17,
+    "code": "C6",
+    "description": "PERFURAÇÃO (50 - 100 mm) EM ROCHA E INSTALAÇÃO DE TIRANTE",
+    "unit": "m",
+    "category": "Obras Civis",
+    "productivity_per_day": 40.0,
+    "default_quantity": 222.72000000000003,
+    "quantity_formula": "C6"
+  },
+  {
+    "seq": 18,
+    "code": "C7",
+    "description": "ENCAPSULAM. DE HASTE DE ESTAI NO CANTEIRO",
+    "unit": "m",
+    "category": "Obras Civis",
+    "productivity_per_day": 40.0,
+    "default_quantity": 2487.804,
+    "quantity_formula": "C7"
+  },
+  {
+    "seq": 19,
+    "code": "C8",
+    "description": "CHUMBADORES EM ROCHA",
+    "unit": "m",
+    "category": "Obras Civis",
+    "productivity_per_day": 50.0,
+    "default_quantity": 67.0,
+    "quantity_formula": "C8"
+  },
+  {
+    "seq": 20,
+    "code": "C9",
+    "description": "FORNECIMENTO E CRAVAÇÃO DE ESTACAS DE AÇO",
+    "unit": "m",
+    "category": "Obras Civis",
+    "productivity_per_day": 40.0,
+    "default_quantity": 5702.4,
+    "quantity_formula": "C9"
+  },
+  {
+    "seq": 21,
+    "code": "C10",
+    "description": "EXECUÇÃO DE ESTACAS ESCAVADAS (D = 40 cm)",
+    "unit": "m",
+    "category": "Obras Civis",
+    "productivity_per_day": 40.0,
+    "default_quantity": 0.0,
+    "quantity_formula": "C10"
+  },
+  {
+    "seq": 22,
+    "code": "C11",
+    "description": "ESTACAS RAIZ (PERFURAÇÃO + INJEÇÃO) - 40 cm",
+    "unit": "m",
+    "category": "Obras Civis",
+    "productivity_per_day": 40.0,
+    "default_quantity": 0.0,
+    "quantity_formula": "C11"
+  },
+  {
+    "seq": 23,
+    "code": "C12",
+    "description": "ENSAIO PDA - ESTACAS DE CONCRETO / ESCAVADAS / RAIZ",
+    "unit": "ensaio",
+    "category": "Obras Civis",
+    "productivity_per_day": 4.0,
+    "default_quantity": 0.0,
+    "quantity_formula": "C12"
+  },
+  {
+    "seq": 24,
+    "code": "C13",
+    "description": "FORNECIMENTO DE HASTES HELICOIDAIS",
+    "unit": "m",
+    "category": "Obras Civis",
+    "productivity_per_day": 0.0,
+    "default_quantity": 0.0,
+    "quantity_formula": "C13"
+  },
+  {
+    "seq": 25,
+    "code": "C14",
+    "description": "INSTALAÇÃO DE HASTES HELICOIDAIS",
+    "unit": "m",
+    "category": "Obras Civis",
+    "productivity_per_day": 105.0,
+    "default_quantity": 0.0,
+    "quantity_formula": "C14"
+  },
+  {
+    "seq": 26,
+    "code": "C15",
+    "description": "ENSAIO DE HASTES HELICOIDAIS",
+    "unit": "haste",
+    "category": "Obras Civis",
+    "productivity_per_day": 8.0,
+    "default_quantity": 388.0,
+    "quantity_formula": "C15"
+  },
+  {
+    "seq": 27,
+    "code": "C16",
+    "description": "FORNECIMENTO DE AÇO CA-50 PARA ARMAÇÃO E CHUMBADORES",
+    "unit": "kg",
+    "category": "Obras Civis",
+    "productivity_per_day": 0.0,
+    "default_quantity": 329332.4201137325,
+    "quantity_formula": "C16"
+  },
+  {
+    "seq": 28,
+    "code": "C17",
+    "description": "CORTE, DOBRA E ARMAÇÃO, INCLUSIVE CHUMBADORES",
+    "unit": "kg",
+    "category": "Obras Civis",
+    "productivity_per_day": 900.0,
+    "default_quantity": 329332.4201137325,
+    "quantity_formula": "C17"
+  },
+  {
+    "seq": 29,
+    "code": "C18",
+    "description": "ESCAVAÇÃO MECANIZADA EM MOLEDO",
+    "unit": "m3",
+    "category": "Obras Civis",
+    "productivity_per_day": 2.5,
+    "default_quantity": 0.0,
+    "quantity_formula": "C18"
+  },
+  {
+    "seq": 30,
+    "code": "C19",
+    "description": "FORNECIMENTO DE FORMAS METÁLICAS - TUBULÃO",
+    "unit": "torre",
+    "category": "Obras Civis",
+    "productivity_per_day": 0.0,
+    "default_quantity": 443.0,
+    "quantity_formula": "C19"
+  },
+  {
+    "seq": 31,
+    "code": "C20",
+    "description": "FORNECIMENTO E CRAVAÇÃO DE ESTACAS DE CONCRETO",
+    "unit": "m",
+    "category": "Obras Civis",
+    "productivity_per_day": 60.0,
+    "default_quantity": 0.0,
+    "quantity_formula": "C20"
+  },
+  {
+    "seq": 32,
+    "code": "C21",
+    "description": "TRANSPORTE / INSTALAÇÃO / DESINSTALAÇÃO DE FORMAS DE MADEIRA E AÇO",
+    "unit": "torre",
+    "category": "Obras Civis",
+    "productivity_per_day": 2.0,
+    "default_quantity": 627.0,
+    "quantity_formula": "C21"
+  },
+  {
+    "seq": 33,
+    "code": "C22",
+    "description": "FABRICAÇÃO DE PRÉ-MOLDADOS NO CANTEIRO",
+    "unit": "m3",
+    "category": "Obras Civis",
+    "productivity_per_day": 10.0,
+    "default_quantity": 189.97000000000003,
+    "quantity_formula": "C22"
+  },
+  {
+    "seq": 34,
+    "code": "C23",
+    "description": "TRANSPORTE DE PRÉ-MOLDADOS AO CAMPO",
+    "unit": "peça",
+    "category": "Obras Civis",
+    "productivity_per_day": 5.0,
+    "default_quantity": 573.0,
+    "quantity_formula": "C23"
+  },
+  {
+    "seq": 35,
+    "code": "C24",
+    "description": "INSTALAÇÃO E NIVELAMENTO DE BLOCOS PRÉ-MOLDADOS PARA ESTAIS/MC",
+    "unit": "peça",
+    "category": "Obras Civis",
+    "productivity_per_day": 2.0,
+    "default_quantity": 573.0,
+    "quantity_formula": "C24"
+  },
+  {
+    "seq": 36,
+    "code": "C25",
+    "description": "NIVELAMENTO DE STUBS - TUBULÃO",
+    "unit": "Pé",
+    "category": "Obras Civis",
+    "productivity_per_day": 2.0,
+    "default_quantity": 532.0,
+    "quantity_formula": "C25"
+  },
+  {
+    "seq": 37,
+    "code": "C26",
+    "description": "NIVELAMENTO DE STUBS - SAPATA",
+    "unit": "Pé",
+    "category": "Obras Civis",
+    "productivity_per_day": 1.0,
+    "default_quantity": 252.0,
+    "quantity_formula": "C26"
+  },
+  {
+    "seq": 38,
+    "code": "C27",
+    "description": "TRANSPORTE DE AGREGADOS AO CAMPO",
+    "unit": "m3",
+    "category": "Obras Civis",
+    "productivity_per_day": 20.0,
+    "default_quantity": 89.42600000000002,
+    "quantity_formula": "C27"
+  },
+  {
+    "seq": 39,
+    "code": "C28",
+    "description": "CONCRETAGEM  IN LOCO - MANUAL (Bet. 600 l)",
+    "unit": "m3",
+    "category": "Obras Civis",
+    "productivity_per_day": 10.0,
+    "default_quantity": 89.42600000000002,
+    "quantity_formula": "C28"
+  },
+  {
+    "seq": 40,
+    "code": "C29",
+    "description": "CONCRETAGEM IN LOCO  - CONCRETO USINADO",
+    "unit": "m3",
+    "category": "Obras Civis",
+    "productivity_per_day": 32.0,
+    "default_quantity": 5587.322495859218,
+    "quantity_formula": "C29"
+  },
+  {
+    "seq": 41,
+    "code": "C30",
+    "description": "REATERRO COMPACTADO - SOLO NATIVO",
+    "unit": "m3",
+    "category": "Obras Civis",
+    "productivity_per_day": 30.0,
+    "default_quantity": 2775.2018,
+    "quantity_formula": "C30"
+  },
+  {
+    "seq": 42,
+    "code": "C31",
+    "description": "REATERRO COMPACTADO - SOLO TRANSPORTADO",
+    "unit": "m3",
+    "category": "Obras Civis",
+    "productivity_per_day": 25.0,
+    "default_quantity": 547.7411999999999,
+    "quantity_formula": "C31"
+  },
+  {
+    "seq": 43,
+    "code": "C32",
+    "description": "REATERRO COMPACTADO - SOLO CIMENTO",
+    "unit": "m3",
+    "category": "Obras Civis",
+    "productivity_per_day": 25.0,
+    "default_quantity": 311.78400000000005,
+    "quantity_formula": "C32"
+  },
+  {
+    "seq": 44,
+    "code": "C33",
+    "description": "FORNECIMENTO DE FORMAS DE MADEIRA",
+    "unit": "m2",
+    "category": "Obras Civis",
+    "productivity_per_day": 0.0,
+    "default_quantity": 5777.292495859218,
+    "quantity_formula": "C33"
+  },
+  {
+    "seq": 45,
+    "code": "A1",
+    "description": "ATERRAMENTO EM POÇO PROFUNDO",
+    "unit": "m",
+    "category": "Aterramento",
+    "productivity_per_day": 40.0,
+    "default_quantity": 0.0,
+    "quantity_formula": "A1"
+  },
+  {
+    "seq": 46,
+    "code": "A2",
+    "description": "INSTALAÇÃO DE CONTRAPESO / MED. RESISTÊNCIA",
+    "unit": "m",
+    "category": "Aterramento",
+    "productivity_per_day": 400.0,
+    "default_quantity": 220425.0,
+    "quantity_formula": "A2"
+  },
+  {
+    "seq": 48,
+    "code": "E1",
+    "description": "PÁTIO DE ESTRUTURAS - RECEBIMENTO / ESCALONAMENTO",
+    "unit": "mês",
+    "category": "Montagem de Estruturas",
+    "productivity_per_day": 0.045454545454545456,
+    "default_quantity": 10.4,
+    "quantity_formula": "E1"
+  },
+  {
+    "seq": 49,
+    "code": "E2",
+    "description": "TRANSPORTE DE ESTRUTURAS AO PIQUETE",
+    "unit": "ton",
+    "category": "Montagem de Estruturas",
+    "productivity_per_day": 20.0,
+    "default_quantity": 2892.2575,
+    "quantity_formula": "E2"
+  },
+  {
+    "seq": 50,
+    "code": "E3",
+    "description": "CORTE DE CABOS DE ESTAI",
+    "unit": "torre",
+    "category": "Montagem de Estruturas",
+    "productivity_per_day": 6.0,
+    "default_quantity": 431.0,
+    "quantity_formula": "E3"
+  },
+  {
+    "seq": 51,
+    "code": "E4",
+    "description": "MONTAGEM DE TORRE ESTAIADA NO SOLO",
+    "unit": "ton",
+    "category": "Montagem de Estruturas",
+    "productivity_per_day": 8.0,
+    "default_quantity": 1231.9603155452437,
+    "quantity_formula": "E4"
+  },
+  {
+    "seq": 52,
+    "code": "E5",
+    "description": "IÇAMENTO DE TORRE ESTAIADA - 230 kV/500 KV - Monomastro - CS",
+    "unit": "torre",
+    "category": "Montagem de Estruturas",
+    "productivity_per_day": 4.0,
+    "default_quantity": 388.0,
+    "quantity_formula": "E5"
+  },
+  {
+    "seq": 53,
+    "code": "E6",
+    "description": "IÇAMENTO DE TORRE ESTAIADA - 500 kV - CROSS ROPE",
+    "unit": "torre",
+    "category": "Montagem de Estruturas",
+    "productivity_per_day": 3.0,
+    "default_quantity": 388.0,
+    "quantity_formula": "E6"
+  },
+  {
+    "seq": 54,
+    "code": "E7",
+    "description": "MONTAGEM MANUAL DE TORRE ESTAIADA",
+    "unit": "ton",
+    "category": "Montagem de Estruturas",
+    "productivity_per_day": 3.0,
+    "default_quantity": 136.53168445475637,
+    "quantity_formula": "E7"
+  },
+  {
+    "seq": 55,
+    "code": "E8",
+    "description": "NIVELAMENTO / TENSIONAMENTO DE TORRE ESTAIADA",
+    "unit": "torre",
+    "category": "Montagem de Estruturas",
+    "productivity_per_day": 4.0,
+    "default_quantity": 431.0,
+    "quantity_formula": "E8"
+  },
+  {
+    "seq": 56,
+    "code": "E9",
+    "description": "REVISÃO E RETIRADA DE FLAMBAGEM DE TORRE ESTAIADA",
+    "unit": "torre",
+    "category": "Montagem de Estruturas",
+    "productivity_per_day": 4.0,
+    "default_quantity": 431.0,
+    "quantity_formula": "E9"
+  },
+  {
+    "seq": 57,
+    "code": "E10",
+    "description": "PRÉ-MONTAGEM DE TORRE AP",
+    "unit": "ton",
+    "category": "Montagem de Estruturas",
+    "productivity_per_day": 8.0,
+    "default_quantity": 1523.7655000000002,
+    "quantity_formula": "E10"
+  },
+  {
+    "seq": 58,
+    "code": "E11",
+    "description": "MONTAGEM MANUAL DE TORRE AP",
+    "unit": "ton",
+    "category": "Montagem de Estruturas",
+    "productivity_per_day": 5.0,
+    "default_quantity": 155.4862755102041,
+    "quantity_formula": "E11"
+  },
+  {
+    "seq": 59,
+    "code": "E12",
+    "description": "MONTAGEM COM GUINDASTE DE TORRE AP",
+    "unit": "ton",
+    "category": "Montagem de Estruturas",
+    "productivity_per_day": 8.0,
+    "default_quantity": 1368.279224489796,
+    "quantity_formula": "E12"
+  },
+  {
+    "seq": 60,
+    "code": "E13",
+    "description": "REVISÃO DE TORRE AP",
+    "unit": "ton",
+    "category": "Montagem de Estruturas",
+    "productivity_per_day": 12.0,
+    "default_quantity": 1523.7655000000002,
+    "quantity_formula": "E13"
+  },
+  {
+    "seq": 61,
+    "code": "E14",
+    "description": "MONTAGEM DE CABEÇA DE ESTRUTURA MANUAL",
+    "unit": "ton",
+    "category": "Montagem de Estruturas",
+    "productivity_per_day": 6.0,
+    "default_quantity": 0.0,
+    "quantity_formula": "E14"
+  },
+  {
+    "seq": 62,
+    "code": "L1",
+    "description": "SECCIONAMENTO E ATERRAMENTO DE CERCAS",
+    "unit": "cerca",
+    "category": "Lançamento de Cabos",
+    "productivity_per_day": 8.0,
+    "default_quantity": 568.0,
+    "quantity_formula": "L1"
+  },
+  {
+    "seq": 63,
+    "code": "L2",
+    "description": "PÁTIO DE BOBINAS E ACESSÓRIOS",
+    "unit": "dia",
+    "category": "Lançamento de Cabos",
+    "productivity_per_day": 1.0,
+    "default_quantity": 222.0,
+    "quantity_formula": "L2"
+  },
+  {
+    "seq": 64,
+    "code": "L3",
+    "description": "RETIRADA E TRANSPORTE DE BOBINAS",
+    "unit": "bobina",
+    "category": "Lançamento de Cabos",
+    "productivity_per_day": 8.0,
+    "default_quantity": 444.0,
+    "quantity_formula": "L3"
+  },
+  {
+    "seq": 65,
+    "code": "L4",
+    "description": "TRANSPORTE E INSTALAÇÃO DE CADEIAS DE ISOLADORES",
+    "unit": "km",
+    "category": "Lançamento de Cabos",
+    "productivity_per_day": 1.0,
+    "default_quantity": 284.0,
+    "quantity_formula": "L4"
+  },
+  {
+    "seq": 66,
+    "code": "L5",
+    "description": "INSTALAÇÃO DE CAVALETES DE PROTEÇÃO",
+    "unit": "km",
+    "category": "Lançamento de Cabos",
+    "productivity_per_day": 1.08,
+    "default_quantity": 284.0,
+    "quantity_formula": "L5"
+  },
+  {
+    "seq": 67,
+    "code": "L6",
+    "description": "PREPARAÇÃO DE PRAÇA E TRANSPORTE DE EQUIPAMENTOS",
+    "unit": "praça",
+    "category": "Lançamento de Cabos",
+    "productivity_per_day": 1.0,
+    "default_quantity": 73.0,
+    "quantity_formula": "L6"
+  },
+  {
+    "seq": 68,
+    "code": "L7",
+    "description": "LANÇAMENTO DE PÁRA-RAIOS DE AÇO 3/8\" EHS E PILOTINHO OPGW",
+    "unit": "km",
+    "category": "Lançamento de Cabos",
+    "productivity_per_day": 1.5,
+    "default_quantity": 284.0,
+    "quantity_formula": "L7"
+  },
+  {
+    "seq": 69,
+    "code": "L8",
+    "description": "LANÇAMENTO DE OPGW E DOTTEREL",
+    "unit": "km",
+    "category": "Lançamento de Cabos",
+    "productivity_per_day": 1.5,
+    "default_quantity": 284.0,
+    "quantity_formula": "L8"
+  },
+  {
+    "seq": 70,
+    "code": "L9",
+    "description": "NIVELAMENTO, GRAMPEAÇÃO E INSTALAÇÃO DE AMORTECEDORES 3/8\", OPGW E DOTTEREL",
+    "unit": "km",
+    "category": "Lançamento de Cabos",
+    "productivity_per_day": 1.5,
+    "default_quantity": 284.0,
+    "quantity_formula": "L9"
+  },
+  {
+    "seq": 71,
+    "code": "L10",
+    "description": "IÇAMENTO DE CADEIAS / LANÇAMENTO DE PILOTO",
+    "unit": "km",
+    "category": "Lançamento de Cabos",
+    "productivity_per_day": 2.0,
+    "default_quantity": 208.94,
+    "quantity_formula": "L10"
+  },
+  {
+    "seq": 72,
+    "code": "L11",
+    "description": "TRAVESSIA LINHA VIVA (TERCEIROS)",
+    "unit": "travessia",
+    "category": "Lançamento de Cabos",
+    "productivity_per_day": 0.045454545454545456,
+    "default_quantity": 0.0,
+    "quantity_formula": "L11"
+  },
+  {
+    "seq": 73,
+    "code": "L12",
+    "description": "LANÇAMENTO DE CONDUTORES 230 kV - CS",
+    "unit": "km",
+    "category": "Lançamento de Cabos",
+    "productivity_per_day": 1.08,
+    "default_quantity": 284.0,
+    "quantity_formula": "L12"
+  },
+  {
+    "seq": 74,
+    "code": "L13",
+    "description": "LANÇAMENTO DE CONDUTORES 500 kV - CD",
+    "unit": "km",
+    "category": "Lançamento de Cabos",
+    "productivity_per_day": 0.8,
+    "default_quantity": 284.0,
+    "quantity_formula": "L13"
+  },
+  {
+    "seq": 75,
+    "code": "L14",
+    "description": "LANÇAMENTO DE CONDUTORES 500 kV  - 6 CabosxFase",
+    "unit": "km",
+    "category": "Lançamento de Cabos",
+    "productivity_per_day": 0.85,
+    "default_quantity": 284.0,
+    "quantity_formula": "L14"
+  },
+  {
+    "seq": 76,
+    "code": "L15",
+    "description": "TOPGRAFIA (EQUIPE LANÇAMENTO DE CABOS)",
+    "unit": "mês",
+    "category": "Lançamento de Cabos",
+    "productivity_per_day": 0.045454545454545456,
+    "default_quantity": 9.118925100057172,
+    "quantity_formula": "L15"
+  },
+  {
+    "seq": 77,
+    "code": "L16",
+    "description": "NIVELAMENTO, GRAMPEAÇÃO E ANCORAGEM DE CONDUTORES - 230 kV - 3 OU 6 CABOS",
+    "unit": "km",
+    "category": "Lançamento de Cabos",
+    "productivity_per_day": 2.0,
+    "default_quantity": 284.0,
+    "quantity_formula": "L16"
+  },
+  {
+    "seq": 78,
+    "code": "L17",
+    "description": "NIVELAMENTO, GRAMPEAÇÃO E ANCORAGEM DE CONDUTORES - 500 kV - 12 OU 18 CABOS",
+    "unit": "km",
+    "category": "Lançamento de Cabos",
+    "productivity_per_day": 1.5,
+    "default_quantity": 284.0,
+    "quantity_formula": "L17"
+  },
+  {
+    "seq": 79,
+    "code": "L18",
+    "description": "NIVELAMENTO, GRAMPEAÇÃO E ANCORAGEM DE CONDUTORES - 800 kV - 12 CABOS",
+    "unit": "km",
+    "category": "Lançamento de Cabos",
+    "productivity_per_day": 1.0,
+    "default_quantity": 284.0,
+    "quantity_formula": "L18"
+  },
+  {
+    "seq": 80,
+    "code": "L19",
+    "description": "INSTALAÇÃO DE ESPAÇADOR / AMORTECEDOR",
+    "unit": "km",
+    "category": "Lançamento de Cabos",
+    "productivity_per_day": 3.0,
+    "default_quantity": 0.0,
+    "quantity_formula": "L19"
+  },
+  {
+    "seq": 81,
+    "code": "L20",
+    "description": "INSTALAÇÃO DE JUMPER",
+    "unit": "torre",
+    "category": "Lançamento de Cabos",
+    "productivity_per_day": 1.0,
+    "default_quantity": 51.0,
+    "quantity_formula": "L20"
+  },
+  {
+    "seq": 82,
+    "code": "L21",
+    "description": "TRAVESSIAS - PROTEÇÃO COM GUINDASTES",
+    "unit": "travessia",
+    "category": "Lançamento de Cabos",
+    "productivity_per_day": 0.09090909090909091,
+    "default_quantity": 0.0,
+    "quantity_formula": "L21"
+  },
+  {
+    "seq": 83,
+    "code": "L22",
+    "description": "TRAVESSIAS - MÉTODO \"CARRIER\" - Drone/Aramida",
+    "unit": "travessia",
+    "category": "Lançamento de Cabos",
+    "productivity_per_day": 0.09090909090909091,
+    "default_quantity": 3.0,
+    "quantity_formula": "L22"
+  },
+  {
+    "seq": 84,
+    "code": "L23",
+    "description": "EQUIPE DE SECCIONAMENTO DE LT´S",
+    "unit": "unid",
+    "category": "Lançamento de Cabos",
+    "productivity_per_day": 0.2,
+    "default_quantity": 1.0,
+    "quantity_formula": "L23"
+  },
+  {
+    "seq": 85,
+    "code": "L24",
+    "description": "RETENSIONAMENTO DE ESTAIS",
+    "unit": "torre",
+    "category": "Lançamento de Cabos",
+    "productivity_per_day": 4.0,
+    "default_quantity": 431.0,
+    "quantity_formula": "L24"
+  },
+  {
+    "seq": 86,
+    "code": "L25",
+    "description": "REVISÃO FINAL AÉREA E INSTALAÇÃO DE PLACAS",
+    "unit": "km",
+    "category": "Lançamento de Cabos",
+    "productivity_per_day": 2.0,
+    "default_quantity": 284.0,
+    "quantity_formula": "L25"
+  },
+  {
+    "seq": 87,
+    "code": "L26",
+    "description": "CORTE SELETIVO",
+    "unit": "arvore",
+    "category": "Lançamento de Cabos",
+    "productivity_per_day": 5.0,
+    "default_quantity": 568.0,
+    "quantity_formula": "L26"
+  },
+  {
+    "seq": 88,
+    "code": "F1",
+    "description": "RETIRADA DE MADEIRA E REVISÃO FINAL DE SOLO (PRAD)",
+    "unit": "km",
+    "category": "Serviços Finais",
+    "productivity_per_day": 2.0,
+    "default_quantity": 284.0,
+    "quantity_formula": "F1"
+  },
+  {
+    "seq": 89,
+    "code": "F2",
+    "description": "EQUIPE DE APOIO AO COMISSIONAMENTO - ENTREGA FINAL",
+    "unit": "km",
+    "category": "Serviços Finais",
+    "productivity_per_day": 2.0,
+    "default_quantity": 284.0,
+    "quantity_formula": "F2"
+  },
+  {
+    "seq": 90,
+    "code": "F3",
+    "description": "ERRADICAÇÃO DE CANAVIAL",
+    "unit": "ha",
+    "category": "Serviços Finais",
+    "productivity_per_day": 2.0,
+    "default_quantity": 0.0,
+    "quantity_formula": "F3"
+  },
+  {
+    "seq": 91,
+    "code": "F4",
+    "description": "ERRADICAÇÃO DE EUCALÍPTO / SERINGUEIRA",
+    "unit": "ha",
+    "category": "Serviços Finais",
+    "productivity_per_day": 0.4,
+    "default_quantity": 0.0,
+    "quantity_formula": "F4"
+  },
+  {
+    "seq": 92,
+    "code": "F5",
+    "description": "INSTALAÇÃO DE DEFENSAS DE CONCRETO",
+    "unit": "torre",
+    "category": "Serviços Finais",
+    "productivity_per_day": 4.0,
+    "default_quantity": 431.0,
+    "quantity_formula": "F5"
+  },
+  {
+    "seq": 93,
+    "code": "O1",
+    "description": "LANÇAMENTO DE PILOTO / IÇAM. DE CADEIAS COM DRONE - AÉREO",
+    "unit": "km",
+    "category": "Outros",
+    "productivity_per_day": 1.0,
+    "default_quantity": 75.06,
+    "quantity_formula": "O1"
+  },
+  {
+    "seq": 94,
+    "code": "O2",
+    "description": "FORNECIMENTO DE GRAMPO U PARA FUNDAÇÃO DOS ESTAIS",
+    "unit": "un",
+    "category": "Outros",
+    "productivity_per_day": 0.0,
+    "default_quantity": 0.0,
+    "quantity_formula": "O2"
+  },
+  {
+    "seq": 95,
+    "code": "O3",
+    "description": "APOIO LOGÍSTICO",
+    "unit": "mês",
+    "category": "Outros",
+    "productivity_per_day": 0.045454545454545456,
+    "default_quantity": 15.068925100057172,
+    "quantity_formula": "O3"
+  },
+  {
+    "seq": 96,
+    "code": "O4",
+    "description": "APOIO REGIÃO ACIDENTADA",
+    "unit": "mês",
+    "category": "Outros",
+    "productivity_per_day": 0.045454545454545456,
+    "default_quantity": 0.0,
+    "quantity_formula": "O4"
+  },
+  {
+    "seq": 97,
+    "code": "O5",
+    "description": "CORTE E ERRADICAÇÃO",
+    "unit": "ha",
+    "category": "Outros",
+    "productivity_per_day": 0.18,
+    "default_quantity": 0.0,
+    "quantity_formula": "O5"
+  }
+]

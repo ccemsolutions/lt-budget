@@ -1,0 +1,32 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(docker compose:*)",
+      "Bash(open -a OrbStack)",
+      "Bash(curl -s http://localhost:8001/api/v1/health)",
+      "Bash(curl -s http://localhost:5173)",
+      "Bash(curl -s -X POST http://localhost:8001/api/v1/auth/register -H 'Content-Type: application/json' -d '{\"company_name\": \"Empresa Teste Ltda\", \"cnpj\": \"12.345.678/0001-99\", \"email\": \"teste@empresa.com\", \"password\": \"Senha@123\", \"full_name\": \"Usuário Teste\"}')",
+      "Bash(curl -s -X POST http://localhost:8001/api/v1/auth/login -H 'Content-Type: application/json' -d '{\"email\": \"teste@empresa.com\", \"password\": \"Senha@123\"}')",
+      "Bash(curl -s -w '\\\\nHTTP_STATUS:%{http_code}' -X POST http://localhost:8001/api/v1/projects -H 'Content-Type: application/json' -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjN2ZkYTcwNi0wOGVhLTRiNDgtYmM1OS05MmViYjI5MjFjMjEiLCJleHAiOjE3NzU1Njc3MTEsInR5cGUiOiJhY2Nlc3MiLCJjb21wYW55X2lkIjoiNjhhMjNmOGYtMTU5Yi00ZGY4LWFlZjctMTEwZGM3OTEwNDE2In0.Fuw7I7uv_gMHrWOkdtkP0JrcM8YNhFiWbBdyhpZsdLI' -d '{\"name\": \"LT 500kV Teste\", \"voltage_kv\": 500, \"line_length_km\": 150, \"circuit_type\": \"simple\"}')",
+      "Bash(curl -s -w '\\\\nHTTP_STATUS:%{http_code}' http://localhost:8001/api/v1/projects -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjN2ZkYTcwNi0wOGVhLTRiNDgtYmM1OS05MmViYjI5MjFjMjEiLCJleHAiOjE3NzU1Njc3MTEsInR5cGUiOiJhY2Nlc3MiLCJjb21wYW55X2lkIjoiNjhhMjNmOGYtMTU5Yi00ZGY4LWFlZjctMTEwZGM3OTEwNDE2In0.Fuw7I7uv_gMHrWOkdtkP0JrcM8YNhFiWbBdyhpZsdLI')",
+      "Bash(curl -s -w '\\\\nHTTP_STATUS:%{http_code}' http://localhost:8001/api/v1/projects/7c1214c4-5659-4777-a4cc-ffad5dc12305/inputs -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjN2ZkYTcwNi0wOGVhLTRiNDgtYmM1OS05MmViYjI5MjFjMjEiLCJleHAiOjE3NzU1Njc3MTEsInR5cGUiOiJhY2Nlc3MiLCJjb21wYW55X2lkIjoiNjhhMjNmOGYtMTU5Yi00ZGY4LWFlZjctMTEwZGM3OTEwNDE2In0.Fuw7I7uv_gMHrWOkdtkP0JrcM8YNhFiWbBdyhpZsdLI')",
+      "Bash(curl -s -w '\\\\nHTTP_STATUS:%{http_code}' -X POST http://localhost:8001/api/v1/projects/7c1214c4-5659-4777-a4cc-ffad5dc12305/budgets -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjN2ZkYTcwNi0wOGVhLTRiNDgtYmM1OS05MmViYjI5MjFjMjEiLCJleHAiOjE3NzU1Njc3MTEsInR5cGUiOiJhY2Nlc3MiLCJjb21wYW55X2lkIjoiNjhhMjNmOGYtMTU5Yi00ZGY4LWFlZjctMTEwZGM3OTEwNDE2In0.Fuw7I7uv_gMHrWOkdtkP0JrcM8YNhFiWbBdyhpZsdLI')",
+      "Bash(curl -s -w '\\\\nHTTP_STATUS:%{http_code}' -X POST http://localhost:8001/api/v1/projects/7c1214c4-5659-4777-a4cc-ffad5dc12305/budgets -H 'Content-Type: application/json' -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjN2ZkYTcwNi0wOGVhLTRiNDgtYmM1OS05MmViYjI5MjFjMjEiLCJleHAiOjE3NzU1Njc3MTEsInR5cGUiOiJhY2Nlc3MiLCJjb21wYW55X2lkIjoiNjhhMjNmOGYtMTU5Yi00ZGY4LWFlZjctMTEwZGM3OTEwNDE2In0.Fuw7I7uv_gMHrWOkdtkP0JrcM8YNhFiWbBdyhpZsdLI' -d '{}')",
+      "Bash(docker cp:*)",
+      "Bash(docker restart:*)",
+      "Bash(curl -s -w '\\\\nHTTP_STATUS:%{http_code}' http://localhost:8001/api/v1/budgets/dad05d1d-8667-4f8f-bf22-463c1e0d2d31/summary -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjN2ZkYTcwNi0wOGVhLTRiNDgtYmM1OS05MmViYjI5MjFjMjEiLCJleHAiOjE3NzU1Njc3MTEsInR5cGUiOiJhY2Nlc3MiLCJjb21wYW55X2lkIjoiNjhhMjNmOGYtMTU5Yi00ZGY4LWFlZjctMTEwZGM3OTEwNDE2In0.Fuw7I7uv_gMHrWOkdtkP0JrcM8YNhFiWbBdyhpZsdLI')",
+      "Bash(python3 -c ':*)",
+      "Bash(curl -s -o /tmp/report_test.pdf -w 'HTTP Status: %{http_code}\\\\nContent-Type: %{content_type}\\\\nSize: %{size_download} bytes' http://localhost:8001/api/v1/reports/dad05d1d-8667-4f8f-bf22-463c1e0d2d31/pdf -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjN2ZkYTcwNi0wOGVhLTRiNDgtYmM1OS05MmViYjI5MjFjMjEiLCJleHAiOjE3NzU1Njc3MTEsInR5cGUiOiJhY2Nlc3MiLCJjb21wYW55X2lkIjoiNjhhMjNmOGYtMTU5Yi00ZGY4LWFlZjctMTEwZGM3OTEwNDE2In0.Fuw7I7uv_gMHrWOkdtkP0JrcM8YNhFiWbBdyhpZsdLI')",
+      "Read(//tmp/**)",
+      "Bash(curl -sv http://localhost:8001/api/v1/reports/dad05d1d-8667-4f8f-bf22-463c1e0d2d31/pdf -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjN2ZkYTcwNi0wOGVhLTRiNDgtYmM1OS05MmViYjI5MjFjMjEiLCJleHAiOjE3NzU1Njc3MTEsInR5cGUiOiJhY2Nlc3MiLCJjb21wYW55X2lkIjoiNjhhMjNmOGYtMTU5Yi00ZGY4LWFlZjctMTEwZGM3OTEwNDE2In0.Fuw7I7uv_gMHrWOkdtkP0JrcM8YNhFiWbBdyhpZsdLI')",
+      "Read(//private/tmp/**)",
+      "Bash(curl -s -w '\\\\nHTTP_STATUS:%{http_code}' -X POST http://localhost:8001/api/v1/auth/refresh -H 'Content-Type: application/json' -d '{\"refresh_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjN2ZkYTcwNi0wOGVhLTRiNDgtYmM1OS05MmViYjI5MjFjMjEiLCJleHAiOjE3NzYxNjg5MTEsInR5cGUiOiJyZWZyZXNoIn0.LRVyRgGOOEGd-zoiHy8HslhTqEFEAnO4U31XdGnDCfk\"}')",
+      "Bash(curl -s -w '\\\\nHTTP_STATUS:%{http_code}' -X DELETE http://localhost:8001/api/v1/projects/7c1214c4-5659-4777-a4cc-ffad5dc12305 -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjN2ZkYTcwNi0wOGVhLTRiNDgtYmM1OS05MmViYjI5MjFjMjEiLCJleHAiOjE3NzU1Njc3MTEsInR5cGUiOiJhY2Nlc3MiLCJjb21wYW55X2lkIjoiNjhhMjNmOGYtMTU5Yi00ZGY4LWFlZjctMTEwZGM3OTEwNDE2In0.Fuw7I7uv_gMHrWOkdtkP0JrcM8YNhFiWbBdyhpZsdLI')",
+      "Bash(curl -s -w '\\\\nHTTP_STATUS:%{http_code}' http://localhost:8001/api/v1/projects/7c1214c4-5659-4777-a4cc-ffad5dc12305 -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjN2ZkYTcwNi0wOGVhLTRiNDgtYmM1OS05MmViYjI5MjFjMjEiLCJleHAiOjE3NzU1Njc3MTEsInR5cGUiOiJhY2Nlc3MiLCJjb21wYW55X2lkIjoiNjhhMjNmOGYtMTU5Yi00ZGY4LWFlZjctMTEwZGM3OTEwNDE2In0.Fuw7I7uv_gMHrWOkdtkP0JrcM8YNhFiWbBdyhpZsdLI')",
+      "Bash(docker exec:*)",
+      "Bash(curl -s http://localhost:5173/src/main.tsx)",
+      "Bash(curl -s http://localhost:5173/api/v1/health)",
+      "Bash(curl -s http://localhost:8001/api/v1/auth/me -H \"Authorization: Bearer invalid\")"
+    ]
+  }
+}

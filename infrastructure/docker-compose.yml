@@ -1,0 +1,50 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ltbudget
+      POSTGRES_USER: ltbudget
+      POSTGRES_PASSWORD: ltbudget_dev
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ltbudget"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: ../backend
+    environment:
+      DATABASE_URL: postgresql+asyncpg://ltbudget:ltbudget_dev@db:5432/ltbudget
+      JWT_SECRET: dev-secret-change-in-production
+      JWT_ALGORITHM: HS256
+      ACCESS_TOKEN_EXPIRE_MINUTES: 60
+      REFRESH_TOKEN_EXPIRE_DAYS: 7
+      ENVIRONMENT: development
+    ports:
+      - "8001:8000"
+    volumes:
+      - ../backend:/app
+    depends_on:
+      db:
+        condition: service_healthy
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+  frontend:
+    build: ../frontend
+    environment:
+      VITE_API_URL: http://backend:8000
+    ports:
+      - "5173:5173"
+    volumes:
+      - ../frontend:/app
+      - /app/node_modules
+    command: npm run dev -- --host 0.0.0.0
+
+volumes:
+  postgres_data:
