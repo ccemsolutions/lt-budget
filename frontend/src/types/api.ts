@@ -109,6 +109,83 @@ export interface BudgetSummaryRead {
   pct_of_total: number
 }
 
+// ─── Histograms ───────────────────────────────────────────────────────────────
+
+export interface WorkforceMonthEntry {
+  month: number
+  indireto: number
+  preliminares: number
+  civis: number
+  aterramento: number
+  montagem: number
+  lancamento: number
+  finais: number
+  outros: number
+  total: number
+}
+
+export interface WorkforceByRoleEntry {
+  month: number
+  ajudantes: number
+  montadores: number
+  encarregados: number
+  motoristas: number
+  operadores: number
+  topografos: number
+  outros_diretos: number
+  indiretos: number
+  total: number
+}
+
+export interface EquipmentMonthEntry {
+  month: number
+  veiculos_leves: number
+  caminhoes: number
+  guindastes_munck: number
+  maquinas_terra: number
+  equip_lancamento: number
+  perfuracao: number
+  outros: number
+  total: number
+}
+
+export interface PhysicalProgressEntry {
+  month: number
+  preliminares: number
+  civis: number
+  aterramento: number
+  montagem: number
+  lancamento: number
+  finais: number
+  outros: number
+  monthly_total: number
+  cumulative_total: number
+}
+
+export interface FinancialCurveEntry {
+  month: number
+  monthly_mo: number
+  monthly_vem: number
+  monthly_mat: number
+  monthly_sub: number
+  monthly_fd: number
+  monthly_total: number
+  cumulative_total: number
+}
+
+export interface HistogramData {
+  total_months: number
+  workforce_by_phase: WorkforceMonthEntry[]
+  workforce_by_role: WorkforceByRoleEntry[]
+  equipment_by_type: EquipmentMonthEntry[]
+  physical_progress: PhysicalProgressEntry[]
+  financial_curve: FinancialCurveEntry[]
+  peak_workforce: number
+  peak_workforce_month: number
+  peak_equipment: number
+  peak_equipment_month: number
+}
+
 export interface BudgetActivityRead {
   id: string
   activity_code: string

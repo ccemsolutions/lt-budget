@@ -9,6 +9,8 @@ from app.models.tenant import User
 from app.models.project import Budget, BudgetActivity, BudgetSummary
 from app.models.static_data import ActivityCatalog
 from app.schemas.project import BudgetRead, BudgetActivityRead, BudgetSummaryRead
+from app.schemas.histogram import HistogramData
+from app.services.histogram_service import compute_histograms
 from app.api.deps import get_current_user
 
 router = APIRouter()
@@ -95,6 +97,18 @@ async def get_budget_activities(
         )
         for ba, ac in rows
     ]
+
+
+@router.get("/{budget_id}/histograms", response_model=HistogramData)
+async def get_budget_histograms(
+    budget_id: uuid.UUID,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    budget = await _get_budget_or_404(db, budget_id, current_user)
+    if budget.status != "ready":
+        raise HTTPException(status_code=400, detail=f"Orçamento ainda não calculado (status: {budget.status})")
+    return await compute_histograms(budget_id, db)
 
 
 async def _get_budget_or_404(db: AsyncSession, budget_id: uuid.UUID, user: User) -> Budget:

@@ -39,7 +39,10 @@
       "Bash(curl -sf -o /dev/null -w \"Frontend: HTTP %{http_code}\\\\n\" http://159.69.154.122/)",
       "Bash(ssh-keygen -t ed25519 -C \"github-actions-lt-budget\" -f /tmp/lt-budget-deploy -N \"\")",
       "Bash(brew install:*)",
-      "Bash(gh auth:*)"
+      "Bash(gh auth:*)",
+      "Read(//Users/rlessa/Empresas/Abud Automações/**)",
+      "Bash(pip3 install:*)",
+      "Bash(python3)"
     ]
   }
 }
