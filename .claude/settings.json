@@ -34,7 +34,12 @@
       "Bash(ssh -o StrictHostKeyChecking=no root@159.69.154.122 \"curl -sf http://localhost/ && echo 'nginx local OK'\")",
       "Bash(curl -sf --connect-timeout 5 http://159.69.154.122/)",
       "Bash(dig +short lt-budget.errevitalize.com.br @8.8.8.8)",
-      "Bash(dig +short lt-budget.errevitalize.com.br @1.1.1.1)"
+      "Bash(dig +short lt-budget.errevitalize.com.br @1.1.1.1)",
+      "Bash(curl -sf http://159.69.154.122/api/v1/health)",
+      "Bash(curl -sf -o /dev/null -w \"Frontend: HTTP %{http_code}\\\\n\" http://159.69.154.122/)",
+      "Bash(ssh-keygen -t ed25519 -C \"github-actions-lt-budget\" -f /tmp/lt-budget-deploy -N \"\")",
+      "Bash(brew install:*)",
+      "Bash(gh auth:*)"
     ]
   }
 }
