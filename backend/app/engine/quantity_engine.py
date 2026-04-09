@@ -169,9 +169,9 @@ def _c23(p: ProjectInputs) -> float:
 def _c24(p: ProjectInputs) -> float:
     return p.engineering.concrete_premoldado_m3 / 0.33 if p.engineering.concrete_premoldado_m3 else 0
 
-@register("C25")  # Nivelamento stubs tubulão (pé)
+@register("C25")  # Nivelamento stubs tubulão (pé) apenas para torres autoportantes
 def _c25(p: ProjectInputs) -> float:
-    return float(p.engineering.guyed_towers) * 4 * 0.87
+    return float(p.engineering.self_supporting_towers) * 4
 
 @register("C26")  # Nivelamento stubs sapata (pé)
 def _c26(p: ProjectInputs) -> float:
