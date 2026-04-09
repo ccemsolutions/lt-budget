@@ -40,25 +40,49 @@ class SalaryParams:
 
 @dataclass
 class EngineeringData:
+    # Estruturas
     guyed_towers: int = 0
     self_supporting_towers: int = 0
+    ancoragens: int = 0
+    peso_torres_estaiadas_ton: float = 0
+    peso_torres_ap_ton: float = 0
+    montagem_manual_estaiada_pct: float = 10
+    montagem_manual_ap_pct: float = 10
+    # Escavação
     excavation_tubulao_m3: float = 0
     excavation_mecanizada_m3: float = 0
     excavation_solo_fraco_m3: float = 0
     excavation_manual_m3: float = 0
     excavation_rocha_m3: float = 0
     excavation_moledo_m3: float = 0
+    # Reaterro
+    reaterro_normal_m3: float = 0
+    reaterro_solo_cimento_m3: float = 0
+    reaterro_solo_emprestimo_m3: float = 0
+    # Concreto
     concrete_usinado_m3: float = 0
     concrete_canteiro_m3: float = 0
     concrete_manual_m3: float = 0
     concrete_premoldado_m3: float = 0
+    concrete_premoldado_pecas: int = 0
+    # Aço
     rebar_ton: float = 0
+    chumbadores_ton: float = 0
+    grampo_u_un: int = 0
+    tubulao_tr: int = 0
+    # Fundações / Diversos
+    chumbadores_m: float = 0
+    estai_ancorado_rocha_m: float = 0
+    viga_l_m: float = 0
     estacas_aco_m: float = 0
     estacas_concreto_m: float = 0
+    estacas_escavadas_m: float = 0
     estacas_raiz_m: float = 0
     helicoidais_m: float = 0
-    chumbadores_m: float = 0
     contrapeso_m: float = 0
+    perfuracao_m: float = 0
+    defensas_concreto_tr: int = 0
+    poco_profundo_m: float = 0
 
 
 @dataclass

@@ -28,25 +28,54 @@ class ProjectRead(BaseModel):
 # ─── Project Inputs ────────────────────────────────────────────────────────────
 
 class EngineeringInputs(BaseModel):
-    guyed_towers: int = 0
-    self_supporting_towers: int = 0
-    excavation_tubulao_m3: float = 0
-    excavation_mecanizada_m3: float = 0
-    excavation_solo_fraco_m3: float = 0
-    excavation_manual_m3: float = 0
-    excavation_rocha_m3: float = 0
-    excavation_moledo_m3: float = 0
-    concrete_usinado_m3: float = 0
-    concrete_canteiro_m3: float = 0
-    concrete_manual_m3: float = 0
-    concrete_premoldado_m3: float = 0
-    rebar_ton: float = 0
-    estacas_aco_m: float = 0
-    estacas_concreto_m: float = 0
-    estacas_raiz_m: float = 0
-    helicoidais_m: float = 0
-    chumbadores_m: float = 0
-    contrapeso_m: float = 0
+    # ── Estruturas ─────────────────────────────────────────────────────────
+    guyed_towers: int = 0                      # Nº Torres Estaiadas
+    self_supporting_towers: int = 0            # Nº Torres AP
+    ancoragens: int = 0                        # Nº de Ancoragens
+    peso_torres_estaiadas_ton: float = 0       # Peso Torres Estaiadas (ton)
+    peso_torres_ap_ton: float = 0             # Peso Torres AP (ton)
+    montagem_manual_estaiada_pct: float = 10   # % Montagem Manual Estaiada
+    montagem_manual_ap_pct: float = 10         # % Montagem Manual AP
+
+    # ── Escavação ─────────────────────────────────────────────────────────
+    excavation_tubulao_m3: float = 0           # Tubulão com Perfuratriz (m³)
+    excavation_mecanizada_m3: float = 0        # Mecanizada com Retro (m³)
+    excavation_solo_fraco_m3: float = 0        # Solo Fraco / Areia / Brejo (m³)
+    excavation_manual_m3: float = 0            # Manual com Martelete (m³)
+    excavation_rocha_m3: float = 0             # Rocha com Explosivos (m³)
+    excavation_moledo_m3: float = 0            # Moledo (m³) — uso interno
+
+    # ── Reaterro ──────────────────────────────────────────────────────────
+    reaterro_normal_m3: float = 0              # Reaterro Normal (m³)
+    reaterro_solo_cimento_m3: float = 0        # Reaterro Solo-Cimento (m³)
+    reaterro_solo_emprestimo_m3: float = 0     # Reaterro Solo Empréstimo (m³)
+
+    # ── Concreto ──────────────────────────────────────────────────────────
+    concrete_usinado_m3: float = 0             # Concreto Usinado (m³)
+    concrete_canteiro_m3: float = 0            # Concreto Usinado no Canteiro (m³)
+    concrete_manual_m3: float = 0             # Concreto Manual (m³)
+    concrete_premoldado_m3: float = 0          # Pré-Moldado Pátio Volume (m³)
+    concrete_premoldado_pecas: int = 0         # Pré-Moldado Pátio (peças)
+
+    # ── Aço ───────────────────────────────────────────────────────────────
+    rebar_ton: float = 0                       # Aço CA-50 (ton)
+    chumbadores_ton: float = 0                 # Chumbadores — peso aço (ton)
+    grampo_u_un: int = 0                       # Grampo U (un)
+    tubulao_tr: int = 0                        # Tubulão (tr)
+
+    # ── Fundações Especiais / Diversos ────────────────────────────────────
+    chumbadores_m: float = 0                   # Ancoragem em Rocha / Chumbador (m)
+    estai_ancorado_rocha_m: float = 0          # Estai Ancorado em Rocha (m)
+    viga_l_m: float = 0                        # Viga L INCOTEP (m)
+    estacas_aco_m: float = 0                   # Estacas Aço (m)
+    estacas_concreto_m: float = 0              # Estacas de Concreto (m)
+    estacas_escavadas_m: float = 0             # Estacas Escavadas (m)
+    estacas_raiz_m: float = 0                  # Estacas Raiz (m)
+    helicoidais_m: float = 0                   # Estacas Helicoidais (m)
+    contrapeso_m: float = 0                    # Cabo Contrapeso (m)
+    perfuracao_m: float = 0                    # Perfuração 50-100mm (m)
+    defensas_concreto_tr: int = 0              # Defensas de Concreto (tr)
+    poco_profundo_m: float = 0                 # Poço Profundo (m)
 
 
 class TerrainInputs(BaseModel):
@@ -54,14 +83,6 @@ class TerrainInputs(BaseModel):
     undulating_pct: float = 0
     steep_pct: float = 0
     mountainous_pct: float = 0
-
-    @model_validator(mode="after")
-    def sum_must_be_100(self) -> "TerrainInputs":
-        total = self.flat_pct + self.undulating_pct + self.steep_pct + self.mountainous_pct
-        # Allow zero (empty form) or must sum to 100
-        if total > 0 and abs(total - 100) > 0.5:
-            raise ValueError(f"A soma dos percentuais de terreno deve ser 100% (atual: {total:.1f}%)")
-        return self
 
 
 class VegetationInputs(BaseModel):

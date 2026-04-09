@@ -43,9 +43,8 @@ export default function PercentSliderGroup({ title, fields }: Props) {
                   {...register(field.name as any, { valueAsNumber: true })}
                   type="number"
                   min="0"
-                  max="100"
-                  step="0.5"
-                  className="w-20 border rounded px-2 py-1 text-sm text-right focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  step="0.01"
+                  className="w-24 border rounded px-2 py-1 text-sm text-right focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 <span className="text-sm text-gray-500">%</span>
               </div>
@@ -54,8 +53,8 @@ export default function PercentSliderGroup({ title, fields }: Props) {
               type="range"
               min="0"
               max="100"
-              step="0.5"
-              value={Number(values[i]) || 0}
+              step="0.01"
+              value={Math.min(Number(values[i]) || 0, 100)}
               onChange={(e) => setValue(field.name as any, Number(e.target.value))}
               className="w-full accent-blue-600"
             />

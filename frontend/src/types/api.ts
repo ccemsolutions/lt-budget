@@ -29,25 +29,49 @@ export interface ProjectInputsWrite {
   total_towers: number
   state: string
   engineering: {
+    // Estruturas
     guyed_towers: number
     self_supporting_towers: number
+    ancoragens: number
+    peso_torres_estaiadas_ton: number
+    peso_torres_ap_ton: number
+    montagem_manual_estaiada_pct: number
+    montagem_manual_ap_pct: number
+    // Escavação
     excavation_tubulao_m3: number
     excavation_mecanizada_m3: number
     excavation_solo_fraco_m3: number
     excavation_manual_m3: number
     excavation_rocha_m3: number
     excavation_moledo_m3: number
+    // Reaterro
+    reaterro_normal_m3: number
+    reaterro_solo_cimento_m3: number
+    reaterro_solo_emprestimo_m3: number
+    // Concreto
     concrete_usinado_m3: number
     concrete_canteiro_m3: number
     concrete_manual_m3: number
     concrete_premoldado_m3: number
+    concrete_premoldado_pecas: number
+    // Aço
     rebar_ton: number
+    chumbadores_ton: number
+    grampo_u_un: number
+    tubulao_tr: number
+    // Fundações / Diversos
+    chumbadores_m: number
+    estai_ancorado_rocha_m: number
+    viga_l_m: number
     estacas_aco_m: number
     estacas_concreto_m: number
+    estacas_escavadas_m: number
     estacas_raiz_m: number
     helicoidais_m: number
-    chumbadores_m: number
     contrapeso_m: number
+    perfuracao_m: number
+    defensas_concreto_tr: number
+    poco_profundo_m: number
   }
   terrain: {
     flat_pct: number
