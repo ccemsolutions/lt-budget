@@ -5,6 +5,11 @@ from typing import Any
 from pydantic import BaseModel, field_validator, model_validator
 
 
+def _coerce_none_to_zero(cls, v):
+    """Accept null/None for numeric fields and treat as 0."""
+    return v if v is not None else 0
+
+
 # ─── Project ───────────────────────────────────────────────────────────────────
 
 class ProjectCreate(BaseModel):
@@ -191,6 +196,36 @@ class ProjectInputsWrite(BaseModel):
     salary_params: SalaryParamsOverride = SalaryParamsOverride()
     indirect_config: IndirectCostsConfig = IndirectCostsConfig()
     financial_params: FinancialParamsConfig = FinancialParamsConfig()
+
+    @model_validator(mode='before')
+    @classmethod
+    def _coerce_nulls(cls, data: Any) -> Any:
+        """Replace null/None with 0 for numeric sub-fields (JS NaN serializes as null)."""
+        if not isinstance(data, dict):
+            return data
+
+        # Keys that are sub-dicts of numeric fields — replace None values with 0
+        numeric_sections = {'engineering', 'terrain', 'vegetation', 'access_roads', 'crossings', 'salary_params'}
+
+        def null_to_zero(v: Any) -> Any:
+            """Recursively convert None to 0 for scalar values inside dicts."""
+            if isinstance(v, dict):
+                return {k: null_to_zero(val) for k, val in v.items()}
+            if isinstance(v, list):
+                return [null_to_zero(i) for i in v]
+            if v is None:
+                return 0
+            return v
+
+        result = {}
+        for k, v in data.items():
+            if k in numeric_sections and isinstance(v, dict):
+                result[k] = null_to_zero(v)
+            elif k in ('line_length_km', 'total_towers') and v is None:
+                result[k] = 0
+            else:
+                result[k] = v
+        return result
 
 
 class ProjectInputsRead(BaseModel):

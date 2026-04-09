@@ -169,7 +169,18 @@ export default function InputsPage({ projectId, onSaved }: Props) {
     },
   })
 
-  const onSubmit = methods.handleSubmit((data) => saveMutation.mutate(data))
+  const onSubmit = methods.handleSubmit((data) => saveMutation.mutate(sanitizeNumbers(data)))
+
+  function sanitizeNumbers(obj: any): any {
+    if (Array.isArray(obj)) return obj.map(sanitizeNumbers)
+    if (obj !== null && typeof obj === 'object') {
+      return Object.fromEntries(
+        Object.entries(obj).map(([k, v]) => [k, sanitizeNumbers(v)])
+      )
+    }
+    if (typeof obj === 'number' && isNaN(obj)) return 0
+    return obj
+  }
 
   const canPrev = step > 0
   const canNext = step < STEPS.length - 1
