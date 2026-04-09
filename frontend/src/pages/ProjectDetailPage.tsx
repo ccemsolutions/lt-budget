@@ -4,9 +4,10 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { projectsApi, budgetsApi } from '../api/projects'
 import InputsPage from './InputsPage'
 import BudgetResultsPage from './BudgetResultsPage'
+import SchedulePage from './SchedulePage'
 import type { BudgetRead } from '../types/api'
 
-type Tab = 'inputs' | 'budgets' | 'report'
+type Tab = 'inputs' | 'schedule' | 'budgets'
 
 export default function ProjectDetailPage() {
   const { id } = useParams<{ id: string }>()
@@ -67,8 +68,9 @@ export default function ProjectDetailPage() {
   }
 
   const tabs: { key: Tab; label: string }[] = [
-    { key: 'inputs', label: 'Entradas' },
-    { key: 'budgets', label: `Orçamento${budgets.length > 0 ? ` (${budgets.length})` : ''}` },
+    { key: 'inputs',   label: 'Entradas' },
+    { key: 'schedule', label: 'Cronograma' },
+    { key: 'budgets',  label: `Orçamento${budgets.length > 0 ? ` (${budgets.length})` : ''}` },
   ]
 
   return (
@@ -125,6 +127,10 @@ export default function ProjectDetailPage() {
       <main className="max-w-7xl mx-auto px-6 py-6">
         {tab === 'inputs' && (
           <InputsPage projectId={id!} onSaved={() => {}} />
+        )}
+
+        {tab === 'schedule' && (
+          <SchedulePage projectId={id!} />
         )}
 
         {tab === 'budgets' && (
