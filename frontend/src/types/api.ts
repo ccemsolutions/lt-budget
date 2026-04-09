@@ -331,6 +331,18 @@ export interface BudgetActivityRead {
   manhours: number
 }
 
+// ── Schedule preview ────────────────────────────────────────────────────────
+
+export interface ActivityScheduleRead {
+  code: string
+  description: string
+  category: string
+  unit: string
+  quantity: number
+  duration_months: number
+  start_month: number
+}
+
 // ── Catalog types ──────────────────────────────────────────────────────────
 
 export interface LaborRoleRef {

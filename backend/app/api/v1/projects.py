@@ -13,8 +13,25 @@ from app.schemas.project import (
     BudgetCreate, BudgetRead,
 )
 from app.api.deps import get_current_user
+from app.services.schedule_service import compute_schedule_preview
+from pydantic import BaseModel as _BaseModel
 
 router = APIRouter()
+
+
+class SchedulePreviewRequest(_BaseModel):
+    teams_by_activity: dict[str, int] = {}
+    productivity_factors: dict[str, float] = {}
+
+
+class ActivityScheduleRead(_BaseModel):
+    code: str
+    description: str
+    category: str
+    unit: str
+    quantity: float
+    duration_months: float
+    start_month: int
 
 
 @router.get("", response_model=list[ProjectRead])
@@ -195,6 +212,30 @@ async def trigger_budget(
     background_tasks.add_task(run_budget_calculation, budget.id)
 
     return budget
+
+
+@router.post("/{project_id}/schedule-preview", response_model=list[ActivityScheduleRead])
+async def schedule_preview(
+    project_id: uuid.UUID,
+    body: SchedulePreviewRequest,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    await _get_project_or_404(db, project_id, current_user)
+    items = await compute_schedule_preview(
+        project_id=project_id,
+        teams_by_activity=body.teams_by_activity,
+        productivity_factors=body.productivity_factors,
+        db=db,
+    )
+    return [
+        ActivityScheduleRead(
+            code=i.code, description=i.description, category=i.category,
+            unit=i.unit, quantity=i.quantity, duration_months=i.duration_months,
+            start_month=i.start_month,
+        )
+        for i in items
+    ]
 
 
 async def _get_project_or_404(db: AsyncSession, project_id: uuid.UUID, user: User) -> Project:

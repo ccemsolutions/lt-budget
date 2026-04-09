@@ -206,7 +206,7 @@ export default function InputsPage({ projectId, onSaved }: Props) {
             />
           )}
           {step === 4 && <AccessRoadsForm />}
-          {step === 5 && <ScheduleForm />}
+          {step === 5 && <ScheduleForm projectId={projectId} />}
           {step === 6 && <IndirectCostsForm />}
           {step === 7 && <FinancialParamsForm />}
         </div>

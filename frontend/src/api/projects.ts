@@ -1,5 +1,5 @@
 import api from './client'
-import type { ProjectRead, ProjectInputsWrite, BudgetRead, BudgetSummaryRead, BudgetActivityRead, HistogramData, FinancialResultRead, CostBreakdownRead, ActivityCatalogRead, LaborRoleRef, EquipmentItemRef, ResourceTemplateWrite } from '../types/api'
+import type { ProjectRead, ProjectInputsWrite, BudgetRead, BudgetSummaryRead, BudgetActivityRead, HistogramData, FinancialResultRead, CostBreakdownRead, ActivityCatalogRead, LaborRoleRef, EquipmentItemRef, ResourceTemplateWrite, ActivityScheduleRead } from '../types/api'
 
 export const projectsApi = {
   list: () => api.get<ProjectRead[]>('/projects').then(r => r.data),
@@ -17,6 +17,11 @@ export const projectsApi = {
     api.get<BudgetRead[]>(`/projects/${id}/budgets`).then(r => r.data),
   triggerBudget: (id: string, label?: string) =>
     api.post<BudgetRead>(`/projects/${id}/budgets`, { label }).then(r => r.data),
+  schedulePreview: (id: string, teams: Record<string, number>, factors: Record<string, number>) =>
+    api.post<ActivityScheduleRead[]>(`/projects/${id}/schedule-preview`, {
+      teams_by_activity: teams,
+      productivity_factors: factors,
+    }).then(r => r.data),
 }
 
 export const budgetsApi = {

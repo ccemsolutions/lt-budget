@@ -1,7 +1,8 @@
+import { useEffect, useRef, useState } from 'react'
 import { useFormContext, useWatch } from 'react-hook-form'
 import { useQuery } from '@tanstack/react-query'
-import { catalogApi } from '../../api/projects'
-import type { ProjectInputsWrite } from '../../types/api'
+import { catalogApi, projectsApi } from '../../api/projects'
+import type { ProjectInputsWrite, ActivityScheduleRead } from '../../types/api'
 
 const PHASES = [
   { key: 'start_month_preliminares', label: 'Preliminares' },
@@ -22,36 +23,76 @@ const CATEGORY_ORDER = [
   'Outros',
 ]
 
-export default function ScheduleForm() {
+const CATEGORY_COLOR: Record<string, string> = {
+  'Serviços Preliminares': 'bg-green-400',
+  'Obras Civis':           'bg-yellow-400',
+  'Aterramento':           'bg-sky-400',
+  'Montagem de Estruturas':'bg-blue-500',
+  'Lançamento de Cabos':   'bg-pink-400',
+  'Serviços Finais':       'bg-teal-400',
+  'Outros':                'bg-gray-400',
+}
+
+const CATEGORY_TEXT: Record<string, string> = {
+  'Serviços Preliminares': 'text-green-800',
+  'Obras Civis':           'text-yellow-800',
+  'Aterramento':           'text-sky-800',
+  'Montagem de Estruturas':'text-blue-900',
+  'Lançamento de Cabos':   'text-pink-800',
+  'Serviços Finais':       'text-teal-800',
+  'Outros':                'text-gray-700',
+}
+
+interface Props {
+  projectId: string
+}
+
+export default function ScheduleForm({ projectId }: Props) {
   const { register, setValue, control } = useFormContext<ProjectInputsWrite>()
 
-  const teamsWatch = useWatch({ control, name: 'schedule.teams_by_activity' }) ?? {}
-  const factorsWatch = useWatch({ control, name: 'schedule.productivity_factors' }) ?? {}
+  const teamsWatch    = useWatch({ control, name: 'schedule.teams_by_activity' })    ?? {}
+  const factorsWatch  = useWatch({ control, name: 'schedule.productivity_factors' }) ?? {}
+  const totalMonths   = useWatch({ control, name: 'schedule.total_duration_months'}) ?? 24
 
-  const { data: activities = [], isLoading } = useQuery({
+  // Debounced preview state
+  const [preview, setPreview]       = useState<ActivityScheduleRead[]>([])
+  const [loadingPrev, setLoadingPrev] = useState(false)
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  // Load catalog (for KPI padrão column)
+  const { data: activities = [], isLoading: loadingCatalog } = useQuery({
     queryKey: ['catalog-activities'],
     queryFn: catalogApi.getActivities,
     staleTime: 5 * 60 * 1000,
   })
+
+  // Fetch preview whenever teams/factors change (debounced 600ms)
+  useEffect(() => {
+    if (!projectId) return
+    if (debounceRef.current) clearTimeout(debounceRef.current)
+    debounceRef.current = setTimeout(async () => {
+      setLoadingPrev(true)
+      try {
+        const items = await projectsApi.schedulePreview(projectId, teamsWatch, factorsWatch)
+        setPreview(items)
+      } catch { /* ignore */ }
+      finally { setLoadingPrev(false) }
+    }, 600)
+    return () => { if (debounceRef.current) clearTimeout(debounceRef.current) }
+  }, [projectId, JSON.stringify(teamsWatch), JSON.stringify(factorsWatch)])
+
+  // Build preview lookup by code
+  const previewMap = Object.fromEntries(preview.map(p => [p.code, p]))
+
+  const getTeams  = (code: string): number => Number(teamsWatch[code]  ?? 1)
+  const getFactor = (code: string): number => Number(factorsWatch[code] ?? 1.0)
 
   const grouped = CATEGORY_ORDER.map(cat => ({
     category: cat,
     items: activities.filter(a => a.category === cat),
   })).filter(g => g.items.length > 0)
 
-  const getTeams = (code: string): number => {
-    const v = teamsWatch[code]
-    return v !== undefined ? Number(v) : 1
-  }
-
-  const getFactor = (code: string): number => {
-    const v = factorsWatch[code]
-    return v !== undefined ? Number(v) : 1.0
-  }
-
-  const getAdotado = (code: string, base: number): string => {
-    return (base * getFactor(code)).toFixed(3)
-  }
+  const months = Array.from({ length: Number(totalMonths) + 1 }, (_, i) => i)  // 0..totalMonths
 
   return (
     <div className="space-y-6">
@@ -77,8 +118,7 @@ export default function ScheduleForm() {
               <label className="block text-xs text-gray-600 mb-1">{phase.label}</label>
               <input
                 {...register(`schedule.${phase.key as keyof ProjectInputsWrite['schedule']}` as any, { valueAsNumber: true })}
-                type="number"
-                min="1"
+                type="number" min="1"
                 className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="1"
               />
@@ -87,94 +127,156 @@ export default function ScheduleForm() {
         </div>
       </div>
 
-      {/* Equipes + KPI por atividade */}
+      {/* Activity table + Gantt */}
       <div>
-        <p className="text-sm font-medium text-gray-700 mb-1">Equipes e KPI de Produtividade por Atividade</p>
+        <div className="flex items-center gap-3 mb-1">
+          <p className="text-sm font-medium text-gray-700">Equipes, KPI e Cronograma por Atividade</p>
+          {loadingPrev && (
+            <span className="text-xs text-gray-400 flex items-center gap-1">
+              <span className="inline-block w-3 h-3 border-2 border-blue-400 border-t-transparent rounded-full animate-spin" />
+              atualizando...
+            </span>
+          )}
+        </div>
         <p className="text-xs text-gray-400 mb-3">
-          Equipes = nº de frentes simultâneas. Fator ajusta a produtividade padrão (1.0 = sem alteração). Células em amarelo indicam ajuste aplicado.
+          Fator ajusta o KPI padrão (1.0 = sem alteração). Células amarelas = ajustado. Barras do Gantt atualizam automaticamente.
         </p>
 
-        {isLoading ? (
+        {loadingCatalog ? (
           <div className="text-sm text-gray-400 py-4">Carregando atividades...</div>
         ) : (
-          <div className="space-y-4">
-            {grouped.map(({ category, items }) => (
-              <div key={category}>
-                <div className="bg-gray-100 px-3 py-1.5 rounded text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1">
-                  {category}
-                </div>
-                <div className="overflow-x-auto">
-                  <table className="w-full text-xs">
-                    <thead>
-                      <tr className="border-b text-left text-gray-500">
-                        <th className="pb-1 pr-2 w-12">Cód.</th>
-                        <th className="pb-1 pr-2">Descrição</th>
-                        <th className="pb-1 pr-2 w-10 text-center">Un.</th>
-                        <th className="pb-1 pr-3 w-24 text-right">KPI Padrão</th>
-                        <th className="pb-1 pr-2 w-20 text-center">Fator</th>
-                        <th className="pb-1 pr-3 w-24 text-right">Adotado</th>
-                        <th className="pb-1 w-20 text-center">Equipes</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {items.map((act) => {
-                        const factor = getFactor(act.code)
-                        const isModified = Math.abs(factor - 1.0) > 0.001
-                        const teams = getTeams(act.code)
-                        const teamsModified = teams !== 1
-                        return (
-                          <tr key={act.code} className="border-b border-gray-50 hover:bg-gray-50">
-                            <td className="py-1 pr-2 font-mono text-blue-600 font-medium">{act.code}</td>
-                            <td className="py-1 pr-2 text-gray-700 max-w-xs truncate" title={act.description}>
-                              {act.description}
-                            </td>
-                            <td className="py-1 pr-2 text-center text-gray-500">{act.unit}</td>
-                            <td className="py-1 pr-3 text-right text-gray-400 font-mono">
-                              {act.productivity_per_day}
-                            </td>
-                            <td className="py-1 pr-2 text-center">
-                              <input
-                                type="number"
-                                step="0.05"
-                                min="0.1"
-                                value={getFactor(act.code)}
-                                onChange={e => setValue(
-                                  `schedule.productivity_factors.${act.code}` as any,
-                                  parseFloat(e.target.value) || 1.0,
-                                  { shouldDirty: true }
-                                )}
-                                className={`w-16 border rounded px-1.5 py-0.5 text-xs text-center focus:outline-none focus:ring-1 focus:ring-blue-400 ${
-                                  isModified ? 'border-amber-400 bg-amber-50 text-amber-800 font-semibold' : 'border-gray-200'
-                                }`}
-                              />
-                            </td>
-                            <td className={`py-1 pr-3 text-right font-mono font-semibold ${isModified ? 'text-amber-700' : 'text-gray-600'}`}>
-                              {getAdotado(act.code, act.productivity_per_day)}
-                            </td>
-                            <td className="py-1 text-center">
-                              <input
-                                type="number"
-                                min="1"
-                                max="99"
-                                value={getTeams(act.code)}
-                                onChange={e => setValue(
-                                  `schedule.teams_by_activity.${act.code}` as any,
-                                  parseInt(e.target.value) || 1,
-                                  { shouldDirty: true }
-                                )}
-                                className={`w-16 border rounded px-1.5 py-0.5 text-xs text-center focus:outline-none focus:ring-1 focus:ring-blue-400 ${
-                                  teamsModified ? 'border-blue-400 bg-blue-50 text-blue-800 font-semibold' : 'border-gray-200'
-                                }`}
-                              />
-                            </td>
-                          </tr>
-                        )
-                      })}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            ))}
+          <div className="overflow-x-auto border rounded-lg">
+            <table className="text-xs border-collapse min-w-full">
+              <thead className="bg-gray-50 sticky top-0 z-10">
+                <tr>
+                  {/* Fixed left columns */}
+                  <th className="border-r border-b px-2 py-2 text-left font-semibold text-gray-600 w-12 bg-gray-50">Cód.</th>
+                  <th className="border-r border-b px-2 py-2 text-left font-semibold text-gray-600 bg-gray-50 min-w-48">Descrição</th>
+                  <th className="border-r border-b px-2 py-2 text-center font-semibold text-gray-600 w-10 bg-gray-50">Un.</th>
+                  <th className="border-r border-b px-2 py-2 text-right font-semibold text-gray-600 w-20 bg-gray-50">Qtde</th>
+                  <th className="border-r border-b px-2 py-2 text-right font-semibold text-gray-500 w-16 bg-gray-50">KPI<br/>Padrão</th>
+                  <th className="border-r border-b px-2 py-2 text-center font-semibold text-gray-600 w-16 bg-gray-50">Fator</th>
+                  <th className="border-r border-b px-2 py-2 text-right font-semibold text-amber-700 w-16 bg-amber-50">Adotado</th>
+                  <th className="border-r border-b px-2 py-2 text-center font-semibold text-gray-600 w-16 bg-gray-50">Equipes</th>
+                  <th className="border-r border-b px-2 py-2 text-right font-semibold text-blue-700 w-16 bg-blue-50">Duração<br/>(mês)</th>
+                  {/* Month columns */}
+                  {months.map(m => (
+                    <th key={m} className="border-r border-b px-1 py-2 text-center font-semibold text-gray-500 w-10 bg-gray-50 whitespace-nowrap">
+                      {m === 0 ? 'M0' : `M${m}`}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {grouped.map(({ category, items }) => (
+                  <>
+                    {/* Category header row */}
+                    <tr key={`cat-${category}`} className="bg-gray-100">
+                      <td
+                        colSpan={9 + months.length}
+                        className="px-3 py-1 text-xs font-bold uppercase tracking-wide text-gray-600 border-b"
+                      >
+                        {category}
+                      </td>
+                    </tr>
+
+                    {items.map((act) => {
+                      const factor     = getFactor(act.code)
+                      const teams      = getTeams(act.code)
+                      const isModFactor = Math.abs(factor - 1.0) > 0.001
+                      const isModTeams  = teams !== 1
+                      const prev        = previewMap[act.code]
+                      const duration    = prev?.duration_months ?? 0
+                      const startMonth  = prev?.start_month ?? 1
+                      const quantity    = prev?.quantity ?? 0
+                      const adopted     = (act.productivity_per_day * factor).toFixed(3)
+
+                      // Monthly % for Gantt cells
+                      const monthPct = duration > 0 ? Math.round(100 / duration) : 0
+
+                      // Active month range [startMonth .. startMonth + duration)
+                      const endMonth = startMonth + duration
+
+                      const barColor = CATEGORY_COLOR[act.category] ?? 'bg-gray-300'
+                      const textColor = CATEGORY_TEXT[act.category] ?? 'text-gray-700'
+
+                      return (
+                        <tr key={act.code} className="border-b border-gray-100 hover:bg-gray-50">
+                          {/* Code */}
+                          <td className="border-r px-2 py-1 font-mono text-blue-600 font-medium">{act.code}</td>
+                          {/* Description */}
+                          <td className="border-r px-2 py-1 text-gray-700 truncate max-w-xs" title={act.description}>
+                            {act.description}
+                          </td>
+                          {/* Unit */}
+                          <td className="border-r px-2 py-1 text-center text-gray-500">{act.unit}</td>
+                          {/* Quantity */}
+                          <td className="border-r px-2 py-1 text-right font-mono text-gray-600">
+                            {quantity > 0 ? quantity.toLocaleString('pt-BR', { maximumFractionDigits: 1 }) : '—'}
+                          </td>
+                          {/* KPI padrão */}
+                          <td className="border-r px-2 py-1 text-right text-gray-400 font-mono">
+                            {act.productivity_per_day}
+                          </td>
+                          {/* Fator */}
+                          <td className="border-r px-1 py-1 text-center">
+                            <input
+                              type="number" step="0.05" min="0.1"
+                              value={getFactor(act.code)}
+                              onChange={e => setValue(
+                                `schedule.productivity_factors.${act.code}` as any,
+                                parseFloat(e.target.value) || 1.0,
+                                { shouldDirty: true }
+                              )}
+                              className={`w-14 border rounded px-1 py-0.5 text-xs text-center focus:outline-none focus:ring-1 focus:ring-blue-400 ${
+                                isModFactor ? 'border-amber-400 bg-amber-50 font-semibold' : 'border-gray-200'
+                              }`}
+                            />
+                          </td>
+                          {/* Adotado */}
+                          <td className={`border-r px-2 py-1 text-right font-mono font-semibold ${isModFactor ? 'text-amber-700 bg-amber-50' : 'text-gray-600'}`}>
+                            {adopted}
+                          </td>
+                          {/* Equipes */}
+                          <td className="border-r px-1 py-1 text-center">
+                            <input
+                              type="number" min="1" max="99"
+                              value={getTeams(act.code)}
+                              onChange={e => setValue(
+                                `schedule.teams_by_activity.${act.code}` as any,
+                                parseInt(e.target.value) || 1,
+                                { shouldDirty: true }
+                              )}
+                              className={`w-14 border rounded px-1 py-0.5 text-xs text-center focus:outline-none focus:ring-1 focus:ring-blue-400 ${
+                                isModTeams ? 'border-blue-400 bg-blue-50 font-semibold' : 'border-gray-200'
+                              }`}
+                            />
+                          </td>
+                          {/* Duração */}
+                          <td className={`border-r px-2 py-1 text-right font-mono font-semibold text-blue-700 bg-blue-50`}>
+                            {duration > 0 ? duration.toFixed(2) : '—'}
+                          </td>
+                          {/* Gantt months */}
+                          {months.map(m => {
+                            const active = duration > 0 && m >= startMonth && m < endMonth
+                            // fractional fill for start/end months
+                            return (
+                              <td key={m} className={`border-r px-0.5 py-1 text-center ${active ? barColor : ''}`}>
+                                {active && monthPct > 0 ? (
+                                  <span className={`text-[9px] font-semibold ${textColor}`}>
+                                    {monthPct}%
+                                  </span>
+                                ) : null}
+                              </td>
+                            )
+                          })}
+                        </tr>
+                      )
+                    })}
+                  </>
+                ))}
+              </tbody>
+            </table>
           </div>
         )}
       </div>
@@ -187,8 +289,7 @@ export default function ScheduleForm() {
             <label className="block text-xs text-gray-600 mb-1">Encargos Sociais (%)</label>
             <input
               {...register('salary_params.encargos_pct', { valueAsNumber: true })}
-              type="number"
-              step="0.01"
+              type="number" step="0.01"
               className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="91"
             />
