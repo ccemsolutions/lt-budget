@@ -75,6 +75,12 @@ export default function DashboardPage() {
             <p className="text-xs text-gray-500">Orçamentos de Linhas de Transmissão</p>
           </div>
           <div className="flex items-center gap-4">
+            <button
+              onClick={() => navigate('/catalog')}
+              className="text-sm text-gray-500 hover:text-blue-600 font-medium"
+            >
+              Catálogo CPUs
+            </button>
             <span className="text-sm text-gray-600">{user?.email}</span>
             <button
               onClick={() => { logout(); navigate('/login') }}

@@ -4,6 +4,7 @@ import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import DashboardPage from './pages/DashboardPage'
 import ProjectDetailPage from './pages/ProjectDetailPage'
+import CatalogPage from './pages/CatalogPage'
 
 function RequireAuth({ children }: { children: React.ReactNode }) {
   const token = useAuthStore((s) => s.token)
@@ -30,6 +31,14 @@ export default function App() {
           element={
             <RequireAuth>
               <ProjectDetailPage />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/catalog"
+          element={
+            <RequireAuth>
+              <CatalogPage />
             </RequireAuth>
           }
         />

@@ -90,6 +90,12 @@ export default function ProjectDetailPage() {
             </p>
           </div>
           <button
+            onClick={() => navigate('/catalog')}
+            className="text-sm text-gray-500 hover:text-blue-600 font-medium px-3 py-2"
+          >
+            Catálogo CPUs
+          </button>
+          <button
             onClick={() => triggerMutation.mutate(undefined)}
             disabled={triggerMutation.isPending}
             className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 disabled:opacity-50 transition"

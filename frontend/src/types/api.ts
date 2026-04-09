@@ -86,6 +86,7 @@ export interface ProjectInputsWrite {
     start_month_lancamento: number
     start_month_finais: number
     teams_by_activity: Record<string, number>
+    productivity_factors: Record<string, number>
   }
   salary_params: {
     encargos_pct?: number
@@ -328,4 +329,65 @@ export interface BudgetActivityRead {
   unit_cost: number
   total_cost: number
   manhours: number
+}
+
+// ── Catalog types ──────────────────────────────────────────────────────────
+
+export interface LaborRoleRef {
+  id: string
+  code: string
+  description: string
+  company_cost_hh: number
+  company_cost_monthly: number
+}
+
+export interface EquipmentItemRef {
+  id: string
+  code: string
+  description: string
+  company_cost_daily: number
+  company_cost_monthly: number
+}
+
+export interface ResourceTemplateRead {
+  id: string
+  resource_type: string
+  labor_role_id?: string
+  labor_role?: LaborRoleRef
+  qty_per_team?: number
+  equipment_id?: string
+  equipment_item?: EquipmentItemRef
+  material_code?: string
+  material_description?: string
+  material_qty_per_unit?: number
+  material_unit_price?: number
+  sub_code?: string
+  subcontractor_description?: string
+  subcontractor_cost_per_unit?: number
+}
+
+export interface ActivityCatalogRead {
+  id: string
+  code: string
+  description: string
+  unit: string
+  category: string
+  sort_order: number
+  productivity_per_day: number
+  fd_pct: number
+  resources: ResourceTemplateRead[]
+}
+
+export interface ResourceTemplateWrite {
+  resource_type: string
+  labor_role_id?: string
+  qty_per_team?: number
+  equipment_id?: string
+  material_code?: string
+  material_description?: string
+  material_qty_per_unit?: number
+  material_unit_price?: number
+  sub_code?: string
+  subcontractor_description?: string
+  subcontractor_cost_per_unit?: number
 }

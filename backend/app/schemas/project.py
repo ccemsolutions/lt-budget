@@ -98,6 +98,7 @@ class ScheduleInputs(BaseModel):
     start_month_lancamento: int = 12
     start_month_finais: int = 20
     teams_by_activity: dict[str, int] = {}
+    productivity_factors: dict[str, float] = {}  # activity_code -> fator multiplicador (default 1.0)
 
 
 class SalaryParamsOverride(BaseModel):

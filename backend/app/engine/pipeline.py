@@ -47,8 +47,15 @@ class BudgetPipeline:
             # Step 1: Resolve quantity
             quantity = self._qty_engine.resolve(activity.quantity_formula, inputs)
 
-            # Step 2: Determine teams
+            # Step 2: Determine teams (per activity code, fallback 1)
             teams = inputs.teams_by_activity.get(activity.code, 1)
+
+            # Step 2b: Apply productivity factor (fator de ajuste)
+            factor = inputs.productivity_factors.get(activity.code, 1.0)
+            if factor != 1.0 and factor > 0:
+                from copy import copy as _copy
+                activity = _copy(activity)
+                activity.productivity_per_day = activity.productivity_per_day * factor
 
             # Step 3: Compute duration
             duration_months = self._compute_duration(activity, quantity, teams, inputs)

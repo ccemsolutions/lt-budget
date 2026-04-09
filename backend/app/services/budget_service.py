@@ -137,6 +137,7 @@ async def _calculate(db: AsyncSession, budget_id: uuid.UUID) -> None:
         total_duration_months=schedule.get("total_duration_months", 24),
         start_month_by_category=start_month_by_category,
         teams_by_activity=schedule.get("teams_by_activity", {}),
+        productivity_factors=schedule.get("productivity_factors", {}),
         salary=salary,
         indirect=indirect,
     )

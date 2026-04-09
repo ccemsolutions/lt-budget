@@ -1,5 +1,5 @@
 import api from './client'
-import type { ProjectRead, ProjectInputsWrite, BudgetRead, BudgetSummaryRead, BudgetActivityRead, HistogramData, FinancialResultRead, CostBreakdownRead } from '../types/api'
+import type { ProjectRead, ProjectInputsWrite, BudgetRead, BudgetSummaryRead, BudgetActivityRead, HistogramData, FinancialResultRead, CostBreakdownRead, ActivityCatalogRead, LaborRoleRef, EquipmentItemRef, ResourceTemplateWrite } from '../types/api'
 
 export const projectsApi = {
   list: () => api.get<ProjectRead[]>('/projects').then(r => r.data),
@@ -31,4 +31,17 @@ export const budgetsApi = {
     api.get<FinancialResultRead>(`/budgets/${id}/financial`).then(r => r.data),
   getCostBreakdown: (id: string) =>
     api.get<CostBreakdownRead>(`/budgets/${id}/cost-breakdown`).then(r => r.data),
+}
+
+export const catalogApi = {
+  getActivities: () =>
+    api.get<ActivityCatalogRead[]>('/catalog/activities').then(r => r.data),
+  getLaborRoles: () =>
+    api.get<LaborRoleRef[]>('/catalog/labor-roles').then(r => r.data),
+  getEquipmentItems: () =>
+    api.get<EquipmentItemRef[]>('/catalog/equipment-items').then(r => r.data),
+  updateResources: (activityId: string, resources: ResourceTemplateWrite[]) =>
+    api.put(`/catalog/activities/${activityId}/resources`, resources).then(r => r.data),
+  updateProductivity: (activityId: string, productivity_per_day: number) =>
+    api.put(`/catalog/activities/${activityId}/productivity`, { productivity_per_day }).then(r => r.data),
 }

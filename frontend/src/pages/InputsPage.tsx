@@ -75,6 +75,7 @@ const DEFAULT_INPUTS: ProjectInputsWrite = {
     start_month_lancamento: 5,
     start_month_finais: 20,
     teams_by_activity: {},
+    productivity_factors: {},
   },
   salary_params: {
     encargos_pct: 91,

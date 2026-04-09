@@ -86,6 +86,7 @@ class ProjectInputs:
     total_duration_months: int = 24
     start_month_by_category: dict = field(default_factory=dict)
     teams_by_activity: dict = field(default_factory=dict)
+    productivity_factors: dict = field(default_factory=dict)  # activity_code -> float multiplier
     # Salary
     salary: SalaryParams = field(default_factory=SalaryParams)
     # Indirect costs
