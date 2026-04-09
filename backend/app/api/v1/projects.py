@@ -100,12 +100,16 @@ async def upsert_inputs(
         "line_length_km": payload.line_length_km,
         "circuit_type": payload.circuit_type,
         "total_towers": payload.total_towers,
+        "state": payload.state or "",
         "engineering": payload.engineering.model_dump(),
         "terrain": payload.terrain.model_dump(),
         "vegetation": payload.vegetation.model_dump(),
         "access_roads": payload.access_roads.model_dump(),
+        "crossings": payload.crossings.model_dump(),
         "schedule": payload.schedule.model_dump(),
         "salary_params": payload.salary_params.model_dump(exclude_none=True),
+        "indirect_config": payload.indirect_config.model_dump(),
+        "financial_params": payload.financial_params.model_dump(),
     }
 
     if inputs:
@@ -168,6 +172,9 @@ async def trigger_budget(
         "access_roads": inputs_model.access_roads,
         "schedule": inputs_model.schedule,
         "salary_params": inputs_model.salary_params,
+        "indirect_config": inputs_model.indirect_config or {},
+        "financial_params": inputs_model.financial_params or {},
+        "crossings": inputs_model.crossings or {},
     }
 
     label = payload.label or f"R{version - 1}"

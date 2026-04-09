@@ -9,6 +9,9 @@ import { WorkforceByPhaseChart, WorkforceByRoleChart } from '../components/resul
 import EquipmentHistogram from '../components/results/EquipmentHistogram'
 import PhysicalProgressChart from '../components/results/PhysicalProgressChart'
 import FinancialCurveChart from '../components/results/FinancialCurveChart'
+import CashFlowChart from '../components/results/CashFlowChart'
+import ExtendedKpis from '../components/results/ExtendedKpis'
+import CostCompositionTable from '../components/results/CostCompositionTable'
 import type { BudgetRead } from '../types/api'
 
 function downloadPdf(budgetId: string, version: number) {
@@ -22,7 +25,7 @@ interface Props {
   budget: BudgetRead
 }
 
-type ResultTab = 'summary' | 'activities' | 'chart' | 'histogramas'
+type ResultTab = 'summary' | 'activities' | 'chart' | 'histogramas' | 'financeiro' | 'composicao'
 type HistoSubTab = 'efetivo_fase' | 'efetivo_funcao' | 'equipamentos' | 'curva_s' | 'curva_financeira'
 
 export default function BudgetResultsPage({ budget }: Props) {
@@ -45,6 +48,18 @@ export default function BudgetResultsPage({ budget }: Props) {
     queryKey: ['budget-histograms', budget.id],
     queryFn: () => budgetsApi.getHistograms(budget.id),
     enabled: budget.status === 'ready' && tab === 'histogramas',
+  })
+
+  const { data: financial, isLoading: loadingFinancial } = useQuery({
+    queryKey: ['budget-financial', budget.id],
+    queryFn: () => budgetsApi.getFinancial(budget.id),
+    enabled: budget.status === 'ready' && tab === 'financeiro',
+  })
+
+  const { data: costBreakdown, isLoading: loadingBreakdown } = useQuery({
+    queryKey: ['budget-cost-breakdown', budget.id],
+    queryFn: () => budgetsApi.getCostBreakdown(budget.id),
+    enabled: budget.status === 'ready' && tab === 'composicao',
   })
 
   if (budget.status === 'calculating') {
@@ -72,6 +87,8 @@ export default function BudgetResultsPage({ budget }: Props) {
     { key: 'activities', label: 'Atividades' },
     { key: 'chart', label: 'Gráfico' },
     { key: 'histogramas', label: 'Histogramas' },
+    { key: 'financeiro', label: 'Financeiro' },
+    { key: 'composicao', label: 'Composição MO/VEM' },
   ]
 
   const histoTabs: { key: HistoSubTab; label: string }[] = [
@@ -113,9 +130,44 @@ export default function BudgetResultsPage({ budget }: Props) {
         </div>
 
         <div className="p-5">
-          {tab === 'summary' && <CategorySummaryTable summaries={summaries} />}
+          {tab === 'summary' && (
+            <div className="space-y-8">
+              <CategorySummaryTable summaries={summaries} />
+              <ExtendedKpis budget={budget} />
+            </div>
+          )}
           {tab === 'activities' && <ActivitiesTable activities={activities} />}
           {tab === 'chart' && summaries.length > 0 && <CostBreakdownChart summaries={summaries} />}
+
+          {tab === 'financeiro' && (
+            loadingFinancial ? (
+              <div className="flex items-center justify-center py-16 gap-3 text-gray-400">
+                <div className="animate-spin w-6 h-6 border-2 border-blue-400 border-t-transparent rounded-full" />
+                Calculando análise financeira...
+              </div>
+            ) : financial ? (
+              <CashFlowChart data={financial} />
+            ) : (
+              <p className="text-center text-gray-400 py-10 text-sm">
+                Nenhum dado financeiro disponível.
+              </p>
+            )
+          )}
+
+          {tab === 'composicao' && (
+            loadingBreakdown ? (
+              <div className="flex items-center justify-center py-16 gap-3 text-gray-400">
+                <div className="animate-spin w-6 h-6 border-2 border-blue-400 border-t-transparent rounded-full" />
+                Carregando composição...
+              </div>
+            ) : costBreakdown ? (
+              <CostCompositionTable data={costBreakdown} />
+            ) : (
+              <p className="text-center text-gray-400 py-10 text-sm">
+                Nenhum dado de composição disponível.
+              </p>
+            )
+          )}
 
           {tab === 'histogramas' && (
             <div>
@@ -190,7 +242,7 @@ export default function BudgetResultsPage({ budget }: Props) {
                       </h3>
                       <FinancialCurveChart
                         data={histograms.financial_curve}
-                        totalCost={budget.total_direct_cost}
+                        totalCost={budget.total_cost ?? budget.total_direct_cost}
                       />
                     </div>
                   )}

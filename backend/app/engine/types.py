@@ -4,6 +4,32 @@ from typing import Optional
 
 
 @dataclass
+class IndirectRoleConfig:
+    code: str
+    qty: float
+    duration_months: Optional[float] = None  # None = usa total_duration_months
+
+
+@dataclass
+class IndirectVehicleConfig:
+    code: str
+    qty: float
+    duration_months: Optional[float] = None
+
+
+@dataclass
+class IndirectCostsData:
+    mo_roles: list = field(default_factory=list)      # list[IndirectRoleConfig]
+    vehicles: list = field(default_factory=list)       # list[IndirectVehicleConfig]
+    canteiro_custo_mes: float = 0
+    canteiro_meses: Optional[float] = None
+    republicas_custo_mes: float = 0
+    viagens_custo_mes: float = 0
+    qsms_custo_mes: float = 0
+    mob_demob_total: float = 0
+
+
+@dataclass
 class SalaryParams:
     encargos_pct: float = 0.91
     hours_per_month: float = 220.0
@@ -62,6 +88,8 @@ class ProjectInputs:
     teams_by_activity: dict = field(default_factory=dict)
     # Salary
     salary: SalaryParams = field(default_factory=SalaryParams)
+    # Indirect costs
+    indirect: IndirectCostsData = field(default_factory=IndirectCostsData)
 
 
 @dataclass
@@ -153,10 +181,22 @@ class CategorySummary:
 
 
 @dataclass
+class IndirectCostResult:
+    mo_cost: float = 0
+    vem_cost: float = 0
+    other_cost: float = 0   # canteiro + repúblicas + viagens + QSMS + mob/demob
+    total_cost: float = 0
+    manhours: float = 0
+
+
+@dataclass
 class BudgetResult:
     activity_results: list[ActivityResult]
     category_summaries: list[CategorySummary]
     total_direct_cost: float
+    total_indirect_cost: float
+    total_cost: float
     total_manhours: float
     cost_per_km: float
     cost_per_tower: float
+    indirect_result: Optional[IndirectCostResult] = None

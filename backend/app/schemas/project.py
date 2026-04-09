@@ -72,6 +72,17 @@ class VegetationInputs(BaseModel):
     open_pct: float = 0
 
 
+class CrossingsInputs(BaseModel):
+    lt_crossings: int = 0          # Travessias de LTs existentes
+    road_crossings: int = 0        # Travessias de rodovias
+    river_crossings: int = 0       # Travessias de rios
+    pipeline_crossings: int = 0    # Travessias de oleodutos/gasodutos
+    fences_km: float = 0           # Cercas (km)
+    bridges: int = 0               # Pontes
+    wet_crossings: int = 0         # Passagens molhadas
+    culverts: int = 0              # Bueiros
+
+
 class AccessRoadsInputs(BaseModel):
     new_roads_km: float = 0
     maintenance_km: float = 0
@@ -97,16 +108,67 @@ class SalaryParamsOverride(BaseModel):
     ot_100_hours_per_month: float | None = None
 
 
+class MaterialItem(BaseModel):
+    description: str
+    value: float = 0
+    start_month: int = 1
+    duration_months: int = 1
+
+
+class FinancialParamsConfig(BaseModel):
+    # Margens
+    margin_services_pct: float = 18.0     # % sobre custo de serviços
+    margin_materials_pct: float = 6.38    # % sobre custo de materiais
+    # Condições contratuais
+    advance_pct: float = 10.0             # % adiantamento contratual
+    retention_pct: float = 3.0            # % retenção
+    # Custos complementares (além do orçamento de campo)
+    cost_implantacao: float = 0           # sondagem, implantação
+    cost_projeto: float = 0               # projeto básico + executivo
+    cost_fundiario: float = 0             # fundiário / meio ambiente
+    cost_seguros: float = 0               # seguros
+    cost_outros: float = 0                # outros custos
+    # Materiais principais (com faseamento)
+    materials: list[MaterialItem] = []
+
+
+class IndirectRoleItem(BaseModel):
+    code: str
+    qty: float = 0
+    duration_months: float | None = None  # None = usa total_duration_months
+
+
+class IndirectVehicleItem(BaseModel):
+    code: str
+    qty: float = 0
+    duration_months: float | None = None
+
+
+class IndirectCostsConfig(BaseModel):
+    mo_roles: list[IndirectRoleItem] = []
+    vehicles: list[IndirectVehicleItem] = []
+    canteiro_custo_mes: float = 0
+    canteiro_meses: float | None = None
+    republicas_custo_mes: float = 0
+    viagens_custo_mes: float = 0
+    qsms_custo_mes: float = 0
+    mob_demob_total: float = 0
+
+
 class ProjectInputsWrite(BaseModel):
     line_length_km: float
     circuit_type: str = "single"
     total_towers: int
+    state: str = ""                                  # Estado (UF) da obra
     engineering: EngineeringInputs = EngineeringInputs()
     terrain: TerrainInputs = TerrainInputs()
     vegetation: VegetationInputs = VegetationInputs()
     access_roads: AccessRoadsInputs = AccessRoadsInputs()
+    crossings: CrossingsInputs = CrossingsInputs()   # Interferências e obras especiais
     schedule: ScheduleInputs = ScheduleInputs()
     salary_params: SalaryParamsOverride = SalaryParamsOverride()
+    indirect_config: IndirectCostsConfig = IndirectCostsConfig()
+    financial_params: FinancialParamsConfig = FinancialParamsConfig()
 
 
 class ProjectInputsRead(BaseModel):
@@ -115,12 +177,16 @@ class ProjectInputsRead(BaseModel):
     line_length_km: float
     circuit_type: str
     total_towers: int
+    state: str = ""
     engineering: dict[str, Any]
     terrain: dict[str, Any]
     vegetation: dict[str, Any]
     access_roads: dict[str, Any]
+    crossings: dict[str, Any] = {}
     schedule: dict[str, Any]
     salary_params: dict[str, Any]
+    indirect_config: dict[str, Any] = {}
+    financial_params: dict[str, Any] = {}
     updated_at: datetime
 
     model_config = {"from_attributes": True}
@@ -141,9 +207,19 @@ class BudgetRead(BaseModel):
     error_message: str | None
     calculated_at: datetime | None
     total_direct_cost: float | None
+    total_indirect_cost: float | None
+    total_cost: float | None
     total_manhours: float | None
     cost_per_km: float | None
     cost_per_tower: float | None
+    selling_price: float | None
+    gross_margin: float | None
+    max_exposure: float | None
+    # Extended KPIs
+    hh_per_km: float | None
+    hh_per_tower: float | None
+    cost_per_hh: float | None
+    hh_per_ton: float | None
 
     model_config = {"from_attributes": True}
 

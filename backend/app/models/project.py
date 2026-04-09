@@ -42,6 +42,7 @@ class ProjectInputs(Base):
     line_length_km: Mapped[float] = mapped_column(Numeric(10, 3), nullable=False)
     circuit_type: Mapped[str] = mapped_column(String(20), default="single")
     total_towers: Mapped[int] = mapped_column(Integer, nullable=False)
+    state: Mapped[str] = mapped_column(String(2), default="")
 
     # JSONB documents
     engineering: Mapped[dict] = mapped_column(JSONB, default=dict)
@@ -50,6 +51,9 @@ class ProjectInputs(Base):
     access_roads: Mapped[dict] = mapped_column(JSONB, default=dict)
     schedule: Mapped[dict] = mapped_column(JSONB, default=dict)
     salary_params: Mapped[dict] = mapped_column(JSONB, default=dict)
+    indirect_config: Mapped[dict] = mapped_column(JSONB, default=dict)
+    financial_params: Mapped[dict] = mapped_column(JSONB, default=dict)
+    crossings: Mapped[dict] = mapped_column(JSONB, default=dict)
 
     project: Mapped["Project"] = relationship("Project", back_populates="inputs")
 
@@ -73,9 +77,20 @@ class Budget(Base):
 
     # KPIs (denormalized)
     total_direct_cost: Mapped[Optional[float]] = mapped_column(Numeric(18, 4))
+    total_indirect_cost: Mapped[Optional[float]] = mapped_column(Numeric(18, 4))
+    total_cost: Mapped[Optional[float]] = mapped_column(Numeric(18, 4))
     total_manhours: Mapped[Optional[float]] = mapped_column(Numeric(14, 2))
     cost_per_km: Mapped[Optional[float]] = mapped_column(Numeric(14, 4))
     cost_per_tower: Mapped[Optional[float]] = mapped_column(Numeric(14, 4))
+    # Financial KPIs
+    selling_price: Mapped[Optional[float]] = mapped_column(Numeric(18, 4))
+    gross_margin: Mapped[Optional[float]] = mapped_column(Numeric(8, 4))   # %
+    max_exposure: Mapped[Optional[float]] = mapped_column(Numeric(18, 4))  # most negative cash
+    # Extended KPIs (Res sheet)
+    hh_per_km: Mapped[Optional[float]] = mapped_column(Numeric(10, 2))    # HH/km
+    hh_per_tower: Mapped[Optional[float]] = mapped_column(Numeric(10, 2)) # HH/torre
+    cost_per_hh: Mapped[Optional[float]] = mapped_column(Numeric(14, 4))  # R$/HH
+    hh_per_ton: Mapped[Optional[float]] = mapped_column(Numeric(10, 4))   # HH/ton (rebar)
 
     project: Mapped["Project"] = relationship("Project", back_populates="budgets")
     activities: Mapped[list["BudgetActivity"]] = relationship("BudgetActivity", back_populates="budget", cascade="all, delete-orphan")

@@ -18,6 +18,10 @@ from app.engine.pipeline import BudgetPipeline
 from app.engine.types import (
     ProjectInputs, EngineeringData, SalaryParams,
     ActivityData, LaborRoleData, EquipmentItemData, ResourceItem,
+    IndirectCostsData, IndirectRoleConfig, IndirectVehicleConfig,
+)
+from app.engine.financial_engine import (
+    FinancialParams, MaterialItemData, compute_financial,
 )
 
 
@@ -55,6 +59,33 @@ async def _calculate(db: AsyncSession, budget_id: uuid.UUID) -> None:
         working_days_per_month=sp_override.get("working_days_per_month", 25.0),
         ot_50_hours_per_month=sp_override.get("ot_50_hours_per_month", 40.0),
         ot_100_hours_per_month=sp_override.get("ot_100_hours_per_month", 8.0),
+    )
+
+    # Build IndirectCostsData from snapshot
+    ic = snapshot.get("indirect_config", {})
+    indirect = IndirectCostsData(
+        mo_roles=[
+            IndirectRoleConfig(
+                code=r["code"],
+                qty=float(r.get("qty", 0)),
+                duration_months=r.get("duration_months"),
+            )
+            for r in ic.get("mo_roles", [])
+        ],
+        vehicles=[
+            IndirectVehicleConfig(
+                code=v["code"],
+                qty=float(v.get("qty", 0)),
+                duration_months=v.get("duration_months"),
+            )
+            for v in ic.get("vehicles", [])
+        ],
+        canteiro_custo_mes=float(ic.get("canteiro_custo_mes", 0)),
+        canteiro_meses=ic.get("canteiro_meses"),
+        republicas_custo_mes=float(ic.get("republicas_custo_mes", 0)),
+        viagens_custo_mes=float(ic.get("viagens_custo_mes", 0)),
+        qsms_custo_mes=float(ic.get("qsms_custo_mes", 0)),
+        mob_demob_total=float(ic.get("mob_demob_total", 0)),
     )
 
     start_month_by_category = {
@@ -107,6 +138,7 @@ async def _calculate(db: AsyncSession, budget_id: uuid.UUID) -> None:
         start_month_by_category=start_month_by_category,
         teams_by_activity=schedule.get("teams_by_activity", {}),
         salary=salary,
+        indirect=indirect,
     )
 
     # Load reference data
@@ -152,12 +184,84 @@ async def _calculate(db: AsyncSession, budget_id: uuid.UUID) -> None:
         )
         db.add(row)
 
+    # ── Financial KPIs ───────────────────────────────────────────────────────
+    fp_raw = snapshot.get("financial_params", {})
+    fin_params = FinancialParams(
+        margin_services_pct=float(fp_raw.get("margin_services_pct", 18.0)),
+        margin_materials_pct=float(fp_raw.get("margin_materials_pct", 6.38)),
+        advance_pct=float(fp_raw.get("advance_pct", 10.0)),
+        retention_pct=float(fp_raw.get("retention_pct", 3.0)),
+        cost_implantacao=float(fp_raw.get("cost_implantacao", 0)),
+        cost_projeto=float(fp_raw.get("cost_projeto", 0)),
+        cost_fundiario=float(fp_raw.get("cost_fundiario", 0)),
+        cost_seguros=float(fp_raw.get("cost_seguros", 0)),
+        cost_outros=float(fp_raw.get("cost_outros", 0)),
+        materials=[
+            MaterialItemData(
+                description=m.get("description", ""),
+                value=float(m.get("value", 0)),
+                start_month=int(m.get("start_month", 1)),
+                duration_months=int(m.get("duration_months", 1)),
+            )
+            for m in fp_raw.get("materials", [])
+        ],
+    )
+
+    # Build monthly service disbursement map from activities
+    total_months = inputs.total_duration_months or 1
+    import math as _math
+    monthly_svc: dict[int, float] = {m: 0.0 for m in range(1, total_months + 1)}
+    for ar in result.activity_results:
+        if not ar.start_month or ar.duration_months <= 0:
+            continue
+        start = ar.start_month
+        dur = ar.duration_months
+        end = start + dur
+        monthly_val = ar.total_cost / dur
+        for m in range(1, total_months + 1):
+            if m < start or m > _math.ceil(end):
+                continue
+            overlap_start = max(m - 1, start - 1)
+            overlap_end = min(m, end)
+            fraction = max(0.0, overlap_end - overlap_start)
+            monthly_svc[m] = monthly_svc.get(m, 0) + monthly_val * fraction
+    # Also distribute indirect costs evenly
+    if result.indirect_result and result.indirect_result.total_cost > 0:
+        per_month_indirect = result.indirect_result.total_cost / total_months
+        for m in range(1, total_months + 1):
+            monthly_svc[m] = monthly_svc.get(m, 0) + per_month_indirect
+
+    fin_result = compute_financial(
+        params=fin_params,
+        total_services_cost=result.total_cost,
+        total_months=total_months,
+        monthly_service_disbursement=monthly_svc,
+    )
+
     budget.status = "ready"
     budget.calculated_at = datetime.utcnow()
     budget.total_direct_cost = result.total_direct_cost
+    budget.total_indirect_cost = result.total_indirect_cost
+    budget.total_cost = result.total_cost
     budget.total_manhours = result.total_manhours
     budget.cost_per_km = result.cost_per_km
     budget.cost_per_tower = result.cost_per_tower
+    budget.selling_price = fin_result.selling_price
+    budget.gross_margin = fin_result.gross_margin_pct
+    budget.max_exposure = fin_result.max_exposure
+
+    # ── Extended KPIs (Res sheet) ────────────────────────────────────────────
+    line_km = inputs.line_length_km or 1
+    towers = inputs.total_towers or 1
+    total_hh = result.total_manhours or 0
+    total_c = result.total_cost or result.total_direct_cost or 1
+    rebar_ton = inputs.engineering.rebar_ton or 0
+
+    budget.hh_per_km    = round(total_hh / line_km, 2) if line_km > 0 else None
+    budget.hh_per_tower = round(total_hh / towers, 2)  if towers > 0 else None
+    budget.cost_per_hh  = round(total_c / total_hh, 4) if total_hh > 0 else None
+    budget.hh_per_ton   = round(total_hh / rebar_ton, 4) if rebar_ton > 0 else None
+
     await db.commit()
 
 

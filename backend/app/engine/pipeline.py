@@ -13,6 +13,7 @@ from app.engine.types import (
 )
 from app.engine.quantity_engine import QuantityEngine
 from app.engine.cpu_engine import CPUEngine
+from app.engine.indirect_engine import compute_indirect_costs
 
 CATEGORY_SORT = {
     "Serviços Preliminares": 1,
@@ -93,13 +94,38 @@ class BudgetPipeline:
         line_km = inputs.line_length_km or 1
         towers = inputs.total_towers or 1
 
+        # Indirect costs (aba C.I. da planilha)
+        indirect_result = compute_indirect_costs(
+            config=inputs.indirect,
+            total_months=inputs.total_duration_months,
+            labor_roles=labor_roles,
+            equipment=equipment,
+        )
+        if indirect_result.total_cost > 0:
+            category_summaries.append(CategorySummary(
+                category="Custos Indiretos",
+                total_cost=indirect_result.total_cost,
+                mo_cost=indirect_result.mo_cost,
+                vem_cost=indirect_result.vem_cost,
+                mat_cost=indirect_result.other_cost,
+                sub_cost=0.0,
+                fd_cost=0.0,
+                manhours=indirect_result.manhours,
+            ))
+        total_indirect_cost = indirect_result.total_cost
+        total_cost = total_direct_cost + total_indirect_cost
+        total_manhours += indirect_result.manhours
+
         return BudgetResult(
             activity_results=activity_results,
             category_summaries=category_summaries,
             total_direct_cost=total_direct_cost,
+            total_indirect_cost=total_indirect_cost,
+            total_cost=total_cost,
             total_manhours=total_manhours,
-            cost_per_km=total_direct_cost / line_km,
-            cost_per_tower=total_direct_cost / towers,
+            cost_per_km=total_cost / line_km,
+            cost_per_tower=total_cost / towers,
+            indirect_result=indirect_result,
         )
 
     def _compute_duration(

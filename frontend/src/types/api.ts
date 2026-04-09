@@ -27,6 +27,7 @@ export interface ProjectInputsWrite {
   line_length_km: number
   circuit_type: 'single' | 'double'
   total_towers: number
+  state: string
   engineering: {
     guyed_towers: number
     self_supporting_towers: number
@@ -66,6 +67,16 @@ export interface ProjectInputsWrite {
     maintenance_km: number
     swamp_estivas_km: number
   }
+  crossings: {
+    lt_crossings: number
+    road_crossings: number
+    river_crossings: number
+    pipeline_crossings: number
+    fences_km: number
+    bridges: number
+    wet_crossings: number
+    culverts: number
+  }
   schedule: {
     total_duration_months: number
     start_month_preliminares: number
@@ -81,6 +92,81 @@ export interface ProjectInputsWrite {
     hours_per_month?: number
     working_days_per_month?: number
   }
+  indirect_config: IndirectCostsConfig
+  financial_params: FinancialParamsConfig
+}
+
+export interface MaterialItem {
+  description: string
+  value: number
+  start_month: number
+  duration_months: number
+}
+
+export interface FinancialParamsConfig {
+  margin_services_pct: number
+  margin_materials_pct: number
+  advance_pct: number
+  retention_pct: number
+  cost_implantacao: number
+  cost_projeto: number
+  cost_fundiario: number
+  cost_seguros: number
+  cost_outros: number
+  materials: MaterialItem[]
+}
+
+export interface MonthlyCashFlowRead {
+  month: number
+  disbursement_services: number
+  disbursement_materials: number
+  disbursement_others: number
+  disbursement_total: number
+  receipt_advance: number
+  receipt_billing: number
+  receipt_retention: number
+  receipt_total: number
+  balance_monthly: number
+  balance_cumulative: number
+}
+
+export interface FinancialResultRead {
+  total_services_cost: number
+  total_materials_cost: number
+  total_project_cost: number
+  selling_price: number
+  gross_margin_value: number
+  gross_margin_pct: number
+  margin_services_pct: number
+  margin_materials_pct: number
+  advance_pct: number
+  retention_pct: number
+  max_exposure: number
+  max_exposure_month: number
+  monthly_cash_flow: MonthlyCashFlowRead[]
+}
+
+export interface IndirectRoleItem {
+  code: string
+  qty: number
+  duration_months?: number | null
+}
+
+export interface IndirectVehicleItem {
+  code: string
+  qty: number
+  duration_months?: number | null
+}
+
+export interface IndirectCostsConfig {
+  mo_roles: IndirectRoleItem[]
+  vehicles: IndirectVehicleItem[]
+  canteiro_custo_mes: number
+  canteiro_meses?: number | null
+  republicas_custo_mes: number
+  viagens_custo_mes: number
+  qsms_custo_mes: number
+  mob_demob_total: number
 }
 
 export interface BudgetRead {
@@ -92,9 +178,18 @@ export interface BudgetRead {
   error_message: string | null
   calculated_at: string | null
   total_direct_cost: number | null
+  total_indirect_cost: number | null
+  total_cost: number | null
   total_manhours: number | null
   cost_per_km: number | null
   cost_per_tower: number | null
+  selling_price: number | null
+  gross_margin: number | null
+  max_exposure: number | null
+  hh_per_km: number | null
+  hh_per_tower: number | null
+  cost_per_hh: number | null
+  hh_per_ton: number | null
 }
 
 export interface BudgetSummaryRead {
@@ -184,6 +279,36 @@ export interface HistogramData {
   peak_workforce_month: number
   peak_equipment: number
   peak_equipment_month: number
+}
+
+export interface LaborBreakdown {
+  custo_bruto: number
+  he_50: number
+  he_100: number
+  encargos: number
+  transporte: number
+  alimentacao: number
+  epi: number
+  seguro_vida: number
+  aux_moradia: number
+  cesta_basica: number
+  ppr: number
+  assist_medica: number
+  total: number
+}
+
+export interface EquipmentBreakdown {
+  locacao_sem_op: number
+  combustivel: number
+  lub_manutencao: number
+  mob_demob: number
+  outros: number
+  total: number
+}
+
+export interface CostBreakdownRead {
+  labor: LaborBreakdown
+  equipment: EquipmentBreakdown
 }
 
 export interface BudgetActivityRead {

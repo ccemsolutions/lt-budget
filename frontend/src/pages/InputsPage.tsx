@@ -9,11 +9,14 @@ import EngineeringQtyForm from '../components/inputs/EngineeringQtyForm'
 import PercentSliderGroup from '../components/inputs/PercentSliderGroup'
 import AccessRoadsForm from '../components/inputs/AccessRoadsForm'
 import ScheduleForm from '../components/inputs/ScheduleForm'
+import IndirectCostsForm from '../components/inputs/IndirectCostsForm'
+import FinancialParamsForm from '../components/inputs/FinancialParamsForm'
 
 const DEFAULT_INPUTS: ProjectInputsWrite = {
   line_length_km: 0,
   circuit_type: 'single',
   total_towers: 0,
+  state: '',
   engineering: {
     guyed_towers: 0,
     self_supporting_towers: 0,
@@ -53,6 +56,16 @@ const DEFAULT_INPUTS: ProjectInputsWrite = {
     maintenance_km: 0,
     swamp_estivas_km: 0,
   },
+  crossings: {
+    lt_crossings: 0,
+    road_crossings: 0,
+    river_crossings: 0,
+    pipeline_crossings: 0,
+    fences_km: 0,
+    bridges: 0,
+    wet_crossings: 0,
+    culverts: 0,
+  },
   schedule: {
     total_duration_months: 24,
     start_month_preliminares: 1,
@@ -68,6 +81,28 @@ const DEFAULT_INPUTS: ProjectInputsWrite = {
     hours_per_month: 220,
     working_days_per_month: 22,
   },
+  indirect_config: {
+    mo_roles: [],
+    vehicles: [],
+    canteiro_custo_mes: 0,
+    canteiro_meses: null,
+    republicas_custo_mes: 0,
+    viagens_custo_mes: 0,
+    qsms_custo_mes: 0,
+    mob_demob_total: 0,
+  },
+  financial_params: {
+    margin_services_pct: 18,
+    margin_materials_pct: 6.38,
+    advance_pct: 10,
+    retention_pct: 3,
+    cost_implantacao: 0,
+    cost_projeto: 0,
+    cost_fundiario: 0,
+    cost_seguros: 0,
+    cost_outros: 0,
+    materials: [],
+  },
 }
 
 const STEPS = [
@@ -75,8 +110,10 @@ const STEPS = [
   'Quantidades de Engenharia',
   'Terreno',
   'Vegetação',
-  'Estradas de Acesso',
+  'Estradas e Interferências',
   'Cronograma',
+  'Custos Indiretos',
+  'Parâmetros Financeiros',
 ]
 
 interface Props {
@@ -169,6 +206,8 @@ export default function InputsPage({ projectId, onSaved }: Props) {
           )}
           {step === 4 && <AccessRoadsForm />}
           {step === 5 && <ScheduleForm />}
+          {step === 6 && <IndirectCostsForm />}
+          {step === 7 && <FinancialParamsForm />}
         </div>
 
         {/* Navigation */}

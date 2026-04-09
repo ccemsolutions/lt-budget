@@ -10,7 +10,11 @@ from app.models.project import Budget, BudgetActivity, BudgetSummary
 from app.models.static_data import ActivityCatalog
 from app.schemas.project import BudgetRead, BudgetActivityRead, BudgetSummaryRead
 from app.schemas.histogram import HistogramData
+from app.schemas.financial import FinancialResultRead
+from app.schemas.cost_breakdown import CostBreakdownRead
 from app.services.histogram_service import compute_histograms
+from app.services.financial_service import compute_financial_result
+from app.services.cost_breakdown_service import compute_cost_breakdown
 from app.api.deps import get_current_user
 
 router = APIRouter()
@@ -97,6 +101,30 @@ async def get_budget_activities(
         )
         for ba, ac in rows
     ]
+
+
+@router.get("/{budget_id}/financial", response_model=FinancialResultRead)
+async def get_budget_financial(
+    budget_id: uuid.UUID,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    budget = await _get_budget_or_404(db, budget_id, current_user)
+    if budget.status != "ready":
+        raise HTTPException(status_code=400, detail=f"Orçamento ainda não calculado (status: {budget.status})")
+    return await compute_financial_result(budget_id, db)
+
+
+@router.get("/{budget_id}/cost-breakdown", response_model=CostBreakdownRead)
+async def get_cost_breakdown(
+    budget_id: uuid.UUID,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    budget = await _get_budget_or_404(db, budget_id, current_user)
+    if budget.status != "ready":
+        raise HTTPException(status_code=400, detail=f"Orçamento ainda não calculado (status: {budget.status})")
+    return await compute_cost_breakdown(budget_id, db)
 
 
 @router.get("/{budget_id}/histograms", response_model=HistogramData)

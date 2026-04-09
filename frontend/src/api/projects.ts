@@ -1,5 +1,5 @@
 import api from './client'
-import type { ProjectRead, ProjectInputsWrite, BudgetRead, BudgetSummaryRead, BudgetActivityRead, HistogramData } from '../types/api'
+import type { ProjectRead, ProjectInputsWrite, BudgetRead, BudgetSummaryRead, BudgetActivityRead, HistogramData, FinancialResultRead, CostBreakdownRead } from '../types/api'
 
 export const projectsApi = {
   list: () => api.get<ProjectRead[]>('/projects').then(r => r.data),
@@ -27,4 +27,8 @@ export const budgetsApi = {
     api.get<BudgetActivityRead[]>(`/budgets/${id}/activities`).then(r => r.data),
   getHistograms: (id: string) =>
     api.get<HistogramData>(`/budgets/${id}/histograms`).then(r => r.data),
+  getFinancial: (id: string) =>
+    api.get<FinancialResultRead>(`/budgets/${id}/financial`).then(r => r.data),
+  getCostBreakdown: (id: string) =>
+    api.get<CostBreakdownRead>(`/budgets/${id}/cost-breakdown`).then(r => r.data),
 }

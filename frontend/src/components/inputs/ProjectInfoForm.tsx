@@ -1,6 +1,11 @@
 import { useFormContext } from 'react-hook-form'
 import type { ProjectInputsWrite } from '../../types/api'
 
+const STATES = [
+  'AC','AL','AM','AP','BA','CE','DF','ES','GO','MA','MG','MS','MT',
+  'PA','PB','PE','PI','PR','RJ','RN','RO','RR','RS','SC','SE','SP','TO',
+]
+
 export default function ProjectInfoForm() {
   const { register, formState: { errors } } = useFormContext<ProjectInputsWrite>()
 
@@ -37,6 +42,18 @@ export default function ProjectInfoForm() {
           >
             <option value="single">Simples</option>
             <option value="double">Duplo</option>
+          </select>
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-1">Estado (UF)</label>
+          <select
+            {...register('state')}
+            className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="">— Selecione —</option>
+            {STATES.map(s => (
+              <option key={s} value={s}>{s}</option>
+            ))}
           </select>
         </div>
       </div>
