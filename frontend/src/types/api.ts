@@ -535,3 +535,75 @@ export interface ResourceTemplateWrite {
   subcontractor_description?: string
   subcontractor_cost_per_unit?: number
 }
+
+export interface BaseParamsRead {
+  default_alimentacao: number
+  default_cesta_basica: number
+  default_transporte: number
+  default_epi: number
+  default_seguro_vida: number
+  default_ppr: number
+  default_assist_medica: number
+  default_aux_moradia: number
+  ot_50_horas_mes: number
+  ot_100_horas_mes: number
+  working_days_per_month: number
+  preco_diesel: number
+  preco_gasolina: number
+  preco_alcool: number
+}
+
+export type BaseParamsUpdate = Partial<BaseParamsRead>
+
+export interface LaborRoleCreate {
+  code: string
+  description: string
+  role_type?: string
+  salary_type?: string
+  base_salary?: number
+  custo_bruto_mes?: number
+  dissidio?: number
+  adic_transf?: number
+  periculosidade_val?: number
+  he_50_pct?: number
+  he_100_pct?: number
+  encargos?: number
+  subtotal_sem_he?: number
+  adic_produtividade?: number
+  custo_admissao?: number
+  desp_folga?: number
+  transporte?: number
+  alimentacao?: number
+  epi?: number
+  seguro_vida?: number
+  aux_moradia?: number
+  cesta_basica?: number
+  ppr?: number
+  assist_medica?: number
+  has_overtime?: boolean
+  has_adic_transf?: boolean
+  has_periculosidade?: boolean
+  has_adic_produt?: boolean
+  has_aux_moradia?: boolean
+  folga_meses?: number
+}
+
+export interface EquipmentItemCreate {
+  code: string
+  description: string
+  locacao_sem_op_mes?: number
+  consumo_combustivel_dia?: number
+  tipo_combustivel?: string
+  preco_combustivel?: number
+  lubrificantes_mes?: number
+  manutencao_pct?: number
+  lavagem_mes?: number
+  mob_demob_mes?: number
+  outros_mes?: number
+}
+
+export interface ImportResult {
+  inserted: number
+  updated: number
+  errors: string[]
+}

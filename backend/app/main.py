@@ -43,6 +43,15 @@ async def lifespan(app: FastAPI):
             "ALTER TABLE equipment_items ADD COLUMN IF NOT EXISTS lavagem_mes NUMERIC(14,4) DEFAULT 0",
             "ALTER TABLE equipment_items ADD COLUMN IF NOT EXISTS lubrificantes_mes NUMERIC(14,4) DEFAULT 0",
             "ALTER TABLE equipment_items ADD COLUMN IF NOT EXISTS manutencao_pct NUMERIC(8,4) DEFAULT 0",
+            # Company base params — seed singleton row if table just created
+            """INSERT INTO company_base_params (id, default_alimentacao, default_cesta_basica,
+                default_transporte, default_epi, default_seguro_vida, default_ppr,
+                default_assist_medica, default_aux_moradia, ot_50_horas_mes,
+                ot_100_horas_mes, working_days_per_month,
+                preco_diesel, preco_gasolina, preco_alcool, updated_at)
+               SELECT gen_random_uuid(), 1350, 308, 0, 235, 0, 0, 0, 0, 40, 8, 25,
+                      6.50, 6.00, 4.50, NOW()
+               WHERE NOT EXISTS (SELECT 1 FROM company_base_params LIMIT 1)""",
         ]
         for sql in migrations:
             await conn.execute(__import__("sqlalchemy").text(sql))

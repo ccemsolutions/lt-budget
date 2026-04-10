@@ -122,6 +122,33 @@ class ActivityCatalog(Base):
     )
 
 
+class CompanyBaseParams(Base):
+    """Global base parameters (one row per company / singleton for now)."""
+    __tablename__ = "company_base_params"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+
+    # MO defaults (R$/mês applied to all workers if not set individually)
+    default_alimentacao: Mapped[float] = mapped_column(Numeric(14, 4), default=1350.0)
+    default_cesta_basica: Mapped[float] = mapped_column(Numeric(14, 4), default=308.0)
+    default_transporte: Mapped[float] = mapped_column(Numeric(14, 4), default=0.0)
+    default_epi: Mapped[float] = mapped_column(Numeric(14, 4), default=235.0)
+    default_seguro_vida: Mapped[float] = mapped_column(Numeric(14, 4), default=0.0)
+    default_ppr: Mapped[float] = mapped_column(Numeric(14, 4), default=0.0)
+    default_assist_medica: Mapped[float] = mapped_column(Numeric(14, 4), default=0.0)
+    default_aux_moradia: Mapped[float] = mapped_column(Numeric(14, 4), default=0.0)
+    ot_50_horas_mes: Mapped[float] = mapped_column(Numeric(8, 2), default=40.0)
+    ot_100_horas_mes: Mapped[float] = mapped_column(Numeric(8, 2), default=8.0)
+    working_days_per_month: Mapped[float] = mapped_column(Numeric(6, 2), default=25.0)
+
+    # VEM defaults — fuel prices (R$/litro)
+    preco_diesel: Mapped[float] = mapped_column(Numeric(10, 4), default=6.50)
+    preco_gasolina: Mapped[float] = mapped_column(Numeric(10, 4), default=6.00)
+    preco_alcool: Mapped[float] = mapped_column(Numeric(10, 4), default=4.50)
+
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=datetime.utcnow)
+
+
 class ResourceTemplate(Base):
     __tablename__ = "resource_templates"
 

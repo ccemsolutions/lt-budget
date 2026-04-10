@@ -1,5 +1,5 @@
 import api from './client'
-import type { ProjectRead, ProjectInputsWrite, BudgetRead, BudgetSummaryRead, BudgetActivityRead, HistogramData, FinancialResultRead, CostBreakdownRead, ActivityCatalogRead, LaborRoleRef, EquipmentItemRef, ResourceTemplateWrite, ActivityScheduleRead, LaborRoleFullRead, LaborRoleUpdate, EquipmentItemFullRead, EquipmentItemUpdate } from '../types/api'
+import type { ProjectRead, ProjectInputsWrite, BudgetRead, BudgetSummaryRead, BudgetActivityRead, HistogramData, FinancialResultRead, CostBreakdownRead, ActivityCatalogRead, LaborRoleRef, EquipmentItemRef, ResourceTemplateWrite, ActivityScheduleRead, LaborRoleFullRead, LaborRoleUpdate, EquipmentItemFullRead, EquipmentItemUpdate, BaseParamsRead, BaseParamsUpdate, LaborRoleCreate, EquipmentItemCreate, ImportResult } from '../types/api'
 
 export const projectsApi = {
   list: () => api.get<ProjectRead[]>('/projects').then(r => r.data),
@@ -56,8 +56,27 @@ export const baseDataApi = {
     api.get<LaborRoleFullRead[]>('/catalog/labor-roles/full').then(r => r.data),
   updateLaborRole: (id: string, data: LaborRoleUpdate) =>
     api.put<LaborRoleFullRead>(`/catalog/labor-roles/${id}`, data).then(r => r.data),
+  createLaborRole: (data: LaborRoleCreate) =>
+    api.post<LaborRoleFullRead>('/catalog/labor-roles', data).then(r => r.data),
+  importLaborRoles: (file: File) => {
+    const fd = new FormData()
+    fd.append('file', file)
+    return api.post<ImportResult>('/catalog/labor-roles/import', fd, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    }).then(r => r.data)
+  },
+  applyDefaults: (fields: string[]) =>
+    api.post('/catalog/labor-roles/apply-defaults', { fields }).then(r => r.data),
   getEquipmentItems: () =>
     api.get<EquipmentItemFullRead[]>('/catalog/equipment-items/full').then(r => r.data),
   updateEquipmentItem: (id: string, data: EquipmentItemUpdate) =>
     api.put<EquipmentItemFullRead>(`/catalog/equipment-items/${id}`, data).then(r => r.data),
+  createEquipmentItem: (data: EquipmentItemCreate) =>
+    api.post<EquipmentItemFullRead>('/catalog/equipment-items', data).then(r => r.data),
+  updateFuelPrices: (data: { preco_diesel?: number; preco_gasolina?: number; preco_alcool?: number }) =>
+    api.post('/catalog/equipment-items/update-fuel-prices', data).then(r => r.data),
+  getBaseParams: () =>
+    api.get<BaseParamsRead>('/catalog/base-params').then(r => r.data),
+  updateBaseParams: (data: BaseParamsUpdate) =>
+    api.put<BaseParamsRead>('/catalog/base-params', data).then(r => r.data),
 }

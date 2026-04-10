@@ -3,9 +3,10 @@ Catalog API — Activity catalog with CPU (resource templates) view and edit.
 Also exposes BD_MO (labor roles) and BD_VEM (equipment) editors.
 """
 from __future__ import annotations
+import io
 import uuid
 from datetime import datetime
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, UploadFile, File
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from pydantic import BaseModel
@@ -13,7 +14,7 @@ from typing import Optional
 
 from app.database import get_db
 from app.models.tenant import User
-from app.models.static_data import ActivityCatalog, ResourceTemplate, LaborRole, EquipmentItem
+from app.models.static_data import ActivityCatalog, ResourceTemplate, LaborRole, EquipmentItem, CompanyBaseParams
 from app.api.deps import get_current_user
 
 router = APIRouter()
@@ -528,3 +529,458 @@ async def update_equipment_item(
     await db.commit()
     await db.refresh(item)
     return _equip_to_full(item)
+
+
+# ── Company Base Params ───────────────────────────────────────────────────────
+
+class BaseParamsRead(BaseModel):
+    default_alimentacao: float
+    default_cesta_basica: float
+    default_transporte: float
+    default_epi: float
+    default_seguro_vida: float
+    default_ppr: float
+    default_assist_medica: float
+    default_aux_moradia: float
+    ot_50_horas_mes: float
+    ot_100_horas_mes: float
+    working_days_per_month: float
+    preco_diesel: float
+    preco_gasolina: float
+    preco_alcool: float
+
+
+class BaseParamsUpdate(BaseModel):
+    default_alimentacao: Optional[float] = None
+    default_cesta_basica: Optional[float] = None
+    default_transporte: Optional[float] = None
+    default_epi: Optional[float] = None
+    default_seguro_vida: Optional[float] = None
+    default_ppr: Optional[float] = None
+    default_assist_medica: Optional[float] = None
+    default_aux_moradia: Optional[float] = None
+    ot_50_horas_mes: Optional[float] = None
+    ot_100_horas_mes: Optional[float] = None
+    working_days_per_month: Optional[float] = None
+    preco_diesel: Optional[float] = None
+    preco_gasolina: Optional[float] = None
+    preco_alcool: Optional[float] = None
+
+
+async def _get_base_params(db: AsyncSession) -> CompanyBaseParams:
+    result = await db.execute(select(CompanyBaseParams).limit(1))
+    params = result.scalar_one_or_none()
+    if not params:
+        params = CompanyBaseParams()
+        db.add(params)
+        await db.flush()
+    return params
+
+
+@router.get("/base-params", response_model=BaseParamsRead)
+async def get_base_params(
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    p = await _get_base_params(db)
+    return BaseParamsRead(
+        default_alimentacao=_f(p.default_alimentacao),
+        default_cesta_basica=_f(p.default_cesta_basica),
+        default_transporte=_f(p.default_transporte),
+        default_epi=_f(p.default_epi),
+        default_seguro_vida=_f(p.default_seguro_vida),
+        default_ppr=_f(p.default_ppr),
+        default_assist_medica=_f(p.default_assist_medica),
+        default_aux_moradia=_f(p.default_aux_moradia),
+        ot_50_horas_mes=_f(p.ot_50_horas_mes),
+        ot_100_horas_mes=_f(p.ot_100_horas_mes),
+        working_days_per_month=_f(p.working_days_per_month),
+        preco_diesel=_f(p.preco_diesel),
+        preco_gasolina=_f(p.preco_gasolina),
+        preco_alcool=_f(p.preco_alcool),
+    )
+
+
+@router.put("/base-params", response_model=BaseParamsRead)
+async def update_base_params(
+    body: BaseParamsUpdate,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    p = await _get_base_params(db)
+    for field, value in body.model_dump(exclude_none=True).items():
+        setattr(p, field, value)
+    p.updated_at = datetime.utcnow()
+    await db.commit()
+    await db.refresh(p)
+    return await get_base_params(db=db, current_user=current_user)
+
+
+# ── Apply base params to all labor roles ─────────────────────────────────────
+
+class ApplyBaseParamsRequest(BaseModel):
+    fields: list[str]  # field names from LaborRole to overwrite with defaults
+
+
+@router.post("/labor-roles/apply-defaults")
+async def apply_defaults_to_all(
+    body: ApplyBaseParamsRequest,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """Apply base param defaults to all labor roles for specified fields."""
+    p = await _get_base_params(db)
+    field_map = {
+        "alimentacao": _f(p.default_alimentacao),
+        "cesta_basica": _f(p.default_cesta_basica),
+        "transporte": _f(p.default_transporte),
+        "epi": _f(p.default_epi),
+        "seguro_vida": _f(p.default_seguro_vida),
+        "ppr": _f(p.default_ppr),
+        "assist_medica": _f(p.default_assist_medica),
+        "aux_moradia": _f(p.default_aux_moradia),
+    }
+    roles_result = await db.execute(select(LaborRole))
+    roles = roles_result.scalars().all()
+    count = 0
+    for role in roles:
+        for field in body.fields:
+            if field in field_map:
+                setattr(role, field, field_map[field])
+        # recalculate totals
+        total = (
+            _f(role.custo_bruto_mes) + _f(getattr(role, 'dissidio', 0))
+            + _f(getattr(role, 'adic_transf', 0)) + _f(getattr(role, 'periculosidade_val', 0))
+            + _f(role.he_50_pct) + _f(role.he_100_pct)
+            + _f(role.encargos) + _f(getattr(role, 'adic_produtividade', 0))
+            + _f(role.transporte) + _f(role.alimentacao) + _f(role.epi)
+            + _f(role.seguro_vida) + _f(role.aux_moradia) + _f(role.cesta_basica)
+            + _f(role.ppr) + _f(role.assist_medica)
+        )
+        role.company_cost_monthly = total
+        role.company_cost_daily = total / 25.0
+        role.company_cost_hh = total / 220.0
+        role.version = (role.version or 1) + 1
+        count += 1
+    await db.commit()
+    return {"ok": True, "updated": count}
+
+
+# ── Update fuel prices for all equipment ─────────────────────────────────────
+
+class UpdateFuelPricesRequest(BaseModel):
+    preco_diesel: Optional[float] = None
+    preco_gasolina: Optional[float] = None
+    preco_alcool: Optional[float] = None
+
+
+@router.post("/equipment-items/update-fuel-prices")
+async def update_fuel_prices(
+    body: UpdateFuelPricesRequest,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """Update fuel prices in base params and recalculate all affected equipment."""
+    p = await _get_base_params(db)
+    price_map: dict[str, float] = {}
+    if body.preco_diesel is not None:
+        p.preco_diesel = body.preco_diesel
+        price_map["Diesel"] = body.preco_diesel
+    if body.preco_gasolina is not None:
+        p.preco_gasolina = body.preco_gasolina
+        price_map["Gasolina"] = body.preco_gasolina
+    if body.preco_alcool is not None:
+        p.preco_alcool = body.preco_alcool
+        price_map["Álcool"] = body.preco_alcool
+
+    equip_result = await db.execute(select(EquipmentItem))
+    items = equip_result.scalars().all()
+    count = 0
+    for item in items:
+        fuel = item.tipo_combustivel or ""
+        new_price = None
+        for fuel_name, price in price_map.items():
+            if fuel_name.lower() in fuel.lower():
+                new_price = price
+                break
+        if new_price is not None:
+            item.preco_combustivel = new_price
+            item.total_combustivel_mes = _f(item.consumo_combustivel_dia) * 25.0 * new_price
+            item.total_lubmaint_mes = (
+                _f(item.locacao_sem_op_mes) * _f(getattr(item, 'manutencao_pct', 0))
+                + _f(getattr(item, 'lubrificantes_mes', 0))
+                + _f(getattr(item, 'lavagem_mes', 0))
+            )
+            total = (
+                _f(item.locacao_sem_op_mes) + _f(item.total_combustivel_mes)
+                + _f(item.total_lubmaint_mes) + _f(item.mob_demob_mes)
+                + _f(item.outros_mes)
+            )
+            item.company_cost_monthly = total
+            item.company_cost_daily = total / 25.0
+            item.company_cost_hh = item.company_cost_daily / 8.0
+            item.version = (item.version or 1) + 1
+            count += 1
+
+    p.updated_at = datetime.utcnow()
+    await db.commit()
+    return {"ok": True, "updated": count}
+
+
+# ── Create new labor role / equipment item ────────────────────────────────────
+
+class LaborRoleCreate(BaseModel):
+    code: str
+    description: str
+    role_type: str = "direct"
+    salary_type: str = "H"
+    base_salary: float = 0
+    has_overtime: bool = False
+    has_adic_transf: bool = False
+    has_periculosidade: bool = False
+    has_adic_produt: bool = False
+    has_aux_moradia: bool = False
+    folga_meses: float = 3
+    custo_bruto_mes: float = 0
+    dissidio: float = 0
+    adic_transf: float = 0
+    periculosidade_val: float = 0
+    he_50_pct: float = 0
+    he_100_pct: float = 0
+    encargos: float = 0
+    subtotal_sem_he: float = 0
+    adic_produtividade: float = 0
+    custo_admissao: float = 0
+    desp_folga: float = 0
+    transporte: float = 0
+    alimentacao: float = 0
+    epi: float = 0
+    seguro_vida: float = 0
+    aux_moradia: float = 0
+    cesta_basica: float = 0
+    ppr: float = 0
+    assist_medica: float = 0
+
+
+@router.post("/labor-roles", response_model=LaborRoleFullRead, status_code=201)
+async def create_labor_role(
+    body: LaborRoleCreate,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    # Check code uniqueness
+    existing = await db.execute(select(LaborRole).where(LaborRole.code == body.code))
+    if existing.scalar_one_or_none():
+        raise HTTPException(status_code=409, detail=f"Código '{body.code}' já existe")
+
+    total = (
+        body.custo_bruto_mes + body.dissidio + body.adic_transf + body.periculosidade_val
+        + body.he_50_pct + body.he_100_pct + body.encargos + body.adic_produtividade
+        + body.transporte + body.alimentacao + body.epi + body.seguro_vida
+        + body.aux_moradia + body.cesta_basica + body.ppr + body.assist_medica
+    )
+    role = LaborRole(
+        code=body.code,
+        description=body.description,
+        role_type=body.role_type,
+        salary_type=body.salary_type,
+        base_salary=body.base_salary,
+        has_overtime=body.has_overtime,
+        has_adic_transf=body.has_adic_transf,
+        has_periculosidade=body.has_periculosidade,
+        has_adic_produt=body.has_adic_produt,
+        has_aux_moradia=body.has_aux_moradia,
+        folga_meses=body.folga_meses,
+        custo_bruto_mes=body.custo_bruto_mes,
+        dissidio=body.dissidio,
+        adic_transf=body.adic_transf,
+        periculosidade_val=body.periculosidade_val,
+        he_50_pct=body.he_50_pct,
+        he_100_pct=body.he_100_pct,
+        encargos=body.encargos,
+        subtotal_sem_he=body.subtotal_sem_he,
+        adic_produtividade=body.adic_produtividade,
+        custo_admissao=body.custo_admissao,
+        desp_folga=body.desp_folga,
+        transporte=body.transporte,
+        alimentacao=body.alimentacao,
+        epi=body.epi,
+        seguro_vida=body.seguro_vida,
+        aux_moradia=body.aux_moradia,
+        cesta_basica=body.cesta_basica,
+        ppr=body.ppr,
+        assist_medica=body.assist_medica,
+        company_cost_monthly=total,
+        company_cost_daily=total / 25.0,
+        company_cost_hh=total / 220.0,
+    )
+    db.add(role)
+    await db.commit()
+    await db.refresh(role)
+    return _labor_to_full(role)
+
+
+class EquipmentItemCreate(BaseModel):
+    code: str
+    description: str
+    locacao_sem_op_mes: float = 0
+    consumo_combustivel_dia: float = 0
+    tipo_combustivel: Optional[str] = None
+    preco_combustivel: float = 0
+    lubrificantes_mes: float = 0
+    manutencao_pct: float = 0
+    lavagem_mes: float = 0
+    mob_demob_mes: float = 0
+    outros_mes: float = 0
+
+
+@router.post("/equipment-items", response_model=EquipmentItemFullRead, status_code=201)
+async def create_equipment_item(
+    body: EquipmentItemCreate,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    existing = await db.execute(select(EquipmentItem).where(EquipmentItem.code == body.code))
+    if existing.scalar_one_or_none():
+        raise HTTPException(status_code=409, detail=f"Código '{body.code}' já existe")
+
+    combustivel = body.consumo_combustivel_dia * 25.0 * body.preco_combustivel
+    lub = body.locacao_sem_op_mes * body.manutencao_pct + body.lubrificantes_mes + body.lavagem_mes
+    total = body.locacao_sem_op_mes + combustivel + lub + body.mob_demob_mes + body.outros_mes
+    item = EquipmentItem(
+        code=body.code,
+        description=body.description,
+        locacao_sem_op_mes=body.locacao_sem_op_mes,
+        consumo_combustivel_dia=body.consumo_combustivel_dia,
+        tipo_combustivel=body.tipo_combustivel,
+        preco_combustivel=body.preco_combustivel,
+        total_combustivel_mes=combustivel,
+        lubrificantes_mes=body.lubrificantes_mes,
+        manutencao_pct=body.manutencao_pct,
+        lavagem_mes=body.lavagem_mes,
+        total_lubmaint_mes=lub,
+        mob_demob_mes=body.mob_demob_mes,
+        outros_mes=body.outros_mes,
+        company_cost_monthly=total,
+        company_cost_daily=total / 25.0,
+        company_cost_hh=total / (25.0 * 8.0),
+    )
+    db.add(item)
+    await db.commit()
+    await db.refresh(item)
+    return _equip_to_full(item)
+
+
+# ── Import labor roles from XLSX/CSV ─────────────────────────────────────────
+
+@router.post("/labor-roles/import")
+async def import_labor_roles(
+    file: UploadFile = File(...),
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """Import labor roles from XLSX (upsert by code)."""
+    import openpyxl
+    content = await file.read()
+    wb = openpyxl.load_workbook(io.BytesIO(content), data_only=True)
+    ws = wb.active
+    rows = list(ws.iter_rows(values_only=True))
+    if not rows:
+        return {"inserted": 0, "updated": 0, "errors": ["Arquivo vazio"]}
+
+    headers = [str(h).strip().lower() if h else "" for h in rows[0]]
+
+    def col(row, name: str, default=0):
+        try:
+            idx = headers.index(name)
+            v = row[idx]
+            if v is None:
+                return default
+            if isinstance(v, str):
+                v = v.replace(",", ".").strip()
+                return type(default)(v) if v else default
+            return type(default)(v)
+        except (ValueError, IndexError):
+            return default
+
+    inserted = 0
+    updated = 0
+    errors: list[str] = []
+
+    for i, row in enumerate(rows[1:], start=2):
+        code = col(row, "code", "")
+        if not code:
+            continue
+        description = col(row, "description", f"Função {code}")
+        try:
+            existing = await db.execute(select(LaborRole).where(LaborRole.code == code))
+            role = existing.scalar_one_or_none()
+            if role:
+                # update
+                role.description = description
+                for field in ["base_salary", "custo_bruto_mes", "dissidio", "adic_transf",
+                              "periculosidade_val", "he_50_pct", "he_100_pct", "encargos",
+                              "subtotal_sem_he", "adic_produtividade", "custo_admissao",
+                              "desp_folga", "transporte", "alimentacao", "epi",
+                              "seguro_vida", "aux_moradia", "cesta_basica", "ppr", "assist_medica"]:
+                    setattr(role, field, col(row, field))
+                # recalculate
+                total = (
+                    _f(role.custo_bruto_mes) + _f(getattr(role, 'dissidio', 0))
+                    + _f(getattr(role, 'adic_transf', 0)) + _f(getattr(role, 'periculosidade_val', 0))
+                    + _f(role.he_50_pct) + _f(role.he_100_pct)
+                    + _f(role.encargos) + _f(getattr(role, 'adic_produtividade', 0))
+                    + _f(role.transporte) + _f(role.alimentacao) + _f(role.epi)
+                    + _f(role.seguro_vida) + _f(role.aux_moradia) + _f(role.cesta_basica)
+                    + _f(role.ppr) + _f(role.assist_medica)
+                )
+                role.company_cost_monthly = total
+                role.company_cost_daily = total / 25.0
+                role.company_cost_hh = total / 220.0
+                role.version = (role.version or 1) + 1
+                updated += 1
+            else:
+                custo_bruto = col(row, "custo_bruto_mes")
+                new_role = LaborRole(
+                    code=code,
+                    description=description,
+                    role_type=col(row, "role_type", "direct"),
+                    salary_type=col(row, "salary_type", "H"),
+                    base_salary=col(row, "base_salary"),
+                    custo_bruto_mes=custo_bruto,
+                    dissidio=col(row, "dissidio"),
+                    adic_transf=col(row, "adic_transf"),
+                    periculosidade_val=col(row, "periculosidade_val"),
+                    he_50_pct=col(row, "he_50_pct"),
+                    he_100_pct=col(row, "he_100_pct"),
+                    encargos=col(row, "encargos"),
+                    subtotal_sem_he=col(row, "subtotal_sem_he"),
+                    adic_produtividade=col(row, "adic_produtividade"),
+                    custo_admissao=col(row, "custo_admissao"),
+                    desp_folga=col(row, "desp_folga"),
+                    transporte=col(row, "transporte"),
+                    alimentacao=col(row, "alimentacao"),
+                    epi=col(row, "epi"),
+                    seguro_vida=col(row, "seguro_vida"),
+                    aux_moradia=col(row, "aux_moradia"),
+                    cesta_basica=col(row, "cesta_basica"),
+                    ppr=col(row, "ppr"),
+                    assist_medica=col(row, "assist_medica"),
+                )
+                total = (
+                    custo_bruto + new_role.dissidio + new_role.adic_transf + new_role.periculosidade_val
+                    + new_role.he_50_pct + new_role.he_100_pct + new_role.encargos
+                    + new_role.adic_produtividade + new_role.transporte + new_role.alimentacao
+                    + new_role.epi + new_role.seguro_vida + new_role.aux_moradia
+                    + new_role.cesta_basica + new_role.ppr + new_role.assist_medica
+                )
+                new_role.company_cost_monthly = total
+                new_role.company_cost_daily = total / 25.0
+                new_role.company_cost_hh = total / 220.0
+                db.add(new_role)
+                inserted += 1
+        except Exception as exc:
+            errors.append(f"Linha {i}: {exc}")
+
+    await db.commit()
+    return {"inserted": inserted, "updated": updated, "errors": errors}
