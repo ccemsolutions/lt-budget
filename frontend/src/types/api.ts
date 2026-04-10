@@ -119,6 +119,32 @@ export interface ProjectInputsWrite {
   }
   indirect_config: IndirectCostsConfig
   financial_params: FinancialParamsConfig
+  materials_supply: MaterialsSupplyConfig
+  subcontractors: SubcontractorsConfig
+}
+
+export interface MaterialSupplyItem {
+  code: string
+  description: string
+  unit: string
+  unit_price: number
+  observations: string
+}
+
+export interface MaterialsSupplyConfig {
+  items: MaterialSupplyItem[]
+}
+
+export interface SubcontractorItem {
+  code: string
+  description: string
+  unit: string
+  unit_price: number
+  observations: string
+}
+
+export interface SubcontractorsConfig {
+  items: SubcontractorItem[]
 }
 
 export interface MaterialItem {

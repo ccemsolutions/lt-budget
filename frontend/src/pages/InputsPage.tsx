@@ -11,6 +11,8 @@ import AccessRoadsForm from '../components/inputs/AccessRoadsForm'
 import ScheduleForm from '../components/inputs/ScheduleForm'
 import IndirectCostsForm from '../components/inputs/IndirectCostsForm'
 import FinancialParamsForm from '../components/inputs/FinancialParamsForm'
+import MaterialsForm from '../components/inputs/MaterialsForm'
+import SubcontractorsForm from '../components/inputs/SubcontractorsForm'
 
 const DEFAULT_INPUTS: ProjectInputsWrite = {
   line_length_km: 0,
@@ -122,6 +124,8 @@ const DEFAULT_INPUTS: ProjectInputsWrite = {
     cost_outros: 0,
     materials: [],
   },
+  materials_supply: { items: [] },
+  subcontractors: { items: [] },
 }
 
 const STEPS = [
@@ -133,6 +137,8 @@ const STEPS = [
   'Cronograma',
   'Custos Indiretos',
   'Parâmetros Financeiros',
+  'Materiais',
+  'Subempreiteiros',
 ]
 
 interface Props {
@@ -238,6 +244,8 @@ export default function InputsPage({ projectId, onSaved }: Props) {
           {step === 5 && <ScheduleForm projectId={projectId} />}
           {step === 6 && <IndirectCostsForm />}
           {step === 7 && <FinancialParamsForm />}
+          {step === 8 && <MaterialsForm />}
+          {step === 9 && <SubcontractorsForm />}
         </div>
 
         {/* Navigation */}

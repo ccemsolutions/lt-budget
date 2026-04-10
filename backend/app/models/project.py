@@ -54,6 +54,8 @@ class ProjectInputs(Base):
     indirect_config: Mapped[dict] = mapped_column(JSONB, default=dict)
     financial_params: Mapped[dict] = mapped_column(JSONB, default=dict)
     crossings: Mapped[dict] = mapped_column(JSONB, default=dict)
+    materials_supply: Mapped[dict] = mapped_column(JSONB, default=dict)
+    subcontractors: Mapped[dict] = mapped_column(JSONB, default=dict)
 
     project: Mapped["Project"] = relationship("Project", back_populates="inputs")
 

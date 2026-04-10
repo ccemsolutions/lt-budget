@@ -127,6 +127,8 @@ async def upsert_inputs(
         "salary_params": payload.salary_params.model_dump(exclude_none=True),
         "indirect_config": payload.indirect_config.model_dump(),
         "financial_params": payload.financial_params.model_dump(),
+        "materials_supply": payload.materials_supply.model_dump(),
+        "subcontractors": payload.subcontractors.model_dump(),
     }
 
     if inputs:
@@ -192,6 +194,8 @@ async def trigger_budget(
         "indirect_config": inputs_model.indirect_config or {},
         "financial_params": inputs_model.financial_params or {},
         "crossings": inputs_model.crossings or {},
+        "materials_supply": inputs_model.materials_supply or {},
+        "subcontractors": inputs_model.subcontractors or {},
     }
 
     label = payload.label or f"R{version - 1}"

@@ -30,6 +30,8 @@ async def lifespan(app: FastAPI):
             "ALTER TABLE budgets ADD COLUMN IF NOT EXISTS hh_per_ton NUMERIC(10,4)",
             "ALTER TABLE project_inputs ADD COLUMN IF NOT EXISTS state VARCHAR(2) DEFAULT ''",
             "ALTER TABLE project_inputs ADD COLUMN IF NOT EXISTS crossings JSONB DEFAULT '{}'",
+            "ALTER TABLE project_inputs ADD COLUMN IF NOT EXISTS materials_supply JSONB DEFAULT '{}'",
+            "ALTER TABLE project_inputs ADD COLUMN IF NOT EXISTS subcontractors JSONB DEFAULT '{}'",
             # BD_MO — new columns
             "ALTER TABLE labor_roles ADD COLUMN IF NOT EXISTS dissidio NUMERIC(14,4) DEFAULT 0",
             "ALTER TABLE labor_roles ADD COLUMN IF NOT EXISTS adic_transf NUMERIC(14,4) DEFAULT 0",

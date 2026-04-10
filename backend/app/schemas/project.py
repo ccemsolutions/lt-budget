@@ -182,6 +182,30 @@ class IndirectCostsConfig(BaseModel):
     mob_demob_total: float = 0
 
 
+class MaterialSupplyItem(BaseModel):
+    code: str = ""
+    description: str = ""
+    unit: str = ""
+    unit_price: float = 0
+    observations: str = ""
+
+
+class MaterialsSupplyConfig(BaseModel):
+    items: list[MaterialSupplyItem] = []
+
+
+class SubcontractorItem(BaseModel):
+    code: str = ""
+    description: str = ""
+    unit: str = ""
+    unit_price: float = 0
+    observations: str = ""
+
+
+class SubcontractorsConfig(BaseModel):
+    items: list[SubcontractorItem] = []
+
+
 class ProjectInputsWrite(BaseModel):
     line_length_km: float
     circuit_type: str = "single"
@@ -196,6 +220,8 @@ class ProjectInputsWrite(BaseModel):
     salary_params: SalaryParamsOverride = SalaryParamsOverride()
     indirect_config: IndirectCostsConfig = IndirectCostsConfig()
     financial_params: FinancialParamsConfig = FinancialParamsConfig()
+    materials_supply: MaterialsSupplyConfig = MaterialsSupplyConfig()
+    subcontractors: SubcontractorsConfig = SubcontractorsConfig()
 
     @model_validator(mode='before')
     @classmethod
@@ -244,6 +270,8 @@ class ProjectInputsRead(BaseModel):
     salary_params: dict[str, Any]
     indirect_config: dict[str, Any] = {}
     financial_params: dict[str, Any] = {}
+    materials_supply: dict[str, Any] = {}
+    subcontractors: dict[str, Any] = {}
     updated_at: datetime
 
     model_config = {"from_attributes": True}
