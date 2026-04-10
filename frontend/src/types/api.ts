@@ -111,6 +111,8 @@ export interface ProjectInputsWrite {
     start_month_finais: number
     teams_by_activity: Record<string, number>
     productivity_factors: Record<string, number>
+    category_overrides: Record<string, string>
+    hidden_activities: string[]
   }
   salary_params: {
     encargos_pct?: number
@@ -209,11 +211,27 @@ export interface IndirectVehicleItem {
   duration_months?: number | null
 }
 
+export interface CanteiroCusto {
+  nome: string
+  custo_mes: number
+  meses?: number | null
+  quantidade: number
+}
+
+export interface AlojamentoCusto {
+  nome: string
+  custo_mes: number
+  meses?: number | null
+  quantidade: number
+}
+
 export interface IndirectCostsConfig {
   mo_roles: IndirectRoleItem[]
   vehicles: IndirectVehicleItem[]
   canteiro_custo_mes: number
   canteiro_meses?: number | null
+  canteiros: CanteiroCusto[]
+  alojamentos: AlojamentoCusto[]
   republicas_custo_mes: number
   viagens_custo_mes: number
   qsms_custo_mes: number

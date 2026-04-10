@@ -1,4 +1,4 @@
-import { useFormContext } from 'react-hook-form'
+import { useFormContext, useFieldArray } from 'react-hook-form'
 import type { ProjectInputsWrite } from '../../types/api'
 
 // ─── Configuração dos grupos de MO Indireta ──────────────────────────────────
@@ -162,6 +162,89 @@ function RoleRow({
   )
 }
 
+// ─── Multi-canteiro table ─────────────────────────────────────────────────────
+
+function CanteirosTable({
+  fieldName,
+  title,
+  defaultNome,
+  color,
+}: {
+  fieldName: 'indirect_config.canteiros' | 'indirect_config.alojamentos'
+  title: string
+  defaultNome: string
+  color: string
+}) {
+  const { register, control } = useFormContext<ProjectInputsWrite>()
+  const { fields, append, remove } = useFieldArray({ control, name: fieldName as any })
+
+  return (
+    <div className="space-y-2">
+      <div className="flex items-center justify-between">
+        <label className={`text-xs font-semibold ${color}`}>{title}</label>
+        <button
+          type="button"
+          onClick={() => append({ nome: defaultNome, custo_mes: 0, meses: null, quantidade: 1 } as any)}
+          className="text-xs px-2 py-0.5 rounded border border-gray-300 hover:bg-gray-50"
+        >
+          + Adicionar
+        </button>
+      </div>
+      {fields.length > 0 && (
+        <table className="w-full text-xs border rounded overflow-hidden">
+          <thead className="bg-gray-50">
+            <tr>
+              <th className="px-2 py-1 text-left font-medium text-gray-500">Nome</th>
+              <th className="px-2 py-1 text-right font-medium text-gray-500">R$/mês</th>
+              <th className="px-2 py-1 text-right font-medium text-gray-500">Meses</th>
+              <th className="px-2 py-1 text-right font-medium text-gray-500">Qtd</th>
+              <th className="px-1 py-1 w-6"></th>
+            </tr>
+          </thead>
+          <tbody className="divide-y">
+            {fields.map((f, i) => (
+              <tr key={f.id}>
+                <td className="px-1 py-1">
+                  <input
+                    {...register(`${fieldName}.${i}.nome` as any)}
+                    className="w-full border rounded px-1 py-0.5 focus:outline-none focus:ring-1 focus:ring-blue-400"
+                  />
+                </td>
+                <td className="px-1 py-1">
+                  <input
+                    type="number" min={0} step={1000}
+                    {...register(`${fieldName}.${i}.custo_mes` as any, { valueAsNumber: true })}
+                    className="w-24 border rounded px-1 py-0.5 text-right focus:outline-none focus:ring-1 focus:ring-blue-400"
+                  />
+                </td>
+                <td className="px-1 py-1">
+                  <input
+                    type="number" min={1} step={1}
+                    placeholder="—"
+                    {...register(`${fieldName}.${i}.meses` as any, { valueAsNumber: true })}
+                    className="w-16 border rounded px-1 py-0.5 text-right focus:outline-none focus:ring-1 focus:ring-blue-400"
+                  />
+                </td>
+                <td className="px-1 py-1">
+                  <input
+                    type="number" min={1} step={1}
+                    {...register(`${fieldName}.${i}.quantidade` as any, { valueAsNumber: true })}
+                    className="w-12 border rounded px-1 py-0.5 text-right focus:outline-none focus:ring-1 focus:ring-blue-400"
+                  />
+                </td>
+                <td className="px-1 py-1 text-center">
+                  <button type="button" onClick={() => remove(i)}
+                    className="text-red-400 hover:text-red-600 font-bold text-base leading-none">×</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </div>
+  )
+}
+
 // ─── Componente principal ────────────────────────────────────────────────────
 export default function IndirectCostsForm() {
   const { register, watch } = useFormContext<ProjectInputsWrite>()
@@ -238,10 +321,28 @@ export default function IndirectCostsForm() {
         <h4 className="text-sm font-semibold text-green-700 mb-3 border-b pb-1">
           Outros Custos Indiretos (R$/mês ou valor total)
         </h4>
+        <div className="space-y-4">
+          <CanteirosTable
+            fieldName="indirect_config.canteiros"
+            title="Canteiros / Subcanteiros"
+            defaultNome="Canteiro Central"
+            color="text-blue-700"
+          />
+          <CanteirosTable
+            fieldName="indirect_config.alojamentos"
+            title="Alojamentos"
+            defaultNome="Alojamento"
+            color="text-teal-700"
+          />
+          <p className="text-xs text-gray-400">
+            Meses em branco = usa duração total do projeto. Total = R$/mês × meses × quantidade.
+          </p>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-1">
-            <label className="text-xs text-gray-600 font-medium">Canteiro (R$/mês)</label>
-            <p className="text-xs text-gray-400">Alojamento, escritório, pátio, almoxarifado</p>
+            <label className="text-xs text-gray-600 font-medium">Canteiro Legado (R$/mês)</label>
+            <p className="text-xs text-gray-400">Campo legado — use a tabela acima para novos projetos</p>
             <input
               type="number"
               min={0}

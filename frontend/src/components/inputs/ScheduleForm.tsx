@@ -48,11 +48,13 @@ interface Props {
 }
 
 export default function ScheduleForm({ projectId }: Props) {
-  const { register, setValue, control } = useFormContext<ProjectInputsWrite>()
+  const { register, setValue, getValues, control } = useFormContext<ProjectInputsWrite>()
 
-  const teamsWatch    = useWatch({ control, name: 'schedule.teams_by_activity' })    ?? {}
-  const factorsWatch  = useWatch({ control, name: 'schedule.productivity_factors' }) ?? {}
-  const totalMonths   = useWatch({ control, name: 'schedule.total_duration_months'}) ?? 24
+  const teamsWatch      = useWatch({ control, name: 'schedule.teams_by_activity' })      ?? {}
+  const factorsWatch    = useWatch({ control, name: 'schedule.productivity_factors' })    ?? {}
+  const overridesWatch  = useWatch({ control, name: 'schedule.category_overrides' })      ?? {}
+  const hiddenWatch     = useWatch({ control, name: 'schedule.hidden_activities' })       ?? []
+  const totalMonths     = useWatch({ control, name: 'schedule.total_duration_months'})    ?? 24
 
   // Debounced preview state
   const [preview, setPreview]       = useState<ActivityScheduleRead[]>([])
@@ -87,9 +89,36 @@ export default function ScheduleForm({ projectId }: Props) {
   const getTeams  = (code: string): number => Number(teamsWatch[code]  ?? 1)
   const getFactor = (code: string): number => Number(factorsWatch[code] ?? 1.0)
 
+  function isHidden(code: string): boolean {
+    return (hiddenWatch as string[]).includes(code)
+  }
+
+  function toggleHidden(code: string) {
+    const current: string[] = getValues('schedule.hidden_activities') ?? []
+    if (current.includes(code)) {
+      setValue('schedule.hidden_activities', current.filter(c => c !== code), { shouldDirty: true })
+    } else {
+      setValue('schedule.hidden_activities', [...current, code], { shouldDirty: true })
+    }
+  }
+
+  function getCategory(act: { code: string; category: string }): string {
+    return (overridesWatch as Record<string, string>)[act.code] ?? act.category
+  }
+
+  function setCategory(code: string, cat: string) {
+    const current: Record<string, string> = getValues('schedule.category_overrides') ?? {}
+    if (cat === '') {
+      const { [code]: _, ...rest } = current
+      setValue('schedule.category_overrides', rest, { shouldDirty: true })
+    } else {
+      setValue('schedule.category_overrides', { ...current, [code]: cat }, { shouldDirty: true })
+    }
+  }
+
   const grouped = CATEGORY_ORDER.map(cat => ({
     category: cat,
-    items: activities.filter(a => a.category === cat),
+    items: activities.filter(a => getCategory(a) === cat),
   })).filter(g => g.items.length > 0)
 
   const months = Array.from({ length: Number(totalMonths) + 1 }, (_, i) => i)  // 0..totalMonths
@@ -149,9 +178,11 @@ export default function ScheduleForm({ projectId }: Props) {
             <table className="text-xs border-collapse min-w-full">
               <thead className="bg-gray-50 sticky top-0 z-10">
                 <tr>
+                  <th className="border-r border-b px-1 py-2 text-center font-semibold text-gray-500 w-8 bg-gray-50" title="Visível">👁</th>
                   {/* Fixed left columns */}
                   <th className="border-r border-b px-2 py-2 text-left font-semibold text-gray-600 w-12 bg-gray-50">Cód.</th>
                   <th className="border-r border-b px-2 py-2 text-left font-semibold text-gray-600 bg-gray-50 min-w-48">Descrição</th>
+                  <th className="border-r border-b px-2 py-2 text-center font-semibold text-purple-700 w-28 bg-purple-50">Categoria</th>
                   <th className="border-r border-b px-2 py-2 text-center font-semibold text-gray-600 w-10 bg-gray-50">Un.</th>
                   <th className="border-r border-b px-2 py-2 text-right font-semibold text-gray-600 w-20 bg-gray-50">Qtde</th>
                   <th className="border-r border-b px-2 py-2 text-right font-semibold text-gray-500 w-16 bg-gray-50">KPI<br/>Padrão</th>
@@ -173,7 +204,7 @@ export default function ScheduleForm({ projectId }: Props) {
                     {/* Category header row */}
                     <tr key={`cat-${category}`} className="bg-gray-100">
                       <td
-                        colSpan={9 + months.length}
+                        colSpan={11 + months.length}
                         className="px-3 py-1 text-xs font-bold uppercase tracking-wide text-gray-600 border-b"
                       >
                         {category}
@@ -181,10 +212,12 @@ export default function ScheduleForm({ projectId }: Props) {
                     </tr>
 
                     {items.map((act) => {
-                      const factor     = getFactor(act.code)
-                      const teams      = getTeams(act.code)
+                      const hidden      = isHidden(act.code)
+                      const factor      = getFactor(act.code)
+                      const teams       = getTeams(act.code)
                       const isModFactor = Math.abs(factor - 1.0) > 0.001
                       const isModTeams  = teams !== 1
+                      const catOverride = (overridesWatch as Record<string, string>)[act.code]
                       const prev        = previewMap[act.code]
                       const duration    = prev?.duration_months ?? 0
                       const startMonth  = prev?.start_month ?? 1
@@ -197,16 +230,40 @@ export default function ScheduleForm({ projectId }: Props) {
                       // Active month range [startMonth .. startMonth + duration)
                       const endMonth = startMonth + duration
 
-                      const barColor = CATEGORY_COLOR[act.category] ?? 'bg-gray-300'
-                      const textColor = CATEGORY_TEXT[act.category] ?? 'text-gray-700'
+                      const effectiveCat = catOverride ?? act.category
+                      const barColor = CATEGORY_COLOR[effectiveCat] ?? 'bg-gray-300'
+                      const textColor = CATEGORY_TEXT[effectiveCat] ?? 'text-gray-700'
 
                       return (
-                        <tr key={act.code} className="border-b border-gray-100 hover:bg-gray-50">
+                        <tr key={act.code} className={`border-b border-gray-100 hover:bg-gray-50 ${hidden ? 'opacity-40' : ''}`}>
+                          {/* Visibility toggle */}
+                          <td className="border-r px-1 py-1 text-center">
+                            <input
+                              type="checkbox"
+                              checked={!hidden}
+                              onChange={() => toggleHidden(act.code)}
+                              className="accent-blue-600 cursor-pointer"
+                              title={hidden ? 'Ocultar atividade' : 'Atividade visível'}
+                            />
+                          </td>
                           {/* Code */}
                           <td className="border-r px-2 py-1 font-mono text-blue-600 font-medium">{act.code}</td>
                           {/* Description */}
                           <td className="border-r px-2 py-1 text-gray-700 truncate max-w-xs" title={act.description}>
                             {act.description}
+                          </td>
+                          {/* Category override */}
+                          <td className="border-r px-1 py-1 bg-purple-50">
+                            <select
+                              value={catOverride ?? ''}
+                              onChange={e => setCategory(act.code, e.target.value)}
+                              className={`w-full border rounded px-1 py-0.5 text-xs focus:outline-none focus:ring-1 focus:ring-purple-400 bg-purple-50 ${catOverride ? 'border-purple-400 font-semibold text-purple-800' : 'border-gray-200 text-gray-400'}`}
+                            >
+                              <option value="">— padrão —</option>
+                              {CATEGORY_ORDER.map(c => (
+                                <option key={c} value={c}>{c}</option>
+                              ))}
+                            </select>
                           </td>
                           {/* Unit */}
                           <td className="border-r px-2 py-1 text-center text-gray-500">{act.unit}</td>
@@ -258,8 +315,7 @@ export default function ScheduleForm({ projectId }: Props) {
                           </td>
                           {/* Gantt months */}
                           {months.map(m => {
-                            const active = duration > 0 && m >= startMonth && m < endMonth
-                            // fractional fill for start/end months
+                            const active = !hidden && duration > 0 && m >= startMonth && m < endMonth
                             return (
                               <td key={m} className={`border-r px-0.5 py-1 text-center ${active ? barColor : ''}`}>
                                 {active && monthPct > 0 ? (

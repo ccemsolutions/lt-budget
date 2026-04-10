@@ -96,6 +96,8 @@ const DEFAULT_INPUTS: ProjectInputsWrite = {
     start_month_finais: 20,
     teams_by_activity: {},
     productivity_factors: {},
+    category_overrides: {},
+    hidden_activities: [],
   },
   salary_params: {
     encargos_pct: 91,
@@ -107,6 +109,8 @@ const DEFAULT_INPUTS: ProjectInputsWrite = {
     vehicles: [],
     canteiro_custo_mes: 0,
     canteiro_meses: null,
+    canteiros: [],
+    alojamentos: [],
     republicas_custo_mes: 0,
     viagens_custo_mes: 0,
     qsms_custo_mes: 0,

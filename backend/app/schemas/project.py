@@ -125,6 +125,8 @@ class ScheduleInputs(BaseModel):
     start_month_finais: int = 20
     teams_by_activity: dict[str, int] = {}
     productivity_factors: dict[str, float] = {}  # activity_code -> fator multiplicador (default 1.0)
+    category_overrides: dict[str, str] = {}      # activity_code -> new category name
+    hidden_activities: list[str] = []             # activity codes to exclude from schedule/budget
 
 
 class SalaryParamsOverride(BaseModel):
@@ -171,11 +173,29 @@ class IndirectVehicleItem(BaseModel):
     duration_months: float | None = None
 
 
+class CanteiroCusto(BaseModel):
+    nome: str = "Canteiro Central"
+    custo_mes: float = 0
+    meses: float | None = None   # None = usa total_duration_months
+    quantidade: int = 1
+
+
+class AlojamentoCusto(BaseModel):
+    nome: str = "Alojamento"
+    custo_mes: float = 0
+    meses: float | None = None
+    quantidade: int = 1
+
+
 class IndirectCostsConfig(BaseModel):
     mo_roles: list[IndirectRoleItem] = []
     vehicles: list[IndirectVehicleItem] = []
+    # Legacy single canteiro (kept for retrocompatibility)
     canteiro_custo_mes: float = 0
     canteiro_meses: float | None = None
+    # New multi-canteiro / alojamento lists
+    canteiros: list[CanteiroCusto] = []
+    alojamentos: list[AlojamentoCusto] = []
     republicas_custo_mes: float = 0
     viagens_custo_mes: float = 0
     qsms_custo_mes: float = 0

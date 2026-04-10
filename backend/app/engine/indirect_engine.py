@@ -56,14 +56,27 @@ def compute_indirect_costs(
         vem_cost += veh_cfg.qty * duration * equip.company_cost_monthly
 
     # ── Custos fixos mensais ──────────────────────────────────────────────────
+    # Legacy single canteiro (backward compat)
     canteiro_months = config.canteiro_meses if config.canteiro_meses else total_months
     canteiro_cost    = config.canteiro_custo_mes * canteiro_months
+
+    # New multi-canteiro
+    for c in (config.canteiros or []):
+        meses = c.meses if c.meses else total_months
+        canteiro_cost += c.custo_mes * meses * c.quantidade
+
+    # Alojamentos
+    alojamento_cost = 0.0
+    for a in (config.alojamentos or []):
+        meses = a.meses if a.meses else total_months
+        alojamento_cost += a.custo_mes * meses * a.quantidade
+
     republicas_cost  = config.republicas_custo_mes * total_months
     viagens_cost     = config.viagens_custo_mes * total_months
     qsms_cost        = config.qsms_custo_mes * total_months
     mob_demob_cost   = config.mob_demob_total
 
-    other_cost = canteiro_cost + republicas_cost + viagens_cost + qsms_cost + mob_demob_cost
+    other_cost = canteiro_cost + alojamento_cost + republicas_cost + viagens_cost + qsms_cost + mob_demob_cost
     total_cost = mo_cost + vem_cost + other_cost
 
     return IndirectCostResult(
