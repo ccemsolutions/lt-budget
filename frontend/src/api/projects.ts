@@ -1,5 +1,5 @@
 import api from './client'
-import type { ProjectRead, ProjectInputsWrite, BudgetRead, BudgetSummaryRead, BudgetActivityRead, HistogramData, FinancialResultRead, CostBreakdownRead, ActivityCatalogRead, LaborRoleRef, EquipmentItemRef, ResourceTemplateWrite, ActivityScheduleRead } from '../types/api'
+import type { ProjectRead, ProjectInputsWrite, BudgetRead, BudgetSummaryRead, BudgetActivityRead, HistogramData, FinancialResultRead, CostBreakdownRead, ActivityCatalogRead, LaborRoleRef, EquipmentItemRef, ResourceTemplateWrite, ActivityScheduleRead, LaborRoleFullRead, LaborRoleUpdate, EquipmentItemFullRead, EquipmentItemUpdate } from '../types/api'
 
 export const projectsApi = {
   list: () => api.get<ProjectRead[]>('/projects').then(r => r.data),
@@ -49,4 +49,15 @@ export const catalogApi = {
     api.put(`/catalog/activities/${activityId}/resources`, resources).then(r => r.data),
   updateProductivity: (activityId: string, productivity_per_day: number) =>
     api.put(`/catalog/activities/${activityId}/productivity`, { productivity_per_day }).then(r => r.data),
+}
+
+export const baseDataApi = {
+  getLaborRoles: () =>
+    api.get<LaborRoleFullRead[]>('/catalog/labor-roles/full').then(r => r.data),
+  updateLaborRole: (id: string, data: LaborRoleUpdate) =>
+    api.put<LaborRoleFullRead>(`/catalog/labor-roles/${id}`, data).then(r => r.data),
+  getEquipmentItems: () =>
+    api.get<EquipmentItemFullRead[]>('/catalog/equipment-items/full').then(r => r.data),
+  updateEquipmentItem: (id: string, data: EquipmentItemUpdate) =>
+    api.put<EquipmentItemFullRead>(`/catalog/equipment-items/${id}`, data).then(r => r.data),
 }

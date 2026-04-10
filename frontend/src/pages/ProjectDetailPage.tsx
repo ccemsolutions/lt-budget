@@ -92,6 +92,12 @@ export default function ProjectDetailPage() {
             </p>
           </div>
           <button
+            onClick={() => navigate('/base-data')}
+            className="text-sm text-gray-500 hover:text-blue-600 font-medium px-3 py-2"
+          >
+            Base de Dados
+          </button>
+          <button
             onClick={() => navigate('/catalog')}
             className="text-sm text-gray-500 hover:text-blue-600 font-medium px-3 py-2"
           >

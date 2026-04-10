@@ -414,6 +414,82 @@ export interface ActivityCatalogRead {
   resources: ResourceTemplateRead[]
 }
 
+// ── BD_MO / BD_VEM full read & update ────────────────────────────────────────
+
+export interface LaborRoleFullRead {
+  id: string
+  code: string
+  description: string
+  role_type: string
+  salary_type: string
+  base_salary: number
+  has_overtime: boolean
+  custo_bruto_mes: number
+  he_50_pct: number
+  he_100_pct: number
+  encargos: number
+  transporte: number
+  alimentacao: number
+  epi: number
+  seguro_vida: number
+  aux_moradia: number
+  cesta_basica: number
+  ppr: number
+  assist_medica: number
+  company_cost_monthly: number
+  company_cost_daily: number
+  company_cost_hh: number
+  is_active: boolean
+  version: number
+}
+
+export interface LaborRoleUpdate {
+  description?: string
+  base_salary?: number
+  has_overtime?: boolean
+  custo_bruto_mes?: number
+  he_50_pct?: number
+  he_100_pct?: number
+  encargos?: number
+  transporte?: number
+  alimentacao?: number
+  epi?: number
+  seguro_vida?: number
+  aux_moradia?: number
+  cesta_basica?: number
+  ppr?: number
+  assist_medica?: number
+}
+
+export interface EquipmentItemFullRead {
+  id: string
+  code: string
+  description: string
+  locacao_sem_op_mes: number
+  consumo_combustivel_dia: number
+  tipo_combustivel: string | null
+  total_combustivel_mes: number
+  total_lubmaint_mes: number
+  mob_demob_mes: number
+  outros_mes: number
+  company_cost_monthly: number
+  company_cost_daily: number
+  company_cost_hh: number
+  is_active: boolean
+  version: number
+}
+
+export interface EquipmentItemUpdate {
+  description?: string
+  locacao_sem_op_mes?: number
+  consumo_combustivel_dia?: number
+  tipo_combustivel?: string
+  total_combustivel_mes?: number
+  total_lubmaint_mes?: number
+  mob_demob_mes?: number
+  outros_mes?: number
+}
+
 export interface ResourceTemplateWrite {
   resource_type: string
   labor_role_id?: string

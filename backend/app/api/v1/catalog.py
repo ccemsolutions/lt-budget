@@ -1,8 +1,10 @@
 """
 Catalog API — Activity catalog with CPU (resource templates) view and edit.
+Also exposes BD_MO (labor roles) and BD_VEM (equipment) editors.
 """
 from __future__ import annotations
 import uuid
+from datetime import datetime
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
@@ -86,6 +88,84 @@ class ResourceTemplateWrite(BaseModel):
 
 class ActivityProductivityUpdate(BaseModel):
     productivity_per_day: float
+
+
+# ── BD_MO schemas ────────────────────────────────────────────────────────────
+
+class LaborRoleFullRead(BaseModel):
+    id: str
+    code: str
+    description: str
+    role_type: str
+    salary_type: str
+    base_salary: float
+    has_overtime: bool
+    custo_bruto_mes: float
+    he_50_pct: float
+    he_100_pct: float
+    encargos: float
+    transporte: float
+    alimentacao: float
+    epi: float
+    seguro_vida: float
+    aux_moradia: float
+    cesta_basica: float
+    ppr: float
+    assist_medica: float
+    company_cost_monthly: float
+    company_cost_daily: float
+    company_cost_hh: float
+    is_active: bool
+    version: int
+
+
+class LaborRoleUpdate(BaseModel):
+    description: Optional[str] = None
+    base_salary: Optional[float] = None
+    has_overtime: Optional[bool] = None
+    custo_bruto_mes: Optional[float] = None
+    he_50_pct: Optional[float] = None
+    he_100_pct: Optional[float] = None
+    encargos: Optional[float] = None
+    transporte: Optional[float] = None
+    alimentacao: Optional[float] = None
+    epi: Optional[float] = None
+    seguro_vida: Optional[float] = None
+    aux_moradia: Optional[float] = None
+    cesta_basica: Optional[float] = None
+    ppr: Optional[float] = None
+    assist_medica: Optional[float] = None
+
+
+# ── BD_VEM schemas ───────────────────────────────────────────────────────────
+
+class EquipmentItemFullRead(BaseModel):
+    id: str
+    code: str
+    description: str
+    locacao_sem_op_mes: float
+    consumo_combustivel_dia: float
+    tipo_combustivel: Optional[str]
+    total_combustivel_mes: float
+    total_lubmaint_mes: float
+    mob_demob_mes: float
+    outros_mes: float
+    company_cost_monthly: float
+    company_cost_daily: float
+    company_cost_hh: float
+    is_active: bool
+    version: int
+
+
+class EquipmentItemUpdate(BaseModel):
+    description: Optional[str] = None
+    locacao_sem_op_mes: Optional[float] = None
+    consumo_combustivel_dia: Optional[float] = None
+    tipo_combustivel: Optional[str] = None
+    total_combustivel_mes: Optional[float] = None
+    total_lubmaint_mes: Optional[float] = None
+    mob_demob_mes: Optional[float] = None
+    outros_mes: Optional[float] = None
 
 
 # ── Endpoints ───────────────────────────────────────────────────────────────
@@ -262,3 +342,123 @@ async def update_resources(
 
     await db.commit()
     return {"ok": True, "count": len(resources)}
+
+
+# ── BD_MO endpoints ──────────────────────────────────────────────────────────
+
+def _labor_to_full(r: LaborRole) -> LaborRoleFullRead:
+    return LaborRoleFullRead(
+        id=str(r.id), code=r.code, description=r.description,
+        role_type=r.role_type, salary_type=r.salary_type,
+        base_salary=float(r.base_salary), has_overtime=r.has_overtime,
+        custo_bruto_mes=float(r.custo_bruto_mes), he_50_pct=float(r.he_50_pct),
+        he_100_pct=float(r.he_100_pct), encargos=float(r.encargos),
+        transporte=float(r.transporte), alimentacao=float(r.alimentacao),
+        epi=float(r.epi), seguro_vida=float(r.seguro_vida),
+        aux_moradia=float(r.aux_moradia), cesta_basica=float(r.cesta_basica),
+        ppr=float(r.ppr), assist_medica=float(r.assist_medica),
+        company_cost_monthly=float(r.company_cost_monthly),
+        company_cost_daily=float(r.company_cost_daily),
+        company_cost_hh=float(r.company_cost_hh),
+        is_active=r.is_active, version=r.version,
+    )
+
+
+@router.get("/labor-roles/full", response_model=list[LaborRoleFullRead])
+async def list_labor_roles_full(
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    result = await db.execute(select(LaborRole).order_by(LaborRole.code))
+    return [_labor_to_full(r) for r in result.scalars()]
+
+
+@router.put("/labor-roles/{role_id}", response_model=LaborRoleFullRead)
+async def update_labor_role(
+    role_id: uuid.UUID,
+    body: LaborRoleUpdate,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    role = await db.get(LaborRole, role_id)
+    if not role:
+        raise HTTPException(status_code=404, detail="Cargo não encontrado")
+
+    for field, value in body.model_dump(exclude_none=True).items():
+        setattr(role, field, value)
+
+    # Recalculate totals
+    total = (
+        float(role.custo_bruto_mes) + float(role.he_50_pct) + float(role.he_100_pct)
+        + float(role.encargos) + float(role.transporte) + float(role.alimentacao)
+        + float(role.epi) + float(role.seguro_vida) + float(role.aux_moradia)
+        + float(role.cesta_basica) + float(role.ppr) + float(role.assist_medica)
+    )
+    role.company_cost_monthly = total
+    role.company_cost_daily = total / 25.0
+    role.company_cost_hh = total / 220.0
+    role.version = (role.version or 1) + 1
+    role.updated_at = datetime.utcnow()
+
+    await db.commit()
+    await db.refresh(role)
+    return _labor_to_full(role)
+
+
+# ── BD_VEM endpoints ─────────────────────────────────────────────────────────
+
+def _equip_to_full(e: EquipmentItem) -> EquipmentItemFullRead:
+    return EquipmentItemFullRead(
+        id=str(e.id), code=e.code, description=e.description,
+        locacao_sem_op_mes=float(e.locacao_sem_op_mes),
+        consumo_combustivel_dia=float(e.consumo_combustivel_dia),
+        tipo_combustivel=e.tipo_combustivel,
+        total_combustivel_mes=float(e.total_combustivel_mes),
+        total_lubmaint_mes=float(e.total_lubmaint_mes),
+        mob_demob_mes=float(e.mob_demob_mes),
+        outros_mes=float(e.outros_mes),
+        company_cost_monthly=float(e.company_cost_monthly),
+        company_cost_daily=float(e.company_cost_daily),
+        company_cost_hh=float(e.company_cost_hh),
+        is_active=e.is_active, version=e.version,
+    )
+
+
+@router.get("/equipment-items/full", response_model=list[EquipmentItemFullRead])
+async def list_equipment_items_full(
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    result = await db.execute(select(EquipmentItem).order_by(EquipmentItem.code))
+    return [_equip_to_full(e) for e in result.scalars()]
+
+
+@router.put("/equipment-items/{item_id}", response_model=EquipmentItemFullRead)
+async def update_equipment_item(
+    item_id: uuid.UUID,
+    body: EquipmentItemUpdate,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    item = await db.get(EquipmentItem, item_id)
+    if not item:
+        raise HTTPException(status_code=404, detail="Equipamento não encontrado")
+
+    for field, value in body.model_dump(exclude_none=True).items():
+        setattr(item, field, value)
+
+    # Recalculate totals
+    total = (
+        float(item.locacao_sem_op_mes) + float(item.total_combustivel_mes)
+        + float(item.total_lubmaint_mes) + float(item.mob_demob_mes)
+        + float(item.outros_mes)
+    )
+    item.company_cost_monthly = total
+    item.company_cost_daily = total / 25.0
+    item.company_cost_hh = item.company_cost_daily / 8.0
+    item.version = (item.version or 1) + 1
+    item.updated_at = datetime.utcnow()
+
+    await db.commit()
+    await db.refresh(item)
+    return _equip_to_full(item)

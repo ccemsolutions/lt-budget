@@ -5,6 +5,7 @@ import RegisterPage from './pages/RegisterPage'
 import DashboardPage from './pages/DashboardPage'
 import ProjectDetailPage from './pages/ProjectDetailPage'
 import CatalogPage from './pages/CatalogPage'
+import BaseDataPage from './pages/BaseDataPage'
 
 function RequireAuth({ children }: { children: React.ReactNode }) {
   const token = useAuthStore((s) => s.token)
@@ -39,6 +40,14 @@ export default function App() {
           element={
             <RequireAuth>
               <CatalogPage />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/base-data"
+          element={
+            <RequireAuth>
+              <BaseDataPage />
             </RequireAuth>
           }
         />
