@@ -6,9 +6,9 @@ from __future__ import annotations
 import io
 import uuid
 from datetime import datetime
-from fastapi import APIRouter, Depends, HTTPException, UploadFile, File
+from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Query
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select
+from sqlalchemy import select, or_, and_
 from pydantic import BaseModel
 from typing import Optional
 
@@ -69,6 +69,28 @@ class ActivityCatalogRead(BaseModel):
     productivity_per_day: float
     fd_pct: float
     resources: list[ResourceTemplateRead] = []
+    project_id: Optional[str] = None   # None = global; set = project-specific override
+
+
+class ActivityCreate(BaseModel):
+    code: str
+    description: str
+    unit: str = "un"
+    category: str = "Outros"
+    sort_order: int = 0
+    quantity_formula: str = ""
+    productivity_per_day: float = 0
+    fd_pct: float = 0.02
+    project_id: Optional[str] = None
+
+
+class ActivityUpdate(BaseModel):
+    description: Optional[str] = None
+    unit: Optional[str] = None
+    category: Optional[str] = None
+    quantity_formula: Optional[str] = None
+    productivity_per_day: Optional[float] = None
+    fd_pct: Optional[float] = None
 
 
 # ── Write schemas ───────────────────────────────────────────────────────────
@@ -203,25 +225,19 @@ class EquipmentItemUpdate(BaseModel):
 
 # ── Endpoints ───────────────────────────────────────────────────────────────
 
-@router.get("/activities", response_model=list[ActivityCatalogRead])
-async def list_activities(
-    db: AsyncSession = Depends(get_db),
-    current_user: User = Depends(get_current_user),
-):
-    """List all activities in catalog with their resource templates."""
-    act_result = await db.execute(
-        select(ActivityCatalog).where(ActivityCatalog.is_active == True).order_by(ActivityCatalog.sort_order)
-    )
-    activities = act_result.scalars().all()
-
-    # Bulk load templates
+async def _build_activities_response(
+    db: AsyncSession, activities: list[ActivityCatalog]
+) -> list[ActivityCatalogRead]:
+    """Bulk-load templates and build ActivityCatalogRead list."""
     activity_ids = [a.id for a in activities]
+    if not activity_ids:
+        return []
+
     rt_result = await db.execute(
         select(ResourceTemplate).where(ResourceTemplate.activity_id.in_(activity_ids))
     )
     templates = rt_result.scalars().all()
 
-    # Bulk load roles and equipment
     labor_ids = {rt.labor_role_id for rt in templates if rt.labor_role_id}
     equip_ids = {rt.equipment_id for rt in templates if rt.equipment_id}
 
@@ -237,7 +253,6 @@ async def list_activities(
         for e in eq.scalars():
             equip_map[e.id] = e
 
-    # Group templates by activity_id
     by_activity: dict[uuid.UUID, list[ResourceTemplate]] = {}
     for rt in templates:
         by_activity.setdefault(rt.activity_id, []).append(rt)
@@ -285,8 +300,178 @@ async def list_activities(
             productivity_per_day=float(a.productivity_per_day),
             fd_pct=float(a.fd_pct),
             resources=resources,
+            project_id=str(a.project_id) if a.project_id else None,
         ))
     return result
+
+
+@router.get("/activities", response_model=list[ActivityCatalogRead])
+async def list_activities(
+    project_id: Optional[uuid.UUID] = Query(None),
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """List activities. When project_id supplied: global activities + project overrides (merged)."""
+    if project_id:
+        # codes that have a project-specific version
+        proj_result = await db.execute(
+            select(ActivityCatalog.code)
+            .where(ActivityCatalog.project_id == project_id, ActivityCatalog.is_active == True)
+        )
+        overridden_codes = {r for r, in proj_result.all()}
+        act_result = await db.execute(
+            select(ActivityCatalog)
+            .where(
+                ActivityCatalog.is_active == True,
+                or_(
+                    and_(ActivityCatalog.project_id == None, ~ActivityCatalog.code.in_(overridden_codes)),
+                    ActivityCatalog.project_id == project_id,
+                )
+            )
+            .order_by(ActivityCatalog.sort_order)
+        )
+    else:
+        act_result = await db.execute(
+            select(ActivityCatalog)
+            .where(ActivityCatalog.is_active == True, ActivityCatalog.project_id == None)
+            .order_by(ActivityCatalog.sort_order)
+        )
+    activities = act_result.scalars().all()
+    return await _build_activities_response(db, activities)
+
+
+@router.post("/activities", response_model=ActivityCatalogRead, status_code=201)
+async def create_activity(
+    body: ActivityCreate,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    project_uuid = uuid.UUID(body.project_id) if body.project_id else None
+    # Check uniqueness (code, project_id)
+    existing = await db.execute(
+        select(ActivityCatalog).where(
+            ActivityCatalog.code == body.code,
+            ActivityCatalog.project_id == project_uuid,
+        )
+    )
+    if existing.scalar_one_or_none():
+        raise HTTPException(status_code=409, detail=f"Código '{body.code}' já existe neste escopo")
+
+    act = ActivityCatalog(
+        code=body.code,
+        project_id=project_uuid,
+        description=body.description,
+        unit=body.unit,
+        category=body.category,
+        sort_order=body.sort_order,
+        quantity_formula=body.quantity_formula or body.code,
+        productivity_per_day=body.productivity_per_day,
+        fd_pct=body.fd_pct,
+    )
+    db.add(act)
+    await db.commit()
+    await db.refresh(act)
+    result = await _build_activities_response(db, [act])
+    return result[0]
+
+
+@router.put("/activities/{activity_id}", response_model=ActivityCatalogRead)
+async def update_activity(
+    activity_id: uuid.UUID,
+    body: ActivityUpdate,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    act = await db.get(ActivityCatalog, activity_id)
+    if not act:
+        raise HTTPException(status_code=404, detail="Atividade não encontrada")
+    for field, value in body.model_dump(exclude_none=True).items():
+        setattr(act, field, value)
+    await db.commit()
+    await db.refresh(act)
+    result = await _build_activities_response(db, [act])
+    return result[0]
+
+
+@router.delete("/activities/{activity_id}")
+async def delete_activity(
+    activity_id: uuid.UUID,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    act = await db.get(ActivityCatalog, activity_id)
+    if not act:
+        raise HTTPException(status_code=404, detail="Atividade não encontrada")
+    if act.project_id is None:
+        raise HTTPException(status_code=403, detail="Atividades globais não podem ser excluídas")
+    await db.delete(act)
+    await db.commit()
+    return {"ok": True}
+
+
+@router.post("/activities/{activity_id}/clone", response_model=ActivityCatalogRead, status_code=201)
+async def clone_activity_to_project(
+    activity_id: uuid.UUID,
+    project_id: uuid.UUID = Query(...),
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """Clone a global activity (or any activity) into a project scope."""
+    source = await db.get(ActivityCatalog, activity_id)
+    if not source:
+        raise HTTPException(status_code=404, detail="Atividade não encontrada")
+
+    # Remove existing project override with same code if any
+    existing = await db.execute(
+        select(ActivityCatalog).where(
+            ActivityCatalog.code == source.code,
+            ActivityCatalog.project_id == project_id,
+        )
+    )
+    existing_act = existing.scalar_one_or_none()
+    if existing_act:
+        raise HTTPException(status_code=409, detail=f"Atividade '{source.code}' já clonada para este projeto")
+
+    clone = ActivityCatalog(
+        code=source.code,
+        project_id=project_id,
+        description=source.description,
+        unit=source.unit,
+        category=source.category,
+        sort_order=source.sort_order,
+        quantity_formula=source.quantity_formula,
+        productivity_per_day=source.productivity_per_day,
+        fd_pct=source.fd_pct,
+        md_pct=source.md_pct,
+    )
+    db.add(clone)
+    await db.flush()
+
+    # Copy resource templates
+    src_templates = await db.execute(
+        select(ResourceTemplate).where(ResourceTemplate.activity_id == source.id)
+    )
+    for rt in src_templates.scalars():
+        new_rt = ResourceTemplate(
+            activity_id=clone.id,
+            resource_type=rt.resource_type,
+            labor_role_id=rt.labor_role_id,
+            qty_per_team=rt.qty_per_team,
+            equipment_id=rt.equipment_id,
+            material_code=rt.material_code,
+            material_description=rt.material_description,
+            material_qty_per_unit=rt.material_qty_per_unit,
+            material_unit_price=rt.material_unit_price,
+            sub_code=rt.sub_code,
+            subcontractor_description=rt.subcontractor_description,
+            subcontractor_cost_per_unit=rt.subcontractor_cost_per_unit,
+        )
+        db.add(new_rt)
+
+    await db.commit()
+    await db.refresh(clone)
+    result = await _build_activities_response(db, [clone])
+    return result[0]
 
 
 @router.get("/labor-roles", response_model=list[LaborRoleRef])

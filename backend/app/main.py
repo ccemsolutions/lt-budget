@@ -32,6 +32,12 @@ async def lifespan(app: FastAPI):
             "ALTER TABLE project_inputs ADD COLUMN IF NOT EXISTS crossings JSONB DEFAULT '{}'",
             "ALTER TABLE project_inputs ADD COLUMN IF NOT EXISTS materials_supply JSONB DEFAULT '{}'",
             "ALTER TABLE project_inputs ADD COLUMN IF NOT EXISTS subcontractors JSONB DEFAULT '{}'",
+            # Group C — per-project catalog
+            "ALTER TABLE activity_catalog ADD COLUMN IF NOT EXISTS project_id UUID REFERENCES projects(id) ON DELETE CASCADE",
+            "CREATE INDEX IF NOT EXISTS ix_activity_catalog_project_id ON activity_catalog(project_id)",
+            # Drop old unique constraint on code alone, add composite one
+            "ALTER TABLE activity_catalog DROP CONSTRAINT IF EXISTS activity_catalog_code_key",
+            "DO $$ BEGIN IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'uq_activity_code_project') THEN ALTER TABLE activity_catalog ADD CONSTRAINT uq_activity_code_project UNIQUE (code, project_id); END IF; END $$",
             # BD_MO — new columns
             "ALTER TABLE labor_roles ADD COLUMN IF NOT EXISTS dissidio NUMERIC(14,4) DEFAULT 0",
             "ALTER TABLE labor_roles ADD COLUMN IF NOT EXISTS adic_transf NUMERIC(14,4) DEFAULT 0",

@@ -163,7 +163,7 @@ async def _calculate(db: AsyncSession, budget_id: uuid.UUID) -> None:
     # Load reference data
     labor_roles = await _load_labor_roles(db)
     equipment_items = await _load_equipment(db)
-    activities = await _load_activities(db)
+    activities = await _load_activities(db, project_id=budget.project_id)
 
     # Run pipeline
     pipeline = BudgetPipeline()
@@ -315,12 +315,37 @@ async def _load_equipment(db: AsyncSession) -> dict[str, EquipmentItemData]:
     }
 
 
-async def _load_activities(db: AsyncSession) -> list[ActivityData]:
-    result = await db.execute(
-        select(ActivityCatalog)
-        .where(ActivityCatalog.is_active == True)
-        .order_by(ActivityCatalog.sort_order)
-    )
+async def _load_activities(db: AsyncSession, project_id: uuid.UUID | None = None) -> list[ActivityData]:
+    """Load global activities, replacing any overridden by project-specific ones."""
+    from sqlalchemy import or_, and_
+
+    if project_id:
+        # Codes that have a project-specific override
+        proj_result = await db.execute(
+            select(ActivityCatalog.code)
+            .where(ActivityCatalog.project_id == project_id, ActivityCatalog.is_active == True)
+        )
+        overridden_codes = {r for r, in proj_result.all()}
+
+        query = (
+            select(ActivityCatalog)
+            .where(
+                ActivityCatalog.is_active == True,
+                or_(
+                    and_(ActivityCatalog.project_id == None, ~ActivityCatalog.code.in_(overridden_codes)),
+                    ActivityCatalog.project_id == project_id,
+                )
+            )
+            .order_by(ActivityCatalog.sort_order)
+        )
+    else:
+        query = (
+            select(ActivityCatalog)
+            .where(ActivityCatalog.is_active == True, ActivityCatalog.project_id == None)
+            .order_by(ActivityCatalog.sort_order)
+        )
+
+    result = await db.execute(query)
     catalogs = result.scalars().all()
 
     activities = []

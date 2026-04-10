@@ -1,5 +1,5 @@
 import api from './client'
-import type { ProjectRead, ProjectInputsWrite, BudgetRead, BudgetSummaryRead, BudgetActivityRead, HistogramData, FinancialResultRead, CostBreakdownRead, ActivityCatalogRead, LaborRoleRef, EquipmentItemRef, ResourceTemplateWrite, ActivityScheduleRead, LaborRoleFullRead, LaborRoleUpdate, EquipmentItemFullRead, EquipmentItemUpdate, BaseParamsRead, BaseParamsUpdate, LaborRoleCreate, EquipmentItemCreate, ImportResult } from '../types/api'
+import type { ProjectRead, ProjectInputsWrite, BudgetRead, BudgetSummaryRead, BudgetActivityRead, HistogramData, FinancialResultRead, CostBreakdownRead, ActivityCatalogRead, LaborRoleRef, EquipmentItemRef, ResourceTemplateWrite, ActivityScheduleRead, LaborRoleFullRead, LaborRoleUpdate, EquipmentItemFullRead, EquipmentItemUpdate, BaseParamsRead, BaseParamsUpdate, LaborRoleCreate, EquipmentItemCreate, ImportResult, ActivityCreate, ActivityUpdate } from '../types/api'
 
 export const projectsApi = {
   list: () => api.get<ProjectRead[]>('/projects').then(r => r.data),
@@ -39,8 +39,10 @@ export const budgetsApi = {
 }
 
 export const catalogApi = {
-  getActivities: () =>
-    api.get<ActivityCatalogRead[]>('/catalog/activities').then(r => r.data),
+  getActivities: (projectId?: string) => {
+    const params = projectId ? { project_id: projectId } : {}
+    return api.get<ActivityCatalogRead[]>('/catalog/activities', { params }).then(r => r.data)
+  },
   getLaborRoles: () =>
     api.get<LaborRoleRef[]>('/catalog/labor-roles').then(r => r.data),
   getEquipmentItems: () =>
@@ -49,6 +51,14 @@ export const catalogApi = {
     api.put(`/catalog/activities/${activityId}/resources`, resources).then(r => r.data),
   updateProductivity: (activityId: string, productivity_per_day: number) =>
     api.put(`/catalog/activities/${activityId}/productivity`, { productivity_per_day }).then(r => r.data),
+  createActivity: (data: ActivityCreate) =>
+    api.post<ActivityCatalogRead>('/catalog/activities', data).then(r => r.data),
+  updateActivity: (id: string, data: ActivityUpdate) =>
+    api.put<ActivityCatalogRead>(`/catalog/activities/${id}`, data).then(r => r.data),
+  deleteActivity: (id: string) =>
+    api.delete(`/catalog/activities/${id}`).then(r => r.data),
+  cloneActivity: (id: string, projectId: string) =>
+    api.post<ActivityCatalogRead>(`/catalog/activities/${id}/clone`, null, { params: { project_id: projectId } }).then(r => r.data),
 }
 
 export const baseDataApi = {

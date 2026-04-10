@@ -2,7 +2,7 @@ from __future__ import annotations
 import uuid
 from datetime import datetime
 from typing import Optional, List
-from sqlalchemy import String, Boolean, DateTime, Numeric, ForeignKey, Integer, Text
+from sqlalchemy import String, Boolean, DateTime, Numeric, ForeignKey, Integer, Text, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.dialects.postgresql import UUID
 
@@ -101,9 +101,16 @@ class EquipmentItem(Base):
 
 class ActivityCatalog(Base):
     __tablename__ = "activity_catalog"
+    __table_args__ = (
+        UniqueConstraint("code", "project_id", name="uq_activity_code_project"),
+    )
 
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    code: Mapped[str] = mapped_column(String(20), unique=True, nullable=False)
+    code: Mapped[str] = mapped_column(String(20), nullable=False)
+    # project_id NULL  → global activity; project_id = X → project-specific override
+    project_id: Mapped[Optional[uuid.UUID]] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("projects.id", ondelete="CASCADE"), nullable=True, index=True
+    )
     description: Mapped[str] = mapped_column(String(300), nullable=False)
     unit: Mapped[str] = mapped_column(String(30), nullable=False)
     category: Mapped[str] = mapped_column(String(50), nullable=False)

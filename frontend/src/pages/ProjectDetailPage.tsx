@@ -5,9 +5,10 @@ import { projectsApi, budgetsApi } from '../api/projects'
 import InputsPage from './InputsPage'
 import BudgetResultsPage from './BudgetResultsPage'
 import SchedulePage from './SchedulePage'
+import CatalogPage from './CatalogPage'
 import type { BudgetRead } from '../types/api'
 
-type Tab = 'inputs' | 'schedule' | 'budgets'
+type Tab = 'inputs' | 'schedule' | 'budgets' | 'catalog'
 
 export default function ProjectDetailPage() {
   const { id } = useParams<{ id: string }>()
@@ -71,6 +72,7 @@ export default function ProjectDetailPage() {
     { key: 'inputs',   label: 'Entradas' },
     { key: 'schedule', label: 'Cronograma' },
     { key: 'budgets',  label: `Orçamento${budgets.length > 0 ? ` (${budgets.length})` : ''}` },
+    { key: 'catalog',  label: 'Catálogo CPU' },
   ]
 
   return (
@@ -96,12 +98,6 @@ export default function ProjectDetailPage() {
             className="text-sm text-gray-500 hover:text-blue-600 font-medium px-3 py-2"
           >
             Base de Dados
-          </button>
-          <button
-            onClick={() => navigate('/catalog')}
-            className="text-sm text-gray-500 hover:text-blue-600 font-medium px-3 py-2"
-          >
-            Catálogo CPUs
           </button>
           <button
             onClick={() => triggerMutation.mutate(undefined)}
@@ -137,6 +133,10 @@ export default function ProjectDetailPage() {
 
         {tab === 'schedule' && (
           <SchedulePage projectId={id!} />
+        )}
+
+        {tab === 'catalog' && (
+          <CatalogPage projectId={id!} />
         )}
 
         {tab === 'budgets' && (

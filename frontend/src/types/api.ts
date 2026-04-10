@@ -456,6 +456,29 @@ export interface ActivityCatalogRead {
   productivity_per_day: number
   fd_pct: number
   resources: ResourceTemplateRead[]
+  project_id?: string | null
+}
+
+export interface ActivityCreate {
+  code: string
+  description: string
+  unit: string
+  category: string
+  sort_order?: number
+  quantity_formula: string
+  productivity_per_day?: number
+  fd_pct?: number
+  project_id?: string | null
+}
+
+export interface ActivityUpdate {
+  description?: string
+  unit?: string
+  category?: string
+  sort_order?: number
+  quantity_formula?: string
+  productivity_per_day?: number
+  fd_pct?: number
 }
 
 // ── BD_MO / BD_VEM full read & update ────────────────────────────────────────

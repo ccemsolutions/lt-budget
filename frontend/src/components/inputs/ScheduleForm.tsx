@@ -64,7 +64,7 @@ export default function ScheduleForm({ projectId }: Props) {
   // Load catalog (for KPI padrão column)
   const { data: activities = [], isLoading: loadingCatalog } = useQuery({
     queryKey: ['catalog-activities'],
-    queryFn: catalogApi.getActivities,
+    queryFn: () => catalogApi.getActivities(),
     staleTime: 5 * 60 * 1000,
   })
 

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { catalogApi } from '../api/projects'
-import type { ActivityCatalogRead, ResourceTemplateRead, ResourceTemplateWrite, LaborRoleRef, EquipmentItemRef } from '../types/api'
+import type { ActivityCatalogRead, ResourceTemplateRead, ResourceTemplateWrite, LaborRoleRef, EquipmentItemRef, ActivityCreate } from '../types/api'
 
 const brl = (v: number) => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 2 })
 
@@ -189,6 +189,9 @@ interface ActivityCardProps {
   activity: ActivityCatalogRead
   laborRoles: LaborRoleRef[]
   equipmentItems: EquipmentItemRef[]
+  projectId?: string
+  onCloned?: () => void
+  onDeleted?: () => void
 }
 
 let _keyCounter = 0
@@ -211,7 +214,7 @@ function toWriteWithKey(r: ResourceTemplateRead): ResourceTemplateWrite & { _key
   }
 }
 
-function ActivityCard({ activity, laborRoles, equipmentItems }: ActivityCardProps) {
+function ActivityCard({ activity, laborRoles, equipmentItems, projectId, onCloned, onDeleted }: ActivityCardProps) {
   const [expanded, setExpanded] = useState(false)
   const [resources, setResources] = useState<(ResourceTemplateWrite & { _key: number })[]>(
     () => activity.resources.map(toWriteWithKey)
@@ -222,6 +225,13 @@ function ActivityCard({ activity, laborRoles, equipmentItems }: ActivityCardProp
 
   const queryClient = useQueryClient()
 
+  const isProjectScoped = !!activity.project_id
+  const isGlobal = !activity.project_id
+  const canEdit = isProjectScoped || !projectId  // in project context, only edit project-scoped
+  const canDelete = isProjectScoped && !!projectId
+
+  const qKey = projectId ? ['catalog-activities', projectId] : ['catalog-activities']
+
   const saveMutation = useMutation({
     mutationFn: async () => {
       await catalogApi.updateProductivity(activity.id, productivity)
@@ -231,7 +241,23 @@ function ActivityCard({ activity, laborRoles, equipmentItems }: ActivityCardProp
       setDirty(false)
       setSaved(true)
       setTimeout(() => setSaved(false), 2000)
-      queryClient.invalidateQueries({ queryKey: ['catalog-activities'] })
+      queryClient.invalidateQueries({ queryKey: qKey })
+    },
+  })
+
+  const cloneMutation = useMutation({
+    mutationFn: () => catalogApi.cloneActivity(activity.id, projectId!),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: qKey })
+      onCloned?.()
+    },
+  })
+
+  const deleteMutation = useMutation({
+    mutationFn: () => catalogApi.deleteActivity(activity.id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: qKey })
+      onDeleted?.()
     },
   })
 
@@ -261,26 +287,58 @@ function ActivityCard({ activity, laborRoles, equipmentItems }: ActivityCardProp
   return (
     <div className={`border rounded-lg overflow-hidden ${dirty ? 'border-amber-300' : 'border-gray-200'}`}>
       {/* Header */}
-      <button
-        className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-gray-50 transition"
-        onClick={() => setExpanded(e => !e)}
-      >
-        <span className="font-mono text-blue-600 font-semibold w-10 shrink-0">{activity.code}</span>
-        <span className="text-sm text-gray-800 flex-1">{activity.description}</span>
-        <span className="text-xs text-gray-400 w-12 text-center">{activity.unit}</span>
-        <span className="text-xs text-gray-400 w-32 text-right">
-          KPI: {activity.productivity_per_day} {activity.unit}/dia
-        </span>
-        <div className="flex gap-1 ml-2">
-          {moCount > 0 && <span className={`text-xs px-1.5 py-0.5 rounded-full font-medium ${TYPE_COLOR.MO}`}>MO×{moCount}</span>}
-          {vemCount > 0 && <span className={`text-xs px-1.5 py-0.5 rounded-full font-medium ${TYPE_COLOR.VEM}`}>VEM×{vemCount}</span>}
-          {matCount > 0 && <span className={`text-xs px-1.5 py-0.5 rounded-full font-medium ${TYPE_COLOR.MAT}`}>MAT×{matCount}</span>}
-          {subCount > 0 && <span className={`text-xs px-1.5 py-0.5 rounded-full font-medium ${TYPE_COLOR.SUB}`}>SUB×{subCount}</span>}
-        </div>
-        {dirty && <span className="text-xs text-amber-600 font-medium">• editado</span>}
-        {saved && <span className="text-xs text-green-600 font-medium">✓ salvo</span>}
-        <span className="text-gray-400 text-sm ml-2">{expanded ? '▲' : '▼'}</span>
-      </button>
+      <div className="w-full flex items-center gap-3 px-4 py-3 hover:bg-gray-50 transition">
+        <button className="flex items-center gap-3 flex-1 text-left min-w-0" onClick={() => setExpanded(e => !e)}>
+          <span className="font-mono text-blue-600 font-semibold w-10 shrink-0">{activity.code}</span>
+          <span className="text-sm text-gray-800 flex-1 truncate">{activity.description}</span>
+          <span className="text-xs text-gray-400 w-12 text-center shrink-0">{activity.unit}</span>
+          <span className="text-xs text-gray-400 w-36 text-right shrink-0">
+            KPI: {activity.productivity_per_day} {activity.unit}/dia
+          </span>
+          <div className="flex gap-1 ml-2 shrink-0">
+            {moCount > 0 && <span className={`text-xs px-1.5 py-0.5 rounded-full font-medium ${TYPE_COLOR.MO}`}>MO×{moCount}</span>}
+            {vemCount > 0 && <span className={`text-xs px-1.5 py-0.5 rounded-full font-medium ${TYPE_COLOR.VEM}`}>VEM×{vemCount}</span>}
+            {matCount > 0 && <span className={`text-xs px-1.5 py-0.5 rounded-full font-medium ${TYPE_COLOR.MAT}`}>MAT×{matCount}</span>}
+            {subCount > 0 && <span className={`text-xs px-1.5 py-0.5 rounded-full font-medium ${TYPE_COLOR.SUB}`}>SUB×{subCount}</span>}
+          </div>
+        </button>
+
+        {/* Scope badge */}
+        {projectId && (
+          isProjectScoped
+            ? <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-emerald-100 text-emerald-700 shrink-0">Projeto</span>
+            : <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-gray-100 text-gray-500 shrink-0">Global</span>
+        )}
+
+        {dirty && <span className="text-xs text-amber-600 font-medium shrink-0">• editado</span>}
+        {saved && <span className="text-xs text-green-600 font-medium shrink-0">✓ salvo</span>}
+
+        {/* Actions */}
+        {projectId && isGlobal && (
+          <button
+            onClick={() => cloneMutation.mutate()}
+            disabled={cloneMutation.isPending}
+            className="text-xs px-2 py-1 rounded border border-blue-300 text-blue-600 hover:bg-blue-50 shrink-0 disabled:opacity-50"
+            title="Clonar para este projeto"
+          >
+            {cloneMutation.isPending ? '...' : 'Clonar'}
+          </button>
+        )}
+
+        {canDelete && (
+          <button
+            onClick={() => { if (confirm(`Excluir atividade ${activity.code}?`)) deleteMutation.mutate() }}
+            disabled={deleteMutation.isPending}
+            className="text-xs px-2 py-1 rounded border border-red-200 text-red-500 hover:bg-red-50 shrink-0 disabled:opacity-50"
+          >
+            Excluir
+          </button>
+        )}
+
+        <button onClick={() => setExpanded(e => !e)} className="text-gray-400 text-sm ml-1 shrink-0">
+          {expanded ? '▲' : '▼'}
+        </button>
+      </div>
 
       {/* Expanded editor */}
       {expanded && (
@@ -293,9 +351,13 @@ function ActivityCard({ activity, laborRoles, equipmentItems }: ActivityCardProp
               step="0.001"
               min="0"
               value={productivity}
+              disabled={!canEdit}
               onChange={e => { setProductivity(parseFloat(e.target.value) || 0); setDirty(true); setSaved(false) }}
-              className="w-32 border rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="w-32 border rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 disabled:bg-gray-100 disabled:text-gray-400"
             />
+            {!canEdit && (
+              <span className="text-xs text-gray-400">Atividade global — clone para editar neste projeto</span>
+            )}
           </div>
 
           {/* Resources table */}
@@ -322,8 +384,8 @@ function ActivityCard({ activity, laborRoles, equipmentItems }: ActivityCardProp
                       resource={r}
                       laborRoles={laborRoles}
                       equipmentItems={equipmentItems}
-                      onChange={handleChange}
-                      onRemove={handleRemove}
+                      onChange={canEdit ? handleChange : () => {}}
+                      onRemove={canEdit ? handleRemove : () => {}}
                     />
                   ))}
                 </tbody>
@@ -332,33 +394,38 @@ function ActivityCard({ activity, laborRoles, equipmentItems }: ActivityCardProp
           </div>
 
           {/* Add buttons + Save */}
-          <div className="flex items-center justify-between">
-            <div className="flex gap-2">
-              {Object.entries(TYPE_LABEL).map(([k, v]) => (
-                <button
-                  key={k}
-                  onClick={() => handleAdd(k)}
-                  className={`text-xs px-2 py-1 rounded-full border font-medium ${TYPE_COLOR[k]} hover:opacity-80`}
-                >
-                  + {v}
-                </button>
-              ))}
+          {canEdit && (
+            <div className="flex items-center justify-between">
+              <div className="flex gap-2">
+                {Object.entries(TYPE_LABEL).map(([k, v]) => (
+                  <button
+                    key={k}
+                    onClick={() => handleAdd(k)}
+                    className={`text-xs px-2 py-1 rounded-full border font-medium ${TYPE_COLOR[k]} hover:opacity-80`}
+                  >
+                    + {v}
+                  </button>
+                ))}
+              </div>
+              <button
+                disabled={!dirty || saveMutation.isPending}
+                onClick={() => saveMutation.mutate()}
+                className={`px-4 py-1.5 text-xs rounded-lg font-medium transition ${
+                  dirty
+                    ? 'bg-blue-600 text-white hover:bg-blue-700'
+                    : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                }`}
+              >
+                {saveMutation.isPending ? 'Salvando...' : 'Salvar'}
+              </button>
             </div>
-            <button
-              disabled={!dirty || saveMutation.isPending}
-              onClick={() => saveMutation.mutate()}
-              className={`px-4 py-1.5 text-xs rounded-lg font-medium transition ${
-                dirty
-                  ? 'bg-blue-600 text-white hover:bg-blue-700'
-                  : 'bg-gray-100 text-gray-400 cursor-not-allowed'
-              }`}
-            >
-              {saveMutation.isPending ? 'Salvando...' : 'Salvar'}
-            </button>
-          </div>
+          )}
 
           {saveMutation.isError && (
             <p className="text-xs text-red-600">Erro ao salvar. Tente novamente.</p>
+          )}
+          {cloneMutation.isError && (
+            <p className="text-xs text-red-600">Erro ao clonar atividade.</p>
           )}
         </div>
       )}
@@ -366,15 +433,194 @@ function ActivityCard({ activity, laborRoles, equipmentItems }: ActivityCardProp
   )
 }
 
+// ─── New Activity Modal ───────────────────────────────────────────────────────
+
+interface NewActivityModalProps {
+  projectId?: string
+  onClose: () => void
+  onCreated: () => void
+}
+
+const QUANTITY_FORMULAS = [
+  'line_length_km', 'total_towers', 'guyed_towers', 'self_supporting_towers',
+  'ancoragens', 'peso_torres_estaiadas_ton', 'peso_torres_ap_ton',
+  'excavation_tubulao_m3', 'excavation_mecanizada_m3', 'excavation_solo_fraco_m3',
+  'excavation_manual_m3', 'excavation_rocha_m3', 'excavation_moledo_m3',
+  'reaterro_normal_m3', 'reaterro_solo_cimento_m3',
+  'cabo_para_km', 'cabo_opgw_km', 'cabo_terra_km',
+  'constant_1',
+]
+
+function NewActivityModal({ projectId, onClose, onCreated }: NewActivityModalProps) {
+  const queryClient = useQueryClient()
+  const [form, setForm] = useState<ActivityCreate>({
+    code: '',
+    description: '',
+    unit: '',
+    category: 'Outros',
+    quantity_formula: 'constant_1',
+    productivity_per_day: 0,
+    fd_pct: 0.02,
+    sort_order: 999,
+    project_id: projectId ?? null,
+  })
+
+  const set = (field: keyof ActivityCreate, value: any) =>
+    setForm(f => ({ ...f, [field]: value }))
+
+  const createMutation = useMutation({
+    mutationFn: () => catalogApi.createActivity(form),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: projectId ? ['catalog-activities', projectId] : ['catalog-activities'] })
+      onCreated()
+      onClose()
+    },
+  })
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+      <div className="bg-white rounded-xl shadow-xl w-full max-w-lg mx-4 p-6 space-y-4">
+        <div className="flex items-center justify-between">
+          <h2 className="text-base font-bold text-gray-900">Nova Atividade</h2>
+          <button onClick={onClose} className="text-gray-400 hover:text-gray-700 text-xl leading-none">×</button>
+        </div>
+
+        <div className="grid grid-cols-2 gap-3">
+          <div>
+            <label className="text-xs font-medium text-gray-600">Código *</label>
+            <input
+              value={form.code}
+              onChange={e => set('code', e.target.value.toUpperCase())}
+              placeholder="Ex: P99"
+              className="mt-1 w-full border rounded px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
+          <div>
+            <label className="text-xs font-medium text-gray-600">Unidade *</label>
+            <input
+              value={form.unit}
+              onChange={e => set('unit', e.target.value)}
+              placeholder="Ex: un, km, m³"
+              className="mt-1 w-full border rounded px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label className="text-xs font-medium text-gray-600">Descrição *</label>
+          <input
+            value={form.description}
+            onChange={e => set('description', e.target.value)}
+            placeholder="Descrição da atividade"
+            className="mt-1 w-full border rounded px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+          />
+        </div>
+
+        <div className="grid grid-cols-2 gap-3">
+          <div>
+            <label className="text-xs font-medium text-gray-600">Categoria</label>
+            <select
+              value={form.category}
+              onChange={e => set('category', e.target.value)}
+              className="mt-1 w-full border rounded px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+            >
+              {CATEGORY_ORDER.map(c => <option key={c}>{c}</option>)}
+            </select>
+          </div>
+          <div>
+            <label className="text-xs font-medium text-gray-600">Fórmula de Quantidade</label>
+            <select
+              value={form.quantity_formula}
+              onChange={e => set('quantity_formula', e.target.value)}
+              className="mt-1 w-full border rounded px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+            >
+              {QUANTITY_FORMULAS.map(f => <option key={f}>{f}</option>)}
+            </select>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-3 gap-3">
+          <div>
+            <label className="text-xs font-medium text-gray-600">KPI (unid/dia)</label>
+            <input
+              type="number" step="0.001" min="0"
+              value={form.productivity_per_day}
+              onChange={e => set('productivity_per_day', parseFloat(e.target.value) || 0)}
+              className="mt-1 w-full border rounded px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
+          <div>
+            <label className="text-xs font-medium text-gray-600">FD %</label>
+            <input
+              type="number" step="0.001" min="0" max="1"
+              value={form.fd_pct}
+              onChange={e => set('fd_pct', parseFloat(e.target.value) || 0)}
+              className="mt-1 w-full border rounded px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
+          <div>
+            <label className="text-xs font-medium text-gray-600">Ordem</label>
+            <input
+              type="number" min="0"
+              value={form.sort_order}
+              onChange={e => set('sort_order', parseInt(e.target.value) || 999)}
+              className="mt-1 w-full border rounded px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
+        </div>
+
+        {projectId && (
+          <label className="flex items-center gap-2 text-sm text-gray-600">
+            <input
+              type="checkbox"
+              checked={form.project_id === projectId}
+              onChange={e => set('project_id', e.target.checked ? projectId : null)}
+            />
+            Criar apenas para este projeto
+          </label>
+        )}
+
+        {createMutation.isError && (
+          <p className="text-xs text-red-600">Erro ao criar atividade. Verifique o código (deve ser único).</p>
+        )}
+
+        <div className="flex gap-3 pt-2">
+          <button
+            onClick={onClose}
+            className="flex-1 px-4 py-2 border rounded-lg text-sm text-gray-600 hover:bg-gray-50"
+          >
+            Cancelar
+          </button>
+          <button
+            onClick={() => createMutation.mutate()}
+            disabled={createMutation.isPending || !form.code || !form.description || !form.unit}
+            className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 disabled:opacity-50"
+          >
+            {createMutation.isPending ? 'Criando...' : 'Criar Atividade'}
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
-export default function CatalogPage() {
+interface CatalogPageProps {
+  projectId?: string
+}
+
+export default function CatalogPage({ projectId }: CatalogPageProps) {
   const [search, setSearch] = useState('')
   const [categoryFilter, setCategoryFilter] = useState('Todos')
+  const [scopeFilter, setScopeFilter] = useState<'all' | 'global' | 'project'>('all')
+  const [showNewModal, setShowNewModal] = useState(false)
+
+  const qKey = projectId ? ['catalog-activities', projectId] : ['catalog-activities']
 
   const { data: activities = [], isLoading } = useQuery({
-    queryKey: ['catalog-activities'],
-    queryFn: catalogApi.getActivities,
+    queryKey: qKey,
+    queryFn: () => catalogApi.getActivities(projectId),
   })
 
   const { data: laborRoles = [] } = useQuery({
@@ -393,20 +639,35 @@ export default function CatalogPage() {
     const matchesCat = categoryFilter === 'Todos' || a.category === categoryFilter
     const q = search.toLowerCase()
     const matchesSearch = !q || a.code.toLowerCase().includes(q) || a.description.toLowerCase().includes(q)
-    return matchesCat && matchesSearch
+    const matchesScope = scopeFilter === 'all'
+      || (scopeFilter === 'global' && !a.project_id)
+      || (scopeFilter === 'project' && !!a.project_id)
+    return matchesCat && matchesSearch && matchesScope
   })
 
   const grouped = CATEGORY_ORDER
     .map(cat => ({ cat, items: filtered.filter(a => a.category === cat) }))
     .filter(g => g.items.length > 0)
 
+  const projectCount = activities.filter(a => !!a.project_id).length
+
   return (
     <div className="max-w-6xl mx-auto px-4 py-6 space-y-6">
-      <div>
-        <h1 className="text-xl font-bold text-gray-900">Catálogo de Atividades — CPUs</h1>
-        <p className="text-sm text-gray-500 mt-1">
-          Visualize e edite a composição de preços unitários (MO, VEM, MAT, SUB) e o KPI de produtividade de cada atividade.
-        </p>
+      <div className="flex items-start justify-between">
+        <div>
+          <h1 className="text-xl font-bold text-gray-900">Catálogo de Atividades — CPUs</h1>
+          <p className="text-sm text-gray-500 mt-1">
+            {projectId
+              ? `Composições do projeto — ${activities.length} atividades (${projectCount} específicas do projeto)`
+              : 'Visualize e edite a composição de preços unitários (MO, VEM, MAT, SUB) e o KPI de produtividade de cada atividade.'}
+          </p>
+        </div>
+        <button
+          onClick={() => setShowNewModal(true)}
+          className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700"
+        >
+          + Nova Atividade
+        </button>
       </div>
 
       {/* Filters */}
@@ -424,6 +685,17 @@ export default function CatalogPage() {
         >
           {categories.map(c => <option key={c}>{c}</option>)}
         </select>
+        {projectId && (
+          <select
+            value={scopeFilter}
+            onChange={e => setScopeFilter(e.target.value as any)}
+            className="border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="all">Todas</option>
+            <option value="global">Globais</option>
+            <option value="project">Deste Projeto</option>
+          </select>
+        )}
       </div>
 
       {isLoading ? (
@@ -445,6 +717,7 @@ export default function CatalogPage() {
                     activity={a}
                     laborRoles={laborRoles}
                     equipmentItems={equipmentItems}
+                    projectId={projectId}
                   />
                 ))}
               </div>
@@ -454,6 +727,14 @@ export default function CatalogPage() {
             <p className="text-center text-gray-400 py-10">Nenhuma atividade encontrada.</p>
           )}
         </div>
+      )}
+
+      {showNewModal && (
+        <NewActivityModal
+          projectId={projectId}
+          onClose={() => setShowNewModal(false)}
+          onCreated={() => {}}
+        />
       )}
     </div>
   )
