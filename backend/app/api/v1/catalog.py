@@ -100,10 +100,22 @@ class LaborRoleFullRead(BaseModel):
     salary_type: str
     base_salary: float
     has_overtime: bool
+    has_adic_transf: bool
+    has_periculosidade: bool
+    has_adic_produt: bool
+    has_aux_moradia: bool
+    folga_meses: float
     custo_bruto_mes: float
+    dissidio: float
+    adic_transf: float
+    periculosidade_val: float
     he_50_pct: float
     he_100_pct: float
     encargos: float
+    subtotal_sem_he: float
+    adic_produtividade: float
+    custo_admissao: float
+    desp_folga: float
     transporte: float
     alimentacao: float
     epi: float
@@ -123,10 +135,22 @@ class LaborRoleUpdate(BaseModel):
     description: Optional[str] = None
     base_salary: Optional[float] = None
     has_overtime: Optional[bool] = None
+    has_adic_transf: Optional[bool] = None
+    has_periculosidade: Optional[bool] = None
+    has_adic_produt: Optional[bool] = None
+    has_aux_moradia: Optional[bool] = None
+    folga_meses: Optional[float] = None
     custo_bruto_mes: Optional[float] = None
+    dissidio: Optional[float] = None
+    adic_transf: Optional[float] = None
+    periculosidade_val: Optional[float] = None
     he_50_pct: Optional[float] = None
     he_100_pct: Optional[float] = None
     encargos: Optional[float] = None
+    subtotal_sem_he: Optional[float] = None
+    adic_produtividade: Optional[float] = None
+    custo_admissao: Optional[float] = None
+    desp_folga: Optional[float] = None
     transporte: Optional[float] = None
     alimentacao: Optional[float] = None
     epi: Optional[float] = None
@@ -146,7 +170,11 @@ class EquipmentItemFullRead(BaseModel):
     locacao_sem_op_mes: float
     consumo_combustivel_dia: float
     tipo_combustivel: Optional[str]
+    preco_combustivel: float
     total_combustivel_mes: float
+    lavagem_mes: float
+    lubrificantes_mes: float
+    manutencao_pct: float
     total_lubmaint_mes: float
     mob_demob_mes: float
     outros_mes: float
@@ -162,7 +190,11 @@ class EquipmentItemUpdate(BaseModel):
     locacao_sem_op_mes: Optional[float] = None
     consumo_combustivel_dia: Optional[float] = None
     tipo_combustivel: Optional[str] = None
+    preco_combustivel: Optional[float] = None
     total_combustivel_mes: Optional[float] = None
+    lavagem_mes: Optional[float] = None
+    lubrificantes_mes: Optional[float] = None
+    manutencao_pct: Optional[float] = None
     total_lubmaint_mes: Optional[float] = None
     mob_demob_mes: Optional[float] = None
     outros_mes: Optional[float] = None
@@ -346,21 +378,38 @@ async def update_resources(
 
 # ── BD_MO endpoints ──────────────────────────────────────────────────────────
 
+def _f(v) -> float:
+    return float(v) if v is not None else 0.0
+
+
 def _labor_to_full(r: LaborRole) -> LaborRoleFullRead:
     return LaborRoleFullRead(
         id=str(r.id), code=r.code, description=r.description,
         role_type=r.role_type, salary_type=r.salary_type,
-        base_salary=float(r.base_salary), has_overtime=r.has_overtime,
-        custo_bruto_mes=float(r.custo_bruto_mes), he_50_pct=float(r.he_50_pct),
-        he_100_pct=float(r.he_100_pct), encargos=float(r.encargos),
-        transporte=float(r.transporte), alimentacao=float(r.alimentacao),
-        epi=float(r.epi), seguro_vida=float(r.seguro_vida),
-        aux_moradia=float(r.aux_moradia), cesta_basica=float(r.cesta_basica),
-        ppr=float(r.ppr), assist_medica=float(r.assist_medica),
-        company_cost_monthly=float(r.company_cost_monthly),
-        company_cost_daily=float(r.company_cost_daily),
-        company_cost_hh=float(r.company_cost_hh),
-        is_active=r.is_active, version=r.version,
+        base_salary=_f(r.base_salary), has_overtime=bool(r.has_overtime),
+        has_adic_transf=bool(r.has_adic_transf),
+        has_periculosidade=bool(r.has_periculosidade),
+        has_adic_produt=bool(r.has_adic_produt),
+        has_aux_moradia=bool(r.has_aux_moradia),
+        folga_meses=_f(r.folga_meses),
+        custo_bruto_mes=_f(r.custo_bruto_mes),
+        dissidio=_f(getattr(r, 'dissidio', 0)),
+        adic_transf=_f(getattr(r, 'adic_transf', 0)),
+        periculosidade_val=_f(getattr(r, 'periculosidade_val', 0)),
+        he_50_pct=_f(r.he_50_pct), he_100_pct=_f(r.he_100_pct),
+        encargos=_f(r.encargos),
+        subtotal_sem_he=_f(getattr(r, 'subtotal_sem_he', 0)),
+        adic_produtividade=_f(getattr(r, 'adic_produtividade', 0)),
+        custo_admissao=_f(getattr(r, 'custo_admissao', 0)),
+        desp_folga=_f(getattr(r, 'desp_folga', 0)),
+        transporte=_f(r.transporte), alimentacao=_f(r.alimentacao),
+        epi=_f(r.epi), seguro_vida=_f(r.seguro_vida),
+        aux_moradia=_f(r.aux_moradia), cesta_basica=_f(r.cesta_basica),
+        ppr=_f(r.ppr), assist_medica=_f(r.assist_medica),
+        company_cost_monthly=_f(r.company_cost_monthly),
+        company_cost_daily=_f(r.company_cost_daily),
+        company_cost_hh=_f(r.company_cost_hh),
+        is_active=r.is_active, version=r.version or 1,
     )
 
 
@@ -387,12 +436,15 @@ async def update_labor_role(
     for field, value in body.model_dump(exclude_none=True).items():
         setattr(role, field, value)
 
-    # Recalculate totals
+    # Recalculate totals (full composition)
     total = (
-        float(role.custo_bruto_mes) + float(role.he_50_pct) + float(role.he_100_pct)
-        + float(role.encargos) + float(role.transporte) + float(role.alimentacao)
-        + float(role.epi) + float(role.seguro_vida) + float(role.aux_moradia)
-        + float(role.cesta_basica) + float(role.ppr) + float(role.assist_medica)
+        _f(role.custo_bruto_mes) + _f(getattr(role, 'dissidio', 0))
+        + _f(getattr(role, 'adic_transf', 0)) + _f(getattr(role, 'periculosidade_val', 0))
+        + _f(role.he_50_pct) + _f(role.he_100_pct)
+        + _f(role.encargos) + _f(getattr(role, 'adic_produtividade', 0))
+        + _f(role.transporte) + _f(role.alimentacao) + _f(role.epi)
+        + _f(role.seguro_vida) + _f(role.aux_moradia) + _f(role.cesta_basica)
+        + _f(role.ppr) + _f(role.assist_medica)
     )
     role.company_cost_monthly = total
     role.company_cost_daily = total / 25.0
@@ -410,17 +462,21 @@ async def update_labor_role(
 def _equip_to_full(e: EquipmentItem) -> EquipmentItemFullRead:
     return EquipmentItemFullRead(
         id=str(e.id), code=e.code, description=e.description,
-        locacao_sem_op_mes=float(e.locacao_sem_op_mes),
-        consumo_combustivel_dia=float(e.consumo_combustivel_dia),
+        locacao_sem_op_mes=_f(e.locacao_sem_op_mes),
+        consumo_combustivel_dia=_f(e.consumo_combustivel_dia),
         tipo_combustivel=e.tipo_combustivel,
-        total_combustivel_mes=float(e.total_combustivel_mes),
-        total_lubmaint_mes=float(e.total_lubmaint_mes),
-        mob_demob_mes=float(e.mob_demob_mes),
-        outros_mes=float(e.outros_mes),
-        company_cost_monthly=float(e.company_cost_monthly),
-        company_cost_daily=float(e.company_cost_daily),
-        company_cost_hh=float(e.company_cost_hh),
-        is_active=e.is_active, version=e.version,
+        preco_combustivel=_f(getattr(e, 'preco_combustivel', 0)),
+        total_combustivel_mes=_f(e.total_combustivel_mes),
+        lavagem_mes=_f(getattr(e, 'lavagem_mes', 0)),
+        lubrificantes_mes=_f(getattr(e, 'lubrificantes_mes', 0)),
+        manutencao_pct=_f(getattr(e, 'manutencao_pct', 0)),
+        total_lubmaint_mes=_f(e.total_lubmaint_mes),
+        mob_demob_mes=_f(e.mob_demob_mes),
+        outros_mes=_f(e.outros_mes),
+        company_cost_monthly=_f(e.company_cost_monthly),
+        company_cost_daily=_f(e.company_cost_daily),
+        company_cost_hh=_f(e.company_cost_hh),
+        is_active=e.is_active, version=e.version or 1,
     )
 
 
@@ -447,11 +503,21 @@ async def update_equipment_item(
     for field, value in body.model_dump(exclude_none=True).items():
         setattr(item, field, value)
 
+    # Recalculate combustivel if price or consumption changed
+    if body.preco_combustivel is not None or body.consumo_combustivel_dia is not None:
+        item.total_combustivel_mes = _f(item.consumo_combustivel_dia) * 25.0 * _f(item.preco_combustivel)
+    # Recalculate lub/manut if pct changed
+    if body.manutencao_pct is not None or body.locacao_sem_op_mes is not None or body.lavagem_mes is not None:
+        item.total_lubmaint_mes = (
+            _f(item.locacao_sem_op_mes) * _f(item.manutencao_pct)
+            + _f(getattr(item, 'lubrificantes_mes', 0))
+            + _f(getattr(item, 'lavagem_mes', 0))
+        )
     # Recalculate totals
     total = (
-        float(item.locacao_sem_op_mes) + float(item.total_combustivel_mes)
-        + float(item.total_lubmaint_mes) + float(item.mob_demob_mes)
-        + float(item.outros_mes)
+        _f(item.locacao_sem_op_mes) + _f(item.total_combustivel_mes)
+        + _f(item.total_lubmaint_mes) + _f(item.mob_demob_mes)
+        + _f(item.outros_mes)
     )
     item.company_cost_monthly = total
     item.company_cost_daily = total / 25.0

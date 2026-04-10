@@ -424,10 +424,22 @@ export interface LaborRoleFullRead {
   salary_type: string
   base_salary: number
   has_overtime: boolean
+  has_adic_transf: boolean
+  has_periculosidade: boolean
+  has_adic_produt: boolean
+  has_aux_moradia: boolean
+  folga_meses: number
   custo_bruto_mes: number
+  dissidio: number
+  adic_transf: number
+  periculosidade_val: number
   he_50_pct: number
   he_100_pct: number
   encargos: number
+  subtotal_sem_he: number
+  adic_produtividade: number
+  custo_admissao: number
+  desp_folga: number
   transporte: number
   alimentacao: number
   epi: number
@@ -447,10 +459,22 @@ export interface LaborRoleUpdate {
   description?: string
   base_salary?: number
   has_overtime?: boolean
+  has_adic_transf?: boolean
+  has_periculosidade?: boolean
+  has_adic_produt?: boolean
+  has_aux_moradia?: boolean
+  folga_meses?: number
   custo_bruto_mes?: number
+  dissidio?: number
+  adic_transf?: number
+  periculosidade_val?: number
   he_50_pct?: number
   he_100_pct?: number
   encargos?: number
+  subtotal_sem_he?: number
+  adic_produtividade?: number
+  custo_admissao?: number
+  desp_folga?: number
   transporte?: number
   alimentacao?: number
   epi?: number
@@ -468,7 +492,11 @@ export interface EquipmentItemFullRead {
   locacao_sem_op_mes: number
   consumo_combustivel_dia: number
   tipo_combustivel: string | null
+  preco_combustivel: number
   total_combustivel_mes: number
+  lubrificantes_mes: number
+  manutencao_pct: number
+  lavagem_mes: number
   total_lubmaint_mes: number
   mob_demob_mes: number
   outros_mes: number
@@ -484,7 +512,11 @@ export interface EquipmentItemUpdate {
   locacao_sem_op_mes?: number
   consumo_combustivel_dia?: number
   tipo_combustivel?: string
+  preco_combustivel?: number
   total_combustivel_mes?: number
+  lubrificantes_mes?: number
+  manutencao_pct?: number
+  lavagem_mes?: number
   total_lubmaint_mes?: number
   mob_demob_mes?: number
   outros_mes?: number

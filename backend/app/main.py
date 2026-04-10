@@ -30,6 +30,19 @@ async def lifespan(app: FastAPI):
             "ALTER TABLE budgets ADD COLUMN IF NOT EXISTS hh_per_ton NUMERIC(10,4)",
             "ALTER TABLE project_inputs ADD COLUMN IF NOT EXISTS state VARCHAR(2) DEFAULT ''",
             "ALTER TABLE project_inputs ADD COLUMN IF NOT EXISTS crossings JSONB DEFAULT '{}'",
+            # BD_MO — new columns
+            "ALTER TABLE labor_roles ADD COLUMN IF NOT EXISTS dissidio NUMERIC(14,4) DEFAULT 0",
+            "ALTER TABLE labor_roles ADD COLUMN IF NOT EXISTS adic_transf NUMERIC(14,4) DEFAULT 0",
+            "ALTER TABLE labor_roles ADD COLUMN IF NOT EXISTS periculosidade_val NUMERIC(14,4) DEFAULT 0",
+            "ALTER TABLE labor_roles ADD COLUMN IF NOT EXISTS subtotal_sem_he NUMERIC(14,4) DEFAULT 0",
+            "ALTER TABLE labor_roles ADD COLUMN IF NOT EXISTS adic_produtividade NUMERIC(14,4) DEFAULT 0",
+            "ALTER TABLE labor_roles ADD COLUMN IF NOT EXISTS custo_admissao NUMERIC(14,4) DEFAULT 0",
+            "ALTER TABLE labor_roles ADD COLUMN IF NOT EXISTS desp_folga NUMERIC(14,4) DEFAULT 0",
+            # BD_VEM — new columns
+            "ALTER TABLE equipment_items ADD COLUMN IF NOT EXISTS preco_combustivel NUMERIC(10,4) DEFAULT 0",
+            "ALTER TABLE equipment_items ADD COLUMN IF NOT EXISTS lavagem_mes NUMERIC(14,4) DEFAULT 0",
+            "ALTER TABLE equipment_items ADD COLUMN IF NOT EXISTS lubrificantes_mes NUMERIC(14,4) DEFAULT 0",
+            "ALTER TABLE equipment_items ADD COLUMN IF NOT EXISTS manutencao_pct NUMERIC(8,4) DEFAULT 0",
         ]
         for sql in migrations:
             await conn.execute(__import__("sqlalchemy").text(sql))
